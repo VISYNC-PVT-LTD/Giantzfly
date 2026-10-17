@@ -1,0 +1,438 @@
+/* Product detail - no pills, no capsules, no chip rows.
+   Facts sit in labelled rows with real breathing room.
+   Self-contained: does not touch products.module.css used by other pages. */
+
+.page {
+  --ink: #0f2135;
+  --ink-soft: #55657a;
+  --blue: #1f6fb2;
+  --rule: rgba(15, 33, 53, 0.12);
+  --rule-strong: rgba(15, 33, 53, 0.22);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(3rem, 6vw, 5rem);
+}
+
+.gallery {
+  position: sticky;
+  top: 6.5rem;
+}
+
+.head {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.eyebrow {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+.shortDesc {
+  margin: 1.1rem 0 0;
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  line-height: 1.6;
+  max-width: 46rem;
+}
+
+/* ---- headline facts: three labelled columns, no capsules ---- */
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+  margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
+}
+
+.fact {
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--blue);
+}
+
+.factLabel {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.factValue {
+  display: block;
+  color: var(--ink);
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* ---- key terms as plain rows ---- */
+
+.terms {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--rule);
+}
+
+.term {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(0.85rem, 1.6vw, 1.15rem) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.termLabel {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.termValue {
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ---- quote actions ---- */
+
+.actions {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(1.6rem, 3vw, 2.2rem);
+  border-top: 2px solid var(--ink);
+}
+
+/* ---- long-form blocks, generous space, no boxes ---- */
+
+.blocks {
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.block {
+  padding-block: clamp(2.4rem, 5vw, 4rem);
+  border-top: 1px solid var(--rule);
+}
+
+.blockHead {
+  margin: 0 0 clamp(1.2rem, 2.4vw, 1.8rem);
+  color: var(--ink);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.body {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.68;
+  max-width: 46rem;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+/* ---- packaging / notes lists ---- */
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listItem {
+  position: relative;
+  padding: 0 0 0 1.6rem;
+  margin-bottom: clamp(0.9rem, 1.8vw, 1.3rem);
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.62;
+  max-width: 46rem;
+}
+
+.listItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.55rem;
+  height: 1px;
+  background: var(--blue);
+}
+
+.listItem:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- certifications & markets: words on rules, not pills ---- */
+
+.tagGroup {
+  margin-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.tagGroup:last-child {
+  margin-bottom: 0;
+}
+
+.tagLabel {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.9rem;
+}
+
+.tagLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.4rem;
+}
+
+.tag {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 2.1;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+/* ---- related ---- */
+
+.relatedSection {
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.relatedHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.relatedTitle {
+  margin: 0.6rem 0 0;
+  color: var(--ink);
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 3.5vw, 3rem);
+}
+
+.relatedItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.relatedThumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #eef2f6;
+}
+
+.imgCover {
+  object-fit: cover;
+}
+
+.relatedName {
+  margin: 1.1rem 0 0;
+  color: var(--ink);
+  font-size: 1.12rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.relatedDesc {
+  margin: 0.55rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.relatedMeta {
+  margin: 0.9rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+}
+
+.relatedLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-top: 1.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.textLink {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 0.2rem;
+  transition: border-color 0.2s ease;
+}
+
+.textLink:hover {
+  border-color: var(--ink);
+}
+
+/* ---- responsive: 960 / 720 / 640 / 540 / 480 / 360 / 280 / 160 ---- */
+
+@media (max-width: 960px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+  .gallery {
+    position: static;
+  }
+  .relatedGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .twoCol {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+  .relatedHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.4rem;
+  }
+  .relatedGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .term {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .termValue {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.9rem;
+  }
+  .facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.1rem;
+  }
+  .body,
+  .listItem {
+    font-size: 0.96rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    font-size: 1.6rem;
+  }
+  .blockHead {
+    font-size: 1.2rem;
+  }
+  .tagLine {
+    gap: 0 1rem;
+  }
+  .relatedLinks {
+    gap: 0.9rem;
+  }
+}
+
+@media (max-width: 280px) {
+  .title {
+    font-size: 1.35rem;
+  }
+  .shortDesc,
+  .body,
+  .listItem {
+    font-size: 0.9rem;
+  }
+  .tag {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 160px) {
+  .title {
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+  .blockHead,
+  .relatedTitle {
+    font-size: 1rem;
+  }
+  .shortDesc,
+  .body,
+  .listItem,
+  .termLabel,
+  .termValue,
+  .tag {
+    font-size: 0.8rem;
+  }
+  .listItem {
+    padding-left: 0.9rem;
+  }
+  .facts,
+  .terms,
+  .actions,
+  .block {
+    margin-top: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textLink {
+    transition: none;
+  }
+}

@@ -1,0 +1,619 @@
+/* Story pages - real photography + existing project SVGs as section decor.
+   No gradients. No cards, grids or capsules.
+   Decor SVGs are absolutely positioned: they never affect spacing, container
+   width or padding of any section. */
+
+.page {
+  --ink: #0f2135;
+  --ink-soft: #4a5a6e;
+  --navy: #0f2135;
+  --blue: #1f6fb2;
+  --rule: rgba(15, 33, 53, 0.14);
+  display: block;
+  overflow-x: clip;
+  background: #fff;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.narrow {
+  max-width: 46rem;
+}
+
+/* ---------------- opening: full-bleed photo + solid navy panel ------------- */
+
+.opening {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(86vh, 760px);
+  padding: 7rem 0 0;
+  background-color: #0f2135;
+  background-size: cover;
+  background-position: center;
+}
+
+
+.panel {
+  background: var(--navy);
+  color: #fff;
+  padding: clamp(2rem, 4vw, 3.4rem);
+  max-width: 40rem;
+  margin-left: 35rem;
+}
+
+.kicker {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #79b1e2;
+  margin-bottom: 1.3rem;
+}
+
+.kickerDark {
+  composes: kicker;
+  color: var(--blue);
+}
+
+.display {
+  font-size: clamp(2.2rem, 3.2vw, 3.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  margin: 0;
+}
+
+.displaySoft {
+  display: block;
+  color: #8fc0ea;
+  font-weight: 300;
+}
+
+.lede {
+  margin: 1.3rem 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+/* ---------------- chapters ---------------- */
+
+.chapter {
+  position: relative;
+  padding: clamp(2.5rem, 3vw, 8.5rem) 0 clamp(3rem, 3vw, 5rem);
+}
+
+.chapterTint {
+  composes: chapter;
+  background: #f4f7fa;
+}
+
+/* --- decor SVGs from public/assets: absolute, zero layout impact --- */
+
+.decorRight,
+.decorLeft,
+.decorCorner {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.decorRight {
+  right: clamp(-3rem, -1vw, 0rem);
+  top: 12%;
+  width: clamp(15rem, 30vw, 30rem);
+  opacity: 0.5;
+}
+
+.decorLeft {
+  left: clamp(-4rem, -2vw, 0rem);
+  bottom: 6%;
+  width: clamp(13rem, 26vw, 26rem);
+  opacity: 0.42;
+}
+
+.decorCorner {
+  right: 4%;
+  bottom: 8%;
+  width: clamp(11rem, 22vw, 22rem);
+  opacity: 0.34;
+}
+
+/* keep all real content above the decor without touching its spacing */
+.chapter > .shell,
+.chapterTint > .shell {
+  position: relative;
+  z-index: 1;
+}
+
+.heading {
+  color: var(--ink);
+  font-size: clamp(1.8rem, 3.6vw, 2.9rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin: 0;
+  max-width: 20ch;
+}
+
+.subheading {
+  margin: 3rem 0 0.8rem;
+  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+  font-weight: 700;
+  color: var(--ink);
+  max-width: 38rem;
+}
+
+.say {
+  margin: 1.4rem 0 0;
+  max-width: 40rem;
+  color: var(--ink-soft);
+  font-size: 1.03rem;
+  line-height: 1.62;
+}
+
+/* ---------------- vertical path ---------------- */
+
+.spine {
+  position: relative;
+  margin-top: clamp(2.6rem, 5vw, 4rem);
+  padding-left: clamp(3rem, 6vw, 5rem);
+}
+
+.spine::before {
+  content: "";
+  position: absolute;
+  left: clamp(0.9rem, 2vw, 1.6rem);
+  top: 0.8rem;
+  bottom: 2.4rem;
+  width: 1px;
+  background: var(--blue);
+  opacity: 0.5;
+}
+
+.beat {
+  position: relative;
+  padding-bottom: clamp(2.2rem, 4vw, 3.2rem);
+}
+
+.beat::before {
+  content: "";
+  position: absolute;
+  left: calc(clamp(0.9rem, 2vw, 1.6rem) - clamp(3rem, 6vw, 5rem) - 5px);
+  top: 0.5rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--blue);
+}
+
+.beatLine {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.1rem, 1.9vw, 1.5rem);
+  line-height: 1.25;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  max-width: 26ch;
+}
+
+.beatNote {
+  margin: 0.5rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.55;
+  max-width: 40rem;
+}
+
+/* ---------------- horizontal path ---------------- */
+
+.trail {
+  position: relative;
+  display: flex;
+  gap: clamp(1.4rem, 3vw, 3rem);
+  margin-top: clamp(2.6rem, 5vw, 4rem);
+  padding-top: 2.4rem;
+  overflow-x: auto;
+}
+
+.trail::before {
+  content: "";
+  position: absolute;
+  inset: 0.5rem 0 auto 0;
+  height: 1px;
+  background: var(--rule);
+}
+
+.stop {
+  position: relative;
+  flex: 1 0 min(15rem, 62vw);
+}
+
+.stop::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -2rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.stopIndex {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 0.6rem;
+}
+
+.stopTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.04rem;
+  font-weight: 650;
+}
+
+.stopNote {
+  margin: 0.45rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* ---------------- numbered lines ---------------- */
+
+.ledger {
+  margin-top: clamp(2.6rem, 5vw, 4rem);
+  border-top: 1px solid var(--rule);
+}
+
+.entry {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 2.4rem);
+  padding: clamp(1rem, 2.2vw, 1.6rem) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.entryNum {
+  flex: none;
+  width: 3rem;
+  color: var(--blue);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.entryTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.02rem, 1.7vw, 1.28rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.entryNote {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 48rem;
+}
+
+/* ---------------- statement: solid navy, photo beside it ---------------- */
+
+.statement {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: clamp(22rem, 44vw, 34rem);
+  background: var(--navy);
+}
+
+.statementText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 6vw, 6rem);
+}
+
+.statementPhoto {
+  background-color: #16283f;
+  background-size: cover;
+  background-position: center;
+}
+
+.quote {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.5rem, 3.2vw, 2.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 300;
+  max-width: 20ch;
+}
+
+.quoteStrong {
+  font-weight: 700;
+}
+
+.quoteBy {
+  margin: 1.8rem 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ---------------- figures ---------------- */
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(2rem, 6vw, 5rem);
+  margin-top: clamp(2.4rem, 5vw, 3.6rem);
+}
+
+.count {
+  padding-top: 1rem;
+  border-top: 2px solid var(--blue);
+  min-width: 8rem;
+}
+
+.countValue {
+  display: block;
+  color: var(--ink);
+  font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.countLabel {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ---------------- closing ---------------- */
+
+.closing {
+  background: var(--navy);
+  padding: clamp(3.5rem, 7vw, 6rem) 0;
+}
+
+.closingHeading {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.7rem, 3.4vw, 2.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  max-width: 22ch;
+}
+
+.closingSay {
+  margin: 1.1rem 0 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 36rem;
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.4rem, 4vw, 3rem);
+  margin-top: 2rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.4rem;
+  color: #fff;
+  font-size: 0.97rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+  transition:
+    gap 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.link:hover {
+  gap: 1.1rem;
+  border-color: #fff;
+}
+
+/* ---------------- responsive: 960 / 720 / 640 / 540 / 480 / 360 / 280 / 160 */
+
+@media (max-width: 960px) {
+  .shell {
+    width: min(1180px, calc(100% - 2.5rem));
+  }
+  .opening {
+    min-height: 52vh;
+    padding-top: 5.5rem;
+  }
+  .panel {
+    margin-left: 0;
+    max-width: none;
+    padding: 1.5rem 1.25rem;
+  }
+  .kicker {
+    font-size: 0.62rem;
+    margin-bottom: 0.75rem;
+  }
+  .display {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+  }
+  .lede {
+    margin-top: 0.75rem;
+    font-size: 0.92rem;
+  }
+  .statement {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .statementText {
+    padding: clamp(1.25rem, 4vw, 2rem);
+  }
+  .quote {
+    font-size: clamp(1.15rem, 4.5vw, 1.5rem);
+    max-width: none;
+  }
+  .quoteBy {
+    margin-top: 1rem;
+    font-size: 0.62rem;
+  }
+  .statementPhoto {
+    min-height: clamp(7rem, 18vw, 10rem);
+    order: -1;
+  }
+  .decorRight {
+    width: clamp(13rem, 34vw, 22rem);
+    opacity: 0.38;
+  }
+  .decorLeft,
+  .decorCorner {
+    width: clamp(11rem, 30vw, 18rem);
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    width: calc(100% - 2rem);
+  }
+  .decorRight,
+  .decorLeft,
+  .decorCorner {
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 640px) {
+  .entry {
+    gap: 1rem;
+  }
+  .counts {
+    gap: 1.6rem 2.4rem;
+  }
+  .decorLeft,
+  .decorCorner {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .shell {
+    width: calc(100% - 1.6rem);
+  }
+  .spine {
+    padding-left: 2.3rem;
+  }
+  .spine::before {
+    left: 0.5rem;
+  }
+  .beat::before {
+    left: -2.1rem;
+  }
+  .stop {
+    flex-basis: 78vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .say {
+    font-size: 0.96rem;
+  }
+  .panel {
+    padding: 1.25rem 1rem;
+  }
+  .decorRight {
+    width: 60vw;
+    opacity: 0.16;
+  }
+}
+
+@media (max-width: 360px) {
+  .shell {
+    width: calc(100% - 1.2rem);
+  }
+  .entry {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .entryNum {
+    width: auto;
+  }
+  .quote {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 280px) {
+  .shell {
+    width: calc(100% - 0.9rem);
+  }
+  .display {
+    font-size: 1.55rem;
+  }
+  .heading,
+  .closingHeading {
+    font-size: 1.35rem;
+  }
+  .stop {
+    flex-basis: 90vw;
+  }
+  .decorRight {
+    display: none;
+  }
+}
+
+@media (max-width: 160px) {
+  .shell {
+    width: calc(100% - 0.5rem);
+  }
+  .display {
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+  }
+  .heading,
+  .closingHeading,
+  .quote {
+    font-size: 1.05rem;
+  }
+  .lede,
+  .say,
+  .beatNote,
+  .entryNote,
+  .stopNote,
+  .closingSay {
+    font-size: 0.82rem;
+  }
+  .panel {
+    padding: 0.9rem 0.7rem;
+  }
+  .linkRow {
+    gap: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}

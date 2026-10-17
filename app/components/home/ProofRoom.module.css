@@ -1,0 +1,128 @@
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--surface-border);
+  border: 1px solid var(--surface-border);
+}
+
+@media (max-width: 560px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.certGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.certFigure {
+  margin: 0;
+  display: grid;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.certPhoto {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
+}
+
+.certButton {
+  all: unset;
+  position: absolute;
+  inset: 0;
+  cursor: zoom-in;
+}
+
+.certButton:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
+.certCaption {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.75rem 0.9rem;
+  border-top: 1px solid var(--surface-border);
+  font-family: var(--font-montserrat);
+}
+
+.certCaption strong {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.certCaption span {
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+}
+
+@media (max-width: 768px) {
+  .certGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 340px) {
+  .certGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------- lightbox ---------------- */
+
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10, 15, 25, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+}
+
+.lightboxFigure {
+  position: relative;
+  width: min(90vw, 900px);
+  height: min(85vh, 900px);
+  margin: 0;
+}
+
+.lightboxClose {
+  all: unset;
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  color: #fff;
+  font-family: var(--font-montserrat);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+}
+
+.lightboxClose:hover,
+.lightboxClose:focus-visible {
+  color: var(--blue-light, #9fc7ea);
+}
+
+.lightboxCaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2.25rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-montserrat);
+  font-size: var(--text-sm);
+  text-align: center;
+}

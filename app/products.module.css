@@ -1,0 +1,17 @@
+/*
+  Paste these two rules into your existing app/products/products.module.css.
+  If .imgCover already exists there, REPLACE its object-fit value with
+  "contain" (keep any other properties it already has, e.g. width/height).
+  If .zoomable doesn't exist yet, just add it.
+*/
+
+.imgCover {
+  object-fit: contain !important;
+  background: #f6f8fa;
+}
+
+.zoomable {
+  overflow: hidden;
+  cursor: zoom-in;
+  touch-action: pan-y;
+}

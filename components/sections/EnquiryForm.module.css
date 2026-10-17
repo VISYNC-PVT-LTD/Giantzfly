@@ -1,0 +1,316 @@
+.card {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-montserrat);
+}
+
+.heading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+
+.sub {
+  margin-top: -0.55rem;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.sectionLabel {
+  margin-top: 0.4rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.requirementGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.field input,
+.field select,
+.field textarea {
+  min-height: 42px;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 400;
+}
+
+.field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-wash);
+}
+
+.labelText {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.req {
+  margin-left: 0.2rem;
+  color: var(--color-error, #d64545);
+}
+
+.accordion {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.accordionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 42px;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.accordionValue {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.accordionOpen .accordionValue {
+  color: var(--navy);
+}
+
+.chevron {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+}
+
+.accordionOpen .chevron {
+  transform: rotate(-135deg);
+}
+
+.accordionPanelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.accordionOpen .accordionPanelWrap {
+  grid-template-rows: 1fr;
+}
+
+.accordionPanelInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.accordionPanelInner .pillRow {
+  padding: 0 0.75rem 0.75rem;
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.pill {
+  min-height: 36px;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.pill:hover {
+  border-color: var(--border-blue);
+}
+
+.pillActive {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--text-inverse);
+}
+
+.radioGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.radioOption input {
+  accent-color: var(--navy);
+}
+
+.fileInput {
+  padding: 0.5rem 0.6rem !important;
+  font-size: 0.8rem !important;
+}
+
+.hint {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-faint);
+}
+
+.fileError {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-error, #d64545);
+}
+
+.submit {
+  min-height: 48px;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--blue);
+  color: var(--text-inverse);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.submit:hover {
+  background: var(--navy);
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.privacy {
+  margin-top: -0.4rem;
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.privacy a {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.error {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-error, #d64545);
+}
+
+.success {
+  padding: 2rem 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+@media (max-width: 640px) {
+  .contactGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .requirementGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .row2 {
+    grid-template-columns: 1fr;
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1.1rem;
+    gap: 0.7rem;
+  }
+
+  .radioOption {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .radioGrid {
+    grid-template-columns: 1fr;
+  }
+}

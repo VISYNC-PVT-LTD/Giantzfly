@@ -1,0 +1,181 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(2.5rem, 5.5vw, 4.5rem);
+  background:
+    radial-gradient(
+      120% 90% at 12% 0%,
+      rgba(31, 111, 178, 0.09) 0%,
+      transparent 60%
+    ),
+    #fff;
+  border-bottom: 1px solid var(--border-light, #eaeef2);
+}
+
+.routes {
+  position: absolute;
+  right: -6%;
+  top: 50%;
+  translate: 0 -50%;
+  width: min(760px, 62%);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.head {
+  position: relative;
+  z-index: 1;
+  max-width: 46ch;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue, #1f6fb2);
+}
+
+.heading {
+  margin-top: 0.55rem;
+  font-size: clamp(1.35rem, 1.1rem + 1.3vw, 2.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 640;
+}
+
+/* Stats ------------------------------------------------------------------ */
+.statGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.stat {
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid var(--border-light, #e6eaee);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  display: grid;
+  gap: 0.2rem;
+}
+
+.statValue {
+  font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.8rem);
+  font-weight: 660;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  color: var(--navy, #14243a);
+  font-variant-numeric: tabular-nums;
+}
+
+.statValue em {
+  font-style: normal;
+  font-size: 0.55em;
+  color: var(--blue, #1f6fb2);
+  margin-left: 0.06em;
+}
+
+.statLabel {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.statNote {
+  font-size: 0.76rem;
+  opacity: 0.6;
+}
+
+/* Countries -------------------------------------------------------------- */
+.countryRail {
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.country {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: var(--blue-wash, #f3f8fc);
+  border: 1px solid transparent;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    border-color 0.2s ease;
+}
+
+.country[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.country:hover {
+  border-color: var(--blue, #1f6fb2);
+}
+
+.countryCode {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--blue, #1f6fb2);
+}
+
+.country strong {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.country small {
+  font-size: 0.74rem;
+  opacity: 0.6;
+}
+
+/* ---------------------------------------------------------------
+   Responsive: 1080 / 968 / 768 / 680 / 520 / 480 / 320 / 280
+   --------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .countryRail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 968px) {
+  .statGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .routes {
+    opacity: 0.14;
+  }
+}
+
+@media (max-width: 680px) {
+  .countryRail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .stat {
+    padding: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .statGrid,
+  .countryRail {
+    grid-template-columns: 1fr;
+  }
+}

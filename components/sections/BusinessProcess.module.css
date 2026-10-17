@@ -1,0 +1,381 @@
+/* ==================================================================
+   BUSINESS PROCESS - eleven steps, inquiry to after-sales
+   ================================================================== */
+
+.section {
+  position: relative;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background:
+    radial-gradient(
+      90% 60% at 100% 0%,
+      rgba(31, 111, 178, 0.07),
+      transparent 60%
+    ),
+    #f6f8fa;
+  border-block: 1px solid rgba(22, 32, 46, 0.1);
+  font-family: var(--font-montserrat);
+}
+
+.embedded {
+  position: relative;
+  padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--border-light);
+  font-family: var(--font-montserrat);
+}
+
+.container {
+  width: min(var(--content-wide), calc(100% - clamp(2rem, 8vw, 6rem)));
+  margin-inline: auto;
+}
+
+.embedded .container {
+  width: 100%;
+}
+
+.embedded .head {
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 1rem;
+}
+
+.embedded .title {
+  font-size: clamp(1.3rem, 1rem + 1.2vw, 1.7rem);
+}
+
+.embedded .flow {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.embedded .step:last-child {
+  grid-column: span 2;
+}
+
+/* ---------- heading ---------- */
+.head {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: end;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1f6fb2;
+}
+
+.title {
+  margin-top: 0.7rem;
+  font-family: var(--font-montserrat);
+  font-size: clamp(1.9rem, 1.1rem + 2.6vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #16202e;
+}
+
+.lead {
+  margin-top: 0.6rem;
+  max-width: 46ch;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #5b6672;
+}
+
+/* ---------- phase key ---------- */
+.phases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 1rem;
+}
+
+.phase {
+  padding-left: 0.75rem;
+  border-left: 2px solid #1f6fb2;
+}
+
+.phaseRange {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #1f6fb2;
+  font-variant-numeric: tabular-nums;
+}
+
+.phaseLabel {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #16202e;
+}
+
+/* ---------- progress rail ---------- */
+.rail {
+  position: relative;
+  height: 3px;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  border-radius: 3px;
+  background: rgba(22, 32, 46, 0.1);
+  overflow: hidden;
+}
+
+.railFill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #1f6fb2, #ff8a3d, #4fd1c5);
+  transform-origin: left center;
+  animation: railSweep 9s ease-in-out infinite;
+}
+
+@keyframes railSweep {
+  0% {
+    transform: scaleX(0.04);
+  }
+  55% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0.35;
+  }
+}
+
+/* ---------- the flow ---------- */
+.flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(22, 32, 46, 0.1);
+  border: 1px solid rgba(22, 32, 46, 0.1);
+  border-top: none;
+}
+
+/* last row: 11 items in a 4-col grid -> make step 11 span the remainder */
+.step:last-child {
+  grid-column: span 4;
+}
+
+.step {
+  background: #fff;
+  transition: background 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow, background;
+}
+
+.stepBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 1.25rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-montserrat);
+  color: inherit;
+}
+
+/* number + timeline node */
+.numWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.num {
+  font-family: var(--font-montserrat);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #1f6fb2;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.25s ease;
+}
+
+.node {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #1f6fb2;
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.stepBody {
+  display: block;
+  min-width: 0;
+}
+
+.stepTitle {
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #16202e;
+}
+
+.stepPhase {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(31, 111, 178, 0.1);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1f6fb2;
+}
+
+/* collapsed by default, expands on hover / click */
+.stepCopy {
+  display: block;
+  margin-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #5b6672;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.3s ease,
+    margin-top 0.3s ease;
+}
+
+.chev {
+  align-self: start;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.4rem;
+  border-right: 2px solid rgba(22, 32, 46, 0.35);
+  border-bottom: 2px solid rgba(22, 32, 46, 0.35);
+  rotate: 45deg;
+  transition:
+    rotate 0.3s ease,
+    border-color 0.25s ease;
+}
+
+/* ---------- open / hover state ---------- */
+.step:hover,
+.stepOpen {
+  background: #eef5fb;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(22, 32, 46, 0.08);
+}
+
+.stepOpen .stepCopy {
+  max-height: 12rem;
+  margin-top: 0.55rem;
+  opacity: 1;
+  transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, margin-top 0.45s ease;
+}
+
+.stepOpen .num {
+  color: #ff8a3d;
+}
+
+.stepOpen .node {
+  background: #ff8a3d;
+  border-color: #ff8a3d;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 5px rgba(255, 138, 61, 0.18);
+}
+
+.stepOpen .chev {
+  rotate: 225deg;
+  border-color: #ff8a3d;
+}
+
+.footNote {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 60ch;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #5b6672;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1040px) {
+  .flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .step:last-child {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 960px) {
+  /* embedded column goes full-width once FinalCTA stacks to 1 col */
+  .embedded .flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .embedded .step:last-child {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 900px) {
+  .head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+@media (max-width: 720px) {
+  .flow,
+  .embedded .flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .step:last-child,
+  .embedded .step:last-child {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .step:last-child {
+    grid-column: span 1;
+  }
+  /* on small screens show the copy always - no hover available */
+  .stepCopy {
+    max-height: 12rem;
+    margin-top: 0.55rem;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railFill {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .stepCopy,
+  .chev,
+  .node,
+  .num {
+    transition: none;
+  }
+}

@@ -1,0 +1,592 @@
+/* ==================================================================
+   BRIEF - concise summary blocks used under the banner + first image
+   on the About / Director / Mission / Vision and Services pages.
+   Replaces the long list-style sections: ~60% theory, ~40% craft.
+   ================================================================== */
+
+.wrap {
+  --ink: #16202e;
+  --muted: #5b6672;
+  --rule: rgba(22, 32, 46, 0.12);
+  --blue: #1f6fb2;
+  --amber: #ff8a3d;
+  --teal: #4fd1c5;
+  font-family: var(--font-montserrat);
+}
+
+/* ---------------- section shells ---------------- */
+.section {
+  position: relative;
+  padding-block: clamp(3rem, 6vw, 5rem);
+  background: #fff;
+  overflow: clip;
+}
+
+.sectionTint {
+  position: relative;
+  padding-block: clamp(3rem, 6vw, 5rem);
+  background:
+    radial-gradient(
+      80% 60% at 100% 0%,
+      rgba(31, 111, 178, 0.06),
+      transparent 60%
+    ),
+    #f6f8fa;
+  border-block: 1px solid var(--rule);
+  overflow: clip;
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+/* ---------------- the brief itself ---------------- */
+.head {
+  max-width: 62ch;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.heading {
+  margin-top: 0.8rem;
+  font-family: var(--font-montserrat);
+  font-size: clamp(1.6rem, 1.1rem + 1.9vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* the brief paragraph - large, readable, with a drop accent */
+.lede {
+  margin-top: 1.25rem;
+  font-size: clamp(1.02rem, 0.98rem + 0.35vw, 1.18rem);
+  line-height: 1.78;
+  color: #33414f;
+  max-width: 68ch;
+}
+
+.lede + .lede {
+  margin-top: 1rem;
+}
+
+.lede strong {
+  font-weight: 650;
+  color: var(--ink);
+}
+
+/* accented first paragraph */
+.ledeLead {
+  position: relative;
+  margin-top: 1.5rem;
+  padding-left: 1.4rem;
+  border-left: 3px solid var(--amber);
+  font-size: clamp(1.08rem, 1rem + 0.5vw, 1.32rem);
+  line-height: 1.7;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: 62ch;
+}
+
+.commitments {
+  list-style: disc;
+  margin: 1rem 0 0 1.5rem;
+  padding-left: 1rem;
+  max-width: 68ch;
+}
+
+.commitments li {
+  margin-top: 0.9rem;
+  line-height: 1.7;
+  color: #33414f;
+}
+
+/* ---------------- compact fact row (replaces long lists) ---------------- */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.fact {
+  padding: 1.35rem 1.3rem;
+  background: #fff;
+  transition: background 0.22s ease;
+}
+.fact:hover {
+  background: #eef5fb;
+}
+
+.factValue {
+  display: block;
+  font-family: var(--font-montserrat);
+  font-size: clamp(1.4rem, 1rem + 1.2vw, 2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.factLabel {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------------- creative bit: the ribbon ---------------- */
+/* a horizontal connected flow, used for process explanations */
+.ribbon {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: 2.6rem;
+}
+
+/* the connecting line */
+.ribbon::before {
+  content: "";
+  position: absolute;
+  top: 1.05rem;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--amber), var(--teal));
+  border-radius: 2px;
+}
+
+.node {
+  position: relative;
+  padding: 0 0.85rem;
+  text-align: center;
+}
+
+.node::before {
+  content: "";
+  position: absolute;
+  top: -1.95rem;
+  left: 50%;
+  translate: -50% 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--blue);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.node:hover::before {
+  background: var(--amber);
+  border-color: var(--amber);
+  transform: scale(1.25);
+}
+
+.nodeStep {
+  display: block;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.nodeTitle {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.nodeNote {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.79rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------------- creative bit: split cards ---------------- */
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.card {
+  position: relative;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--blue), var(--amber));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -22px rgba(22, 32, 46, 0.35);
+}
+.card:hover::before {
+  opacity: 1;
+}
+
+.cardTag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(31, 111, 178, 0.1);
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.cardTitle {
+  margin-top: 0.75rem;
+  font-family: var(--font-montserrat);
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.cardText {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* a wide card that spans both columns */
+.cardWide {
+  grid-column: 1 / -1;
+}
+
+/* dark accent card for contrast */
+.cardDark {
+  border-color: transparent;
+  background:
+    radial-gradient(
+      80% 100% at 100% 0%,
+      rgba(31, 111, 178, 0.35),
+      transparent 60%
+    ),
+    #16202e;
+  color: #fff;
+}
+.cardDark .cardTag {
+  background: rgba(255, 138, 61, 0.16);
+  color: #ffb073;
+}
+.cardDark .cardTitle {
+  color: #fff;
+}
+.cardDark .cardText {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ---------------- team / director profile cards ---------------- */
+.team {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.teamCard {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: clamp(1.1rem, 2.5vw, 1.5rem);
+  align-items: start;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: #fff;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.teamCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -22px rgba(22, 32, 46, 0.35);
+}
+
+.teamPhoto {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0f3f6;
+  flex-shrink: 0;
+}
+
+.teamBody {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.teamName {
+  font-family: var(--font-montserrat);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.teamRole {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.teamCreds {
+  margin-top: 0.1rem;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.teamBio {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.teamTags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.teamTag {
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(31, 111, 178, 0.08);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #33414f;
+}
+
+.teamQuote {
+  margin-top: 0.85rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--amber);
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .team {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .teamCard {
+    grid-template-columns: 1fr;
+  }
+  .teamPhoto {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+/* ---------------- pull quote ---------------- */
+.pull {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+  border-block: 1px solid var(--rule);
+}
+
+.pullText {
+  font-family: var(--font-montserrat);
+  font-size: clamp(1.25rem, 1rem + 1.4vw, 2rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  max-width: 34ch;
+}
+
+.pullStrong {
+  color: var(--blue);
+}
+
+.pullBy {
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------------- tag row ---------------- */
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.tag {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #33414f;
+}
+
+/* ---------------- closing links ---------------- */
+.close {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  background: #16202e;
+  color: #fff;
+}
+
+.closeHeading {
+  font-family: var(--font-montserrat);
+  font-size: clamp(1.4rem, 1rem + 1.6vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  max-width: 30ch;
+}
+
+.closeSay {
+  margin-top: 0.75rem;
+  max-width: 52ch;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.75rem;
+  margin-top: 1.75rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: #ffb073;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 176, 115, 0.35);
+  padding-bottom: 0.2rem;
+  transition:
+    color 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.link:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+/* ---------------- responsive ---------------- */
+@media (max-width: 900px) {
+  .ribbon {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: 1.5rem;
+    padding-top: 0;
+    padding-left: 1.5rem;
+  }
+  .ribbon::before {
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 5px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  .node {
+    padding: 0;
+    text-align: left;
+  }
+  .node::before {
+    top: 0.25rem;
+    left: -1.5rem;
+    translate: 0 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  .fact,
+  .node::before,
+  .link {
+    transition: none;
+  }
+  .card:hover {
+    transform: none;
+  }
+}

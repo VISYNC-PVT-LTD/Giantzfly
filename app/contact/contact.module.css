@@ -1,0 +1,236 @@
+.page {
+  --ink: #09172b;
+  overflow: clip;
+}
+.kicker {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: #2b73be;
+  margin-bottom: 1.2rem;
+}
+.hero {
+  min-height: 680px;
+  padding: 9rem 0 5rem;
+  color: #fff;
+  display: flex;
+  align-items: end;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(6, 18, 35, 0.96), rgba(6, 18, 35, 0.45)),
+    url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2300&q=88")
+      center/cover no-repeat;
+}
+.heroArt {
+  position: absolute;
+  right: 1%;
+  top: 4%;
+  width: min(52vw, 700px);
+  opacity: 0.28;
+}
+.hero h1 {
+  font-size: clamp(4rem, 7.8vw, 8rem);
+  line-height: 0.87;
+  letter-spacing: -0.072em;
+  color: #fff;
+  max-width: 980px;
+}
+.hero h1 em {
+  font-family: var(--font-montserrat);
+  font-weight: 400;
+  color: #9bc9f7;
+}
+.hero > .container {
+  position: relative;
+  z-index: 2;
+}
+.hero > .container > p:last-child {
+  max-width: 610px;
+  color: #d0dae7;
+  margin-top: 1.7rem;
+}
+.hero .kicker {
+  color: #9bc9f7;
+}
+.formSection {
+  padding: clamp(6rem, 9vw, 9rem) 0;
+  background:
+    linear-gradient(rgba(246, 242, 233, 0.94), rgba(246, 242, 233, 0.97)),
+    url("https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2200&q=82")
+      center/cover no-repeat;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: 7vw;
+  align-items: start;
+}
+.grid aside {
+  position: relative;
+}
+.grid h2 {
+  font-size: clamp(2.6rem, 4.6vw, 5rem);
+  letter-spacing: -0.065em;
+  line-height: 0.91;
+}
+.grid ol {
+  list-style: none;
+  margin-top: 2.5rem;
+  border-top: 1px solid rgba(9, 23, 43, 0.16);
+}
+.grid li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(9, 23, 43, 0.16);
+  font-weight: 650;
+}
+.grid li span {
+  font-size: 0.65rem;
+  color: #8d96a2;
+}
+.contactCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 2rem;
+}
+.contactCards > a,
+.contactCards > div {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  display: grid;
+  gap: 0.45rem;
+  border: 1px solid rgba(9, 23, 43, 0.13);
+}
+.contactCards svg {
+  color: #2b73be;
+}
+.contactCards span {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #8a94a1;
+}
+.contactCards strong {
+  font-size: 0.72rem;
+  overflow-wrap: anywhere;
+}
+.form {
+  background: rgba(255, 255, 255, 0.96);
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border: 1px solid rgba(9, 23, 43, 0.16);
+  box-shadow: 18px 18px 0 rgba(196, 220, 241, 0.85);
+  display: grid;
+  gap: 1rem;
+}
+.form h2 {
+  font-size: 2.7rem;
+}
+.formHead {
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+.formHead > svg {
+  color: #2b73be;
+  margin-top: 0.2rem;
+}
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.field {
+  display: grid;
+  gap: 0.48rem;
+  margin: 0;
+}
+.field > span {
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 750;
+  color: #526074;
+}
+.form input,
+.form select,
+.form textarea {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #c7d0db;
+  background: #f8fafc;
+  padding: 0.85rem 0.9rem;
+  font: inherit;
+  border-radius: 0;
+  color: #09172b;
+}
+.form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: 2px solid #2b73be;
+  outline-offset: 1px;
+  border-color: transparent;
+}
+.send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  background: #09172b;
+  color: #fff;
+  padding: 0.85rem 1.2rem;
+  min-height: 54px;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+.send svg:last-child {
+  margin-left: auto;
+  margin-right: 1rem;
+}
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .heroArt {
+    width: 100%;
+    opacity: 0.2;
+  }
+  .two {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    min-height: 620px;
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 12vw, 5.5rem);
+  }
+  .form {
+    box-shadow: 8px 8px 0 rgba(196, 220, 241, 0.85);
+  }
+}
+
+/* ---------------------------------------------------------------
+   Responsive layer: 1080 / 968 / 768 / 680 / 520 / 480 / 320 / 280
+   --------------------------------------------------------------- */
+@media (max-width: 968px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  
+  .two {
+    grid-template-columns: 1fr;
+  }
+}

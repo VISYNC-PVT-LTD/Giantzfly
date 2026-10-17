@@ -1,0 +1,481 @@
+.page {
+  --ink: #09172b;
+  --blue: #2b73be;
+  overflow: clip;
+  color: var(--ink);
+}
+.page h1,
+.page h2 {
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+.kicker {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  font-weight: 800;
+  color: var(--blue);
+  margin-bottom: 1.2rem;
+}
+.hero {
+  position: relative;
+  min-height: 760px;
+  padding: 9rem 0 6rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(6, 17, 31, 0.96) 0%,
+      rgba(6, 17, 31, 0.78) 53%,
+      rgba(6, 17, 31, 0.28) 100%
+    ),
+    url("https://images.unsplash.com/photo-1607166452427-7e4477079cb9?auto=format&fit=crop&w=2400&q=88")
+      center/cover no-repeat;
+}
+.hero:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 62px 62px;
+  mask-image: linear-gradient(90deg, #000, transparent);
+}
+.hero > .container {
+  position: relative;
+  z-index: 3;
+}
+.hero h1 {
+  font-size: clamp(4rem, 5.2vw, 6.7rem);
+  color: #fff;
+  max-width: 850px;
+}
+.hero > .container > p:nth-of-type(2) {
+  max-width: 620px;
+  color: #d2dce8;
+  margin-top: 1.7rem;
+}
+.heroArt {
+  position: absolute;
+  z-index: 2;
+  right: 1.5%;
+  top: 12%;
+  width: min(43vw, 620px);
+  opacity: 0.28;
+  pointer-events: none;
+}
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2.2rem;
+}
+.heroActions a,
+.bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fff;
+  color: #09172b;
+  padding: 1rem 1.2rem;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+.heroActions span {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aabbd0;
+}
+.manifesto,
+.consultancy,
+.exports,
+.private,
+.exportSupport,
+.industries,
+.why,
+.bottom {
+  position: relative;
+  padding: clamp(6rem, 6vw, 7rem) 0;
+}
+.manifesto {
+  background:
+    linear-gradient(rgba(244, 247, 249, 0.94), rgba(244, 247, 249, 0.94)),
+    url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2200&q=80")
+      center/cover no-repeat;
+}
+.split {
+  grid-template-columns: 0.45fr 1.55fr;
+  gap: 8vw;
+}
+.split h2,
+.titleRow h2,
+.exportGrid h2 {
+  font-size: clamp(2.8rem, 3.2vw, 5rem);
+}
+.split > div > p:last-child,
+.exportGrid > div > p {
+  max-width: 980px;
+  color: #687386;
+  margin-top: 1.5rem;
+}
+.consultancy {
+  background:
+    linear-gradient(90deg, rgba(232, 240, 246, 0.97), rgba(232, 240, 246, 0.9)),
+    url("https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=2200&q=85")
+      center/cover no-repeat;
+}
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 4rem;
+}
+.titleRow > div {
+  max-width: 850px;
+}
+.titleRow > img {
+  width: 220px;
+  height: 170px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+}
+.consultancyGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 3.5rem;
+}
+.consultancyGrid article {
+  min-height: 320px;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.91);
+  border: 1px solid rgba(9, 23, 43, 0.16);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 18px 45px rgba(9, 23, 43, 0.06);
+}
+.consultancyGrid article > span {
+  font-size: 0.65rem;
+  color: #8994a3;
+}
+.consultancyGrid article > svg {
+  margin-top: auto;
+  color: var(--blue);
+}
+.consultancyGrid h3 {
+  font-size: 1.12rem;
+  margin-top: 1rem;
+}
+.consultancyGrid p {
+  font-size: 0.74rem;
+  color: #667285;
+  margin-top: 0.65rem;
+}
+.exports {
+  background:
+    linear-gradient(90deg, rgba(6, 18, 35, 0.98), rgba(6, 18, 35, 0.72)),
+    url("https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2200&q=86")
+      center/cover no-repeat;
+  color: #fff;
+}
+.exportGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 7vw;
+  align-items: center;
+}
+.exportGrid h2 {
+  color: #fff;
+}
+.exportGrid > div > p {
+  color: #c1cedc;
+}
+.exportGrid a {
+  display: inline-flex;
+  gap: 0.4rem;
+  margin-top: 1.8rem;
+  border-bottom: 1px solid;
+  padding-bottom: 0.25rem;
+}
+.exportArt {
+  position: relative;
+  min-height: 390px;
+  background: rgba(9, 28, 48, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.exportArt > img {
+  width: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+.exportArt > div {
+  position: absolute;
+  left: 2rem;
+  bottom: 1.7rem;
+  display: flex;
+  gap: 1rem;
+  color: #bad0e8;
+  font-size: 0.76rem;
+}
+.private {
+  background:
+    linear-gradient(rgba(248, 244, 235, 0.93), rgba(248, 244, 235, 0.96)),
+    url("https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=2200&q=82")
+      center/cover no-repeat;
+}
+.checks > div {
+  display: grid;
+  grid-template-columns: 42px 1fr 20px;
+  padding: 1.05rem 0.2rem;
+  border-bottom: 1px solid rgba(9, 23, 43, 0.16);
+  align-items: center;
+}
+.checks span {
+  font-size: 0.65rem;
+  color: #8d96a2;
+}
+.checks p {
+  font-weight: 650;
+}
+.checks svg {
+  color: var(--blue);
+}
+.exportSupport {
+  background: #f3f6f8;
+}
+.supportCard {
+  min-height: 520px;
+  padding: clamp(2rem, 5vw, 5rem);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  align-items: end;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(219, 234, 247, 0.97),
+      rgba(219, 234, 247, 0.78)
+    ),
+    url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=86")
+      center/cover no-repeat;
+}
+.supportCard h2 {
+  font-size: clamp(2.8rem, 4.8vw, 5.6rem);
+}
+.supportItems {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.supportItems span {
+  padding: 1.15rem;
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.industries {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.96)),
+    url("https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=2200&q=82")
+      center/cover no-repeat;
+}
+.industryGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 3.5rem;
+}
+.industryGrid article {
+  aspect-ratio: 1/1;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(9, 23, 43, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.industryGrid span {
+  font-size: 0.65rem;
+  color: #8b95a3;
+}
+.industryGrid h3 {
+  font-size: 1.25rem;
+}
+.why {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(233, 240, 244, 0.98),
+      rgba(233, 240, 244, 0.89)
+    ),
+    url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=2200&q=82")
+      center/cover no-repeat;
+}
+.sustain {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(9, 23, 43, 0.18);
+  max-width: 550px;
+  color: #58687a;
+}
+.bottom {
+  min-height: 680px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(8, 25, 45, 0.92), rgba(8, 25, 45, 0.42)),
+    url("https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=2400&q=88")
+      center/cover no-repeat;
+}
+.bottom > div {
+  position: relative;
+  z-index: 2;
+}
+.bottom h2 {
+  font-size: clamp(4rem, 7vw, 8rem);
+  color: #fff;
+  margin: 1rem 0 2rem;
+  max-width: 1050px;
+}
+.bottom .kicker {
+  color: #b9d8f8;
+}
+@media (max-width: 900px) {
+  .consultancyGrid,
+  .industryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .exportGrid,
+  .split,
+  .supportCard {
+    grid-template-columns: 1fr;
+  }
+  .heroArt {
+    width: 65%;
+    opacity: 0.2;
+  }
+  .exportArt {
+    min-height: 430px;
+  }
+  .supportItems {
+    margin-top: 2rem;
+  }
+}
+@media (max-width: 600px) {
+  .hero {
+    min-height: 700px;
+    padding-top: 7rem;
+  }
+  .hero h1 {
+    font-size: clamp(3.4rem, 15vw, 5.2rem);
+  }
+  .heroArt {
+    width: 100%;
+    right: -30%;
+    top: 5%;
+  }
+  .titleRow {
+    display: block;
+  }
+  .titleRow > img {
+    margin-top: 2rem;
+  }
+  .consultancyGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  .consultancyGrid article {
+    min-height: 270px;
+    padding: 0.9rem;
+  }
+  .industryGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .supportItems {
+    grid-template-columns: 1fr;
+  }
+  .heroActions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .split h2,
+  .titleRow h2,
+  .exportGrid h2 {
+    font-size: clamp(2.7rem, 13vw, 4.5rem);
+  }
+}
+
+/* ---------------------------------------------------------------
+   Responsive layer: 1080 / 968 / 768 / 680 / 520 / 480 / 320 / 280
+   --------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .consultancyGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .industryGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 968px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .consultancyGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .exportGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .industryGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .consultancyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .industryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .supportCard {
+    grid-template-columns: 1fr;
+  }
+
+  .supportItems {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 320px) {
+  .consultancyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .industryGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,308 @@
+.hero {
+  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--text);
+}
+.heroTitle {
+  font-size: clamp(1.85rem, 2.4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  max-width: 42ch;
+}
+.heroText {
+  max-width: 60ch;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  font-size: var(--text-base);
+  line-height: 1.65;
+}
+
+.pageGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.quotePanel,
+.buyerPanel,
+.ctaPanel {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+.sectionHead .btn {
+  gap: 0.45rem;
+}
+.sectionTitle {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  letter-spacing: -0.03em;
+  color: var(--navy);
+}
+.lineList,
+.manualSection,
+.buyerFields,
+.sideRail {
+  display: grid;
+  gap: var(--space-3);
+}
+.cartItem,
+.lineCard {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-4);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.cartTitle {
+  font-size: var(--text-base);
+  font-weight: 650;
+  color: var(--navy);
+}
+.cartSub,
+.sectionSubTitle {
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+  margin-top: 0.2rem;
+}
+.cartItemActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.emptyState {
+  padding: var(--space-8) var(--space-5);
+  background: var(--bg);
+  border: 1px dashed var(--border-blue);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.emptyIcon {
+  color: var(--blue);
+  padding: 0.6rem;
+  border-radius: var(--radius-lg);
+  background: var(--blue-wash);
+  border: 1px solid var(--border-blue);
+}
+.manualSection {
+  margin-top: var(--space-5);
+}
+.lineCard {
+  display: block;
+}
+.lineCardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+.lineCardHead .btn,
+.cartItemActions .btn {
+  gap: 0.35rem;
+}
+.lineCardTitle {
+  font-size: var(--text-sm);
+  font-weight: 650;
+  color: var(--navy);
+}
+.lineGridTop,
+.lineGridBottom,
+.buyerFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+.lineGridBottom {
+  margin-top: var(--space-3);
+}
+.sideRail {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-5));
+}
+.notesField {
+  min-height: 130px;
+}
+
+.ctaPanel {
+  border-left: 3px solid var(--blue);
+}
+.ctaTitle {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  color: var(--navy);
+  letter-spacing: -0.03em;
+}
+.ctaText {
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  max-width: 60ch;
+}
+.actionGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.actionGroup .btn {
+  gap: 0.55rem;
+}
+
+.miniContacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.miniContactCard {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.miniContactCard:hover {
+  border-color: var(--border-blue);
+  box-shadow: var(--shadow-sm);
+}
+.miniContactIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--blue-wash);
+  border: 1px solid var(--border-blue);
+  color: var(--blue);
+}
+.miniContactCard strong {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.miniContactCard em {
+  display: block;
+  font-style: normal;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+.ruleDivider {
+  border: 0;
+  height: 1px;
+  background: var(--border-light);
+  margin: var(--space-5) 0;
+}
+.ruleList {
+  display: grid;
+  gap: var(--space-2);
+}
+.ruleItem {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+.ruleDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.full {
+  grid-column: 1/-1;
+}
+
+@media (max-width: 900px) {
+  .pageGrid {
+    grid-template-columns: 1fr;
+  }
+  .sideRail {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 2rem 0 1.5rem;
+  }
+  .sectionHead,
+  .cartItem {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: var(--space-3);
+  }
+  .lineGridTop,
+  .lineGridBottom,
+  .buyerFields {
+    grid-template-columns: 1fr;
+  }
+  .cartItemActions {
+    justify-content: flex-start;
+  }
+  .actionGroup .btn,
+  .actionGroup a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .buyerFields {
+    grid-template-columns: 1fr;
+  }
+  .miniContacts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .quotePanel,
+  .buyerPanel,
+  .ctaPanel {
+    padding: 1.1rem;
+  }
+  .cartItem,
+  .lineCard {
+    padding: var(--space-3);
+  }
+  .miniContactCard strong {
+    font-size: 0.8rem;
+  }
+  .miniContactCard em {
+    font-size: 0.68rem;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 380px) {
+  .heroTitle {
+    font-size: 1.6rem;
+  }
+  .sectionTitle,
+  .ctaTitle {
+    font-size: 1.2rem;
+  }
+}

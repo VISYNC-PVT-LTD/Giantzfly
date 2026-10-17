@@ -1,0 +1,542 @@
+.catalog {
+  --ink: #101c31;
+  overflow: clip;
+}
+.hero {
+  min-height: 0;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0 clamp(2rem, 3vw, 2.75rem);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(238, 243, 246, 0.97),
+      rgba(238, 243, 246, 0.72)
+    ),
+    url("/assets/illustrations/catalog-grid.svg") right center/58% no-repeat,
+    url("https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=2300&q=86")
+      center/cover no-repeat;
+  display: flex;
+  align-items: end;
+}
+.kicker {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2867ad;
+  margin-bottom: 0.75rem;
+}
+.hero h1 {
+  font-size: clamp(2rem, 6.4vw, 3.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+.hero h1 em {
+  font-family: var(--font-montserrat);
+  font-weight: 400;
+  color: #2867ad;
+}
+.hero p:last-child {
+  max-width: 560px;
+  color: #667085;
+  font-size: 0.9rem;
+  margin-top: 0.85rem;
+}
+.categorySection {
+  padding: 1rem 0 5rem;
+  background:
+    linear-gradient(rgba(238, 243, 246, 0.94), rgba(238, 243, 246, 0.97)),
+    url("https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=2200&q=82")
+      center/cover no-repeat;
+}
+.categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.categories > a {
+  min-height: 360px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  gap: 0.65rem;
+  border: 1px solid rgba(16, 28, 49, 0.15);
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.categories > a > span {
+  position: absolute;
+  left: 1.2rem;
+  top: 1.2rem;
+  font-size: 0.65rem;
+  color: #8d96a3;
+  z-index: 1;
+}
+.categories > a > img {
+  width: 100%;
+  height: 52%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.categories > a:hover > img {
+  transform: scale(1.01);
+}
+.categories > a > svg {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1.2rem;
+}
+.categories h2 {
+  font-size: 1.3rem;
+}
+.categories p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #6b7585;
+  max-width: 92%;
+  margin-top: 0.4rem;
+}
+.categoryTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+}
+.categoryTag {
+  margin-block: 0.2rem;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(31, 111, 178, 0.08);
+  color: #2867ad;
+  border: 1px solid rgba(31, 111, 178, 0.22);
+}
+.products {
+  padding: 5rem 0 9rem;
+  background:
+    linear-gradient(rgba(248, 245, 237, 0.93), rgba(248, 245, 237, 0.97)),
+    url("https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2200&q=82")
+      center/cover no-repeat;
+}
+.filterBar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(16, 28, 49, 0.16);
+  padding-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+/* shared product detail refresh */
+.layoutGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: 3rem;
+  align-items: start;
+}
+.imageSticky {
+  position: sticky;
+  top: 130px;
+}
+.detailColumn {
+  display: grid;
+  gap: 10px;
+}
+.mainCard,
+.cardPad {
+  padding: 1.5rem;
+  border-radius: 2px !important;
+  background: #fff !important;
+}
+.title {
+  font-size: clamp(2.8rem, 5vw, 5.5rem) !important;
+  letter-spacing: -0.065em;
+}
+.pageHero {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+.pageTitle {
+  margin-top: var(--space-4);
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+  max-width: 26ch;
+}
+.pageHeroText {
+  margin-top: var(--space-3);
+  max-width: 60ch;
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+.shortDesc {
+  color: #667085;
+}
+.metaChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 1rem;
+}
+.highlightList,
+.noteList {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.highlightItem,
+.noteItem {
+  display: flex;
+  gap: 0.6rem;
+}
+.bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2867ad;
+  margin-top: 9px;
+}
+.quoteBox {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #eaf2f8;
+}
+.specGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.cardHeading {
+  font-size: 1.25rem;
+  margin-top: 0.8rem;
+}
+.descBody,
+.specBody,
+.packList,
+.certBody {
+  margin-top: 1rem;
+}
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+.relatedHead {
+  display: flex;
+  justify-content: space-between;
+}
+.relatedThumb {
+  aspect-ratio: 1.2;
+  position: relative;
+}
+.imgCover {
+  object-fit: cover;
+}
+.carousel {
+  background: #eaf1f6;
+  padding: 10px;
+}
+.viewport {
+  aspect-ratio: 1/1.1;
+  position: relative;
+  overflow: hidden;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #101c31;
+  color: #fff;
+}
+.arrowPrev {
+  left: 12px;
+}
+.arrowNext {
+  right: 12px;
+}
+@media (max-width: 1000px) {
+  .productGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .layoutGrid {
+    grid-template-columns: 1fr;
+  }
+  .imageSticky {
+    position: relative;
+    top: auto;
+  }
+  .relatedGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 650px) {
+  .hero {
+    background-size: 110%;
+  }
+  .hero h1 {
+    font-size: clamp(3.3rem, 10vw, 5.5rem);
+  }
+  .categories {
+    grid-template-columns: 1fr;
+  }
+  .categories > a {
+    min-height: 220px;
+  }
+  .productGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+  .filterBar span:last-child {
+    display: none;
+  }
+  .specGrid {
+    grid-template-columns: 1fr;
+  }
+  .relatedGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .title {
+    font-size: 3rem !important;
+  }
+}
+/* Origin / export potential table ------------------------------------- */
+.originTableWrap {
+  margin-top: 3rem;
+}
+
+.originTableTitle {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.5rem);
+  margin-bottom: 1rem;
+}
+
+.originTableScroll {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border, #e4e8ec);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.originTable {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.originTable th,
+.originTable td {
+  text-align: left;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border, #e4e8ec);
+  vertical-align: top;
+}
+
+.originTable th {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.originTable tr:last-child td {
+  border-bottom: 0;
+}
+
+.originStars {
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 520px) {
+  .originTable {
+    min-width: 560px;
+    font-size: 0.82rem;
+  }
+
+  .originTable th,
+  .originTable td {
+    padding: 0.7rem 0.8rem;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Responsive layer: 1080 / 968 / 768 / 680 / 520 / 480 / 320 / 280
+   --------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .productGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .relatedGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 968px) {
+  .categories {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .productGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .relatedGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .productGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .relatedGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .specGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .categories {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 320px) {
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .relatedGrid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ==================================================================
+   PRODUCT IMAGE - contain fit + hover / pinch zoom
+   Some product photos are collages of two shots, so cover was cropping
+   them. These use object-fit: contain and zoom on interaction instead.
+   ================================================================== */
+
+.imgContain {
+  object-fit: contain;
+  object-position: center;
+  background: #eaf1f6;
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+  cursor: zoom-in;
+}
+
+.zoomable {
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior: contain;
+  background: #eaf1f6;
+  border-radius: 8px;
+}
+
+.isZoomed .imgContain {
+  cursor: zoom-out;
+  transition: transform 0.08s linear;
+}
+
+.zoomHint {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(16, 28, 49, 0.78);
+  color: #fff;
+  font-family: var(--font-montserrat);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.zoomable:hover .zoomHint,
+.isZoomed .zoomHint {
+  opacity: 1;
+}
+
+.arrow {
+  z-index: 4;
+  translate: 0 -50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 16px -6px rgba(16, 28, 49, 0.6);
+  transition: background 0.2s ease;
+}
+
+.arrow:hover {
+  background: #1f6fb2;
+}
+
+.thumbGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid rgba(16, 28, 49, 0.14);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s ease;
+}
+
+.thumb .imgContain {
+  cursor: pointer;
+  transition: none;
+}
+
+.thumb:hover {
+  border-color: #1f6fb2;
+}
+
+.thumbActive {
+  border-color: #ff8a3d;
+  box-shadow: 0 0 0 2px rgba(255, 138, 61, 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imgContain,
+  .zoomHint,
+  .arrow,
+  .thumb {
+    transition: none;
+  }
+}

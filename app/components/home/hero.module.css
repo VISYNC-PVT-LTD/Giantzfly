@@ -1,0 +1,1152 @@
+.shell {
+  --navy: #0f2345;
+  --navy-soft: rgba(15, 35, 69, 0.68);
+  --line: rgba(15, 35, 69, 0.12);
+  --line-strong: rgba(15, 35, 69, 0.22);
+  --blue: #1e63dd;
+  --blue-soft: rgba(30, 99, 221, 0.14);
+  --ice: #f2f5f9;
+  --surface: rgba(255, 255, 255, 0.68);
+  --surface-strong: rgba(255, 255, 255, 0.84);
+  --shadow: 0 30px 80px rgba(12, 32, 71, 0.12);
+
+  position: relative;
+  min-height: 520vh;
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(96, 152, 255, 0.12),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 85% 18%,
+      rgba(17, 55, 115, 0.08),
+      transparent 24%
+    ),
+    linear-gradient(180deg, #f7f9fc 0%, #edf2f7 100%);
+  color: var(--navy);
+  overflow: clip;
+}
+
+.pinWrap {
+  position: relative;
+  height: 100vh;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1.1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.copyRail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1rem, 2vw, 2rem);
+  max-width: 55rem;
+  z-index: 3;
+}
+
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 1.1rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--navy-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(4.25rem, 6vw, 8.8rem);
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 30rem;
+  margin: 1.2rem 0 0;
+  color: var(--navy-soft);
+  font-size: clamp(1rem, 1.2vw, 1.16rem);
+  line-height: 1.55;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.55rem;
+}
+
+.primaryCta,
+.secondaryCta {
+  min-height: 3.1rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+.primaryCta {
+  color: white;
+  background: linear-gradient(180deg, #2e6be6 0%, #1f56c6 100%);
+  border: 1px solid transparent;
+  box-shadow: 0 18px 40px rgba(30, 99, 221, 0.25);
+}
+
+.secondaryCta {
+  color: var(--navy);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.proofStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.2rem;
+}
+
+.proofStrip span {
+  padding: 0.7rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--navy-soft);
+  font-size: 0.8rem;
+}
+
+.visualStage {
+  position: relative;
+  min-height: calc(100vh - 2rem);
+  border-radius: 2rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.46),
+      rgba(255, 255, 255, 0.18)
+    ),
+    linear-gradient(180deg, #eef3f8, #e8eef5);
+  box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+.storyImages {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bgFrame,
+.fgFrame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.bgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(1.02) brightness(0.9);
+  transform: scale(1.02);
+}
+
+.bgFrame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(238, 243, 248, 0.2), rgba(15, 35, 69, 0.2)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 38%);
+}
+
+.fgFrame {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.2rem;
+  z-index: 2;
+}
+
+.fgCard {
+  width: min(58%, 28rem);
+  aspect-ratio: 4 / 5;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 22px 60px rgba(13, 31, 63, 0.22);
+  backdrop-filter: blur(10px);
+}
+
+.fgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frameStack {
+  position: absolute;
+  left: clamp(1rem, 2vw, 1.5rem);
+  bottom: clamp(1rem, 2vw, 1.5rem);
+  width: min(27rem, calc(100% - 2rem));
+  height: 16rem;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.frameCard {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.1rem 1.1rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 50px rgba(16, 38, 76, 0.1);
+  pointer-events: auto;
+}
+
+.frameEyebrow {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  color: var(--navy-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.frameCard h2 {
+  margin: 0;
+  max-width: 8ch;
+  font-size: clamp(2.3rem, 3.2vw, 4.1rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+
+.frameCard p {
+  max-width: 22rem;
+  margin: 0.8rem 0 0;
+  color: var(--navy-soft);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.captionStack {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 14rem;
+  height: 3.5rem;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.captionPill {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 50px rgba(16, 38, 76, 0.08);
+}
+
+.captionPill span {
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.frameRail {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.framePill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 8.25rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.56);
+  backdrop-filter: blur(12px);
+  color: var(--navy);
+  cursor: pointer;
+  text-align: left;
+}
+
+.framePillActive {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--line-strong);
+  box-shadow: 0 12px 32px rgba(15, 35, 69, 0.08);
+}
+
+.framePillIndex {
+  color: var(--navy-soft);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.framePillLabel {
+  margin-top: 0.25rem;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.parallaxLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.visualGlow {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 19rem;
+  height: 19rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(105, 162, 255, 0.18),
+    transparent 68%
+  );
+  filter: blur(10px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.parallaxBack::before,
+.parallaxFront::before,
+.parallaxFront::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(18px);
+}
+
+.parallaxBack::before {
+  top: 12%;
+  right: 10%;
+  width: 16rem;
+  height: 16rem;
+  background: radial-gradient(
+    circle,
+    rgba(104, 157, 255, 0.16),
+    transparent 70%
+  );
+}
+
+.parallaxFront::before {
+  bottom: 8%;
+  right: 8%;
+  width: 14rem;
+  height: 14rem;
+  background: radial-gradient(circle, rgba(17, 55, 115, 0.12), transparent 70%);
+}
+
+.parallaxFront::after {
+  top: 22%;
+  left: 12%;
+  width: 11rem;
+  height: 11rem;
+  background: radial-gradient(
+    circle,
+    rgba(181, 220, 255, 0.18),
+    transparent 68%
+  );
+}
+
+@media (max-width: 1100px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    padding: 0.75rem;
+  }
+
+  .copyRail {
+    max-width: none;
+    padding-bottom: 0;
+  }
+
+  .visualStage {
+    min-height: 72vh;
+  }
+
+  .fgCard {
+    width: min(54%, 23rem);
+  }
+
+  .frameStack {
+    width: calc(100% - 1.5rem);
+    left: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .captionStack {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .frameRail {
+    top: auto;
+    bottom: 5rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .framePill {
+    min-width: 7.5rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    min-height: 480vh;
+  }
+
+  .title {
+    font-size: clamp(3.2rem, 15vw, 5.4rem);
+  }
+
+  .lead {
+    max-width: 24rem;
+  }
+
+  .visualStage {
+    min-height: 66vh;
+    border-radius: 1.5rem;
+  }
+
+  .fgFrame {
+    justify-content: center;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+
+  .fgCard {
+    width: min(72%, 18rem);
+    aspect-ratio: 4 / 5.4;
+  }
+
+  .frameCard {
+    padding: 0.9rem;
+    border-radius: 1.25rem;
+  }
+
+  .frameCard h2 {
+    font-size: clamp(1.9rem, 9vw, 3rem);
+  }
+
+  .captionStack {
+    width: 11rem;
+    height: 3rem;
+  }
+}
+/* =========================
+   MOBILE RESPONSIVE PATCH
+   Add at end of hero.module.css
+   ========================= */
+
+/* 720px already exists in file, but keep this as stronger mobile tuning */
+@media (max-width: 720px) {
+  .shell {
+    min-height: auto;
+  }
+
+  .pinWrap {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    min-height: auto;
+    padding: 0.75rem;
+  }
+
+  .copyRail {
+    justify-content: flex-start;
+    padding: 1rem 0.4rem 0;
+    max-width: 100%;
+  }
+
+  .eyebrow {
+    margin-bottom: 0.85rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+  }
+
+  .title {
+    font-size: clamp(3rem, 12vw, 4.9rem);
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+  }
+
+  .lead {
+    max-width: 100%;
+    margin-top: 0.95rem;
+    font-size: 0.98rem;
+    line-height: 1.58;
+  }
+
+  .ctaRow {
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    flex: 1 1 100%;
+    width: 100%;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+  }
+
+  .proofStrip {
+    gap: 0.55rem;
+  }
+
+  .proofStrip span {
+    font-size: 0.76rem;
+    padding: 0.62rem 0.8rem;
+  }
+
+  .visualStage {
+    min-height: 64svh;
+    border-radius: 1.35rem;
+  }
+
+  .fgFrame {
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0.9rem;
+  }
+
+  .fgCard {
+    width: min(78%, 18rem);
+    aspect-ratio: 4 / 5.3;
+    border-radius: 1.2rem;
+  }
+
+  .frameStack {
+    left: 0.75rem;
+    bottom: 0.75rem;
+    width: calc(100% - 1.5rem);
+    height: auto;
+  }
+
+  .frameCard {
+    padding: 0.85rem;
+    border-radius: 1.15rem;
+  }
+
+  .frameEyebrow {
+    margin-bottom: 0.55rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+  }
+
+  .frameCard h2 {
+    max-width: 100%;
+    font-size: clamp(1.7rem, 8vw, 2.5rem);
+    line-height: 0.96;
+  }
+
+  .frameCard p {
+    max-width: 100%;
+    margin-top: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .captionStack {
+    width: 10rem;
+    height: 2.9rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .captionPill {
+    padding: 0.72rem 0.8rem;
+  }
+
+  .captionPill span {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+
+  .frameRail {
+    position: static;
+    margin-top: 0.85rem;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 0.55rem;
+    padding: 0 0.2rem 0.35rem;
+    scrollbar-width: none;
+  }
+
+  .frameRail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .framePill {
+    min-width: 7rem;
+    padding: 0.72rem 0.78rem;
+    border-radius: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  .framePillIndex {
+    font-size: 0.58rem;
+  }
+
+  .framePillLabel {
+    font-size: 0.88rem;
+  }
+
+  .visualGlow,
+  .parallaxBack::before,
+  .parallaxFront::before,
+  .parallaxFront::after {
+    transform: scale(0.8);
+    opacity: 0.75;
+  }
+}
+
+/* 640px */
+@media (max-width: 640px) {
+  .heroGrid {
+    padding: 0.65rem;
+    gap: 0.85rem;
+  }
+
+  .copyRail {
+    padding: 0.8rem 0.2rem 0;
+  }
+
+  .title {
+    font-size: clamp(2.7rem, 11vw, 4.3rem);
+    line-height: 0.94;
+  }
+
+  .lead {
+    font-size: 0.94rem;
+  }
+
+  .proofStrip span {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .visualStage {
+    min-height: 60svh;
+    border-radius: 1.2rem;
+  }
+
+  .fgCard {
+    width: min(82%, 16.5rem);
+  }
+
+  .frameCard h2 {
+    font-size: clamp(1.5rem, 7.4vw, 2.2rem);
+  }
+
+  .frameCard p {
+    font-size: 0.86rem;
+  }
+
+  .captionStack {
+    width: 9rem;
+    height: 2.7rem;
+  }
+
+  .captionPill span {
+    font-size: 0.68rem;
+  }
+}
+
+/* 540px */
+@media (max-width: 540px) {
+  .shell {
+    background:
+      radial-gradient(
+        circle at 10% 15%,
+        rgba(96, 152, 255, 0.1),
+        transparent 24%
+      ),
+      linear-gradient(180deg, #f7f9fc 0%, #edf2f7 100%);
+  }
+
+  .heroGrid {
+    padding: 0.55rem;
+  }
+
+  .eyebrow {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .title {
+    font-size: clamp(2.35rem, 10.5vw, 3.8rem);
+    letter-spacing: -0.05em;
+  }
+
+  .lead {
+    font-size: 0.9rem;
+    line-height: 1.52;
+  }
+
+  .ctaRow {
+    flex-direction: column;
+  }
+
+  .proofStrip {
+    flex-direction: column;
+  }
+
+  .proofStrip span {
+    width: 100%;
+  }
+
+  .visualStage {
+    min-height: 56svh;
+    border-radius: 1rem;
+  }
+
+  .fgFrame {
+    padding: 0.75rem;
+  }
+
+  .fgCard {
+    width: min(86%, 15rem);
+    border-radius: 1rem;
+  }
+
+  .frameStack {
+    left: 0.55rem;
+    bottom: 0.55rem;
+    width: calc(100% - 1.1rem);
+  }
+
+  .frameCard {
+    padding: 0.75rem;
+    border-radius: 1rem;
+  }
+
+  .frameCard h2 {
+    font-size: clamp(1.35rem, 7vw, 2rem);
+  }
+
+  .frameCard p {
+    margin-top: 0.55rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .captionStack {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin-top: 0.6rem;
+  }
+
+  .captionPill {
+    position: relative;
+    min-height: 2.8rem;
+    width: 100%;
+  }
+
+  .frameRail {
+    margin-top: 0.7rem;
+  }
+
+  .framePill {
+    min-width: 6.6rem;
+    padding: 0.66rem 0.72rem;
+  }
+
+  .framePillLabel {
+    font-size: 0.82rem;
+  }
+
+  .visualGlow,
+  .parallaxBack::before,
+  .parallaxFront::before,
+  .parallaxFront::after {
+    display: none;
+  }
+}
+
+/* 480px */
+@media (max-width: 480px) {
+  .heroGrid {
+    padding: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .copyRail {
+    padding-top: 0.6rem;
+  }
+
+  .eyebrow {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.11em;
+  }
+
+  .title {
+    font-size: clamp(2rem, 10vw, 3.2rem);
+    line-height: 0.95;
+  }
+
+  .lead {
+    font-size: 0.86rem;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-height: 2.85rem;
+    padding: 0.78rem 0.9rem;
+    font-size: 0.82rem;
+  }
+
+  .proofStrip span {
+    padding: 0.55rem 0.72rem;
+    font-size: 0.72rem;
+  }
+
+  .visualStage {
+    min-height: 52svh;
+    border-radius: 0.9rem;
+  }
+
+  .fgFrame {
+    padding: 0.65rem;
+  }
+
+  .fgCard {
+    width: min(88%, 13.8rem);
+  }
+
+  .frameCard {
+    padding: 0.68rem;
+  }
+
+  .frameEyebrow {
+    font-size: 0.58rem;
+    margin-bottom: 0.48rem;
+  }
+
+  .frameCard h2 {
+    font-size: clamp(1.15rem, 6.5vw, 1.7rem);
+  }
+
+  .frameCard p {
+    font-size: 0.76rem;
+  }
+
+  .captionPill span {
+    font-size: 0.64rem;
+  }
+
+  .frameRail {
+    gap: 0.45rem;
+  }
+
+  .framePill {
+    min-width: 6rem;
+    padding: 0.58rem 0.64rem;
+    border-radius: 0.82rem;
+  }
+
+  .framePillIndex {
+    font-size: 0.52rem;
+  }
+
+  .framePillLabel {
+    margin-top: 0.18rem;
+    font-size: 0.76rem;
+  }
+}
+
+/* 360px */
+@media (max-width: 360px) {
+  .title {
+    font-size: clamp(1.72rem, 9.6vw, 2.5rem);
+    letter-spacing: -0.04em;
+  }
+
+  .lead {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-height: 2.7rem;
+    font-size: 0.78rem;
+    padding: 0.72rem 0.78rem;
+  }
+
+  .proofStrip span {
+    font-size: 0.68rem;
+    padding: 0.5rem 0.62rem;
+  }
+
+  .visualStage {
+    min-height: 48svh;
+  }
+
+  .fgCard {
+    width: min(90%, 12rem);
+    aspect-ratio: 4 / 5.6;
+  }
+
+  .frameCard {
+    padding: 0.6rem;
+  }
+
+  .frameCard h2 {
+    font-size: clamp(1rem, 6vw, 1.42rem);
+  }
+
+  .frameCard p {
+    font-size: 0.72rem;
+    line-height: 1.34;
+  }
+
+  .frameRail {
+    padding-bottom: 0.25rem;
+  }
+
+  .framePill {
+    min-width: 5.4rem;
+    padding: 0.52rem 0.56rem;
+  }
+
+  .framePillLabel {
+    font-size: 0.7rem;
+  }
+}
+
+/* 280px */
+@media (max-width: 280px) {
+  .heroGrid {
+    padding: 0.4rem;
+  }
+
+  .copyRail {
+    padding-top: 0.45rem;
+  }
+
+  .eyebrow {
+    padding: 0.38rem 0.5rem;
+    font-size: 0.56rem;
+  }
+
+  .title {
+    font-size: 1.45rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .lead {
+    margin-top: 0.7rem;
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .ctaRow {
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-height: 2.45rem;
+    padding: 0.62rem;
+    font-size: 0.7rem;
+    border-radius: 0.8rem;
+  }
+
+  .proofStrip {
+    gap: 0.38rem;
+    margin-top: 0.8rem;
+  }
+
+  .proofStrip span {
+    padding: 0.44rem 0.5rem;
+    font-size: 0.6rem;
+  }
+
+  .visualStage {
+    min-height: 44svh;
+    border-radius: 0.75rem;
+  }
+
+  .fgFrame {
+    padding: 0.5rem;
+  }
+
+  .fgCard {
+    width: min(92%, 9.8rem);
+    border-radius: 0.72rem;
+  }
+
+  .frameStack {
+    left: 0.4rem;
+    bottom: 0.4rem;
+    width: calc(100% - 0.8rem);
+  }
+
+  .frameCard {
+    padding: 0.5rem;
+    border-radius: 0.72rem;
+  }
+
+  .frameEyebrow {
+    font-size: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .frameCard h2 {
+    font-size: 0.92rem;
+  }
+
+  .frameCard p {
+    margin-top: 0.35rem;
+    font-size: 0.64rem;
+  }
+
+  .captionPill {
+    min-height: 2.35rem;
+    padding: 0.5rem;
+  }
+
+  .captionPill span {
+    font-size: 0.56rem;
+    letter-spacing: 0.06em;
+  }
+
+  .framePill {
+    min-width: 4.7rem;
+    padding: 0.42rem 0.46rem;
+    border-radius: 0.7rem;
+  }
+
+  .framePillIndex {
+    font-size: 0.44rem;
+  }
+
+  .framePillLabel {
+    font-size: 0.62rem;
+  }
+}
+
+/* 220px */
+@media (max-width: 220px) {
+  .title {
+    font-size: 1.18rem;
+  }
+
+  .lead {
+    font-size: 0.64rem;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-height: 2.2rem;
+    font-size: 0.62rem;
+    padding: 0.5rem;
+  }
+
+  .proofStrip span {
+    font-size: 0.54rem;
+    padding: 0.35rem 0.4rem;
+  }
+
+  .visualStage {
+    min-height: 38svh;
+  }
+
+  .fgCard {
+    width: 96%;
+    max-width: 8rem;
+  }
+
+  .frameCard h2 {
+    font-size: 0.8rem;
+  }
+
+  .frameCard p {
+    font-size: 0.56rem;
+    line-height: 1.25;
+  }
+
+  .captionPill span {
+    font-size: 0.5rem;
+  }
+
+  .framePill {
+    min-width: 4.15rem;
+    padding: 0.35rem 0.38rem;
+  }
+
+  .framePillLabel {
+    font-size: 0.56rem;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Responsive layer: 1080 / 968 / 768 / 680 / 520 / 480 / 320 / 280
+   --------------------------------------------------------------- */
+@media (max-width: 968px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,14 @@
+# Buyer reviews — one block per review, separated by a line of ---
+# Fields: name, company, country, rating (1-5), date (YYYY-MM-DD), text
+# Keep "text" on a single line.
+#
+# After editing, run:  npm run reviews:upload
+# (needs SANITY_API_TOKEN, NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET in .env.local)
+
+name: John Carter
+company: Carter Foods LLC
+country: United Kingdom
+rating: 5
+date: 2026-06-01
+text: Consistent quality shipment after shipment. Documentation was always ready before the vessel sailed.
+---

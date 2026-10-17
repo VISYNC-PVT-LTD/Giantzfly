@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" fill="none">
+  <defs>
+    <linearGradient id="bb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7BB8E0" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#3a5a8c" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#bb)" d="M421 92c64 38 128 84 142 152 13 67-25 155-83 211-58 55-136 78-210 65-74-14-143-64-168-132-26-69-8-156 41-218 49-61 129-98 199-104 28-3 55 5 79 26Z"/>
+</svg>
