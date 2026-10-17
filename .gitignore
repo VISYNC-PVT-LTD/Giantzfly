@@ -1,0 +1,52 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+.claude
+*.tsbuildinfo
+next-env.d.ts
+                                                 
+AWWWARDS_DESIGN_BIBLE.md                                     
+CLAUDE.md                                                    
+creative-bento-grid-layouts-geometric-shapes-compositions-trendy-ui-frame-template-modern-card-tiles-brutal-shape-pattern-web-comics-grids-vector-set_229548-5106.avif                 
+DEBUG_SMART.txt                                               
+giantzfly-project-docs.html   
+next-dev.log                     
+SKILLS.md
+changes/
+.playwright-mcp/
