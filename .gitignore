@@ -50,3 +50,14 @@ next-dev.log
 SKILLS.md
 changes/
 .playwright-mcp/
+# local working files
+/commitplan.md
+/*.jpg
+/*.jpeg
+/*.png
+/WhatsApp Image*
+
+# certificate originals and identity documents (PAN, TAN, bank letter);
+# only redacted web copies are published
+/public/assets/certificates/*
+!/public/assets/certificates/web/

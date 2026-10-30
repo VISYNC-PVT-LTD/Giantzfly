@@ -3,11 +3,10 @@
    Self-contained: does not touch products.module.css used by other pages. */
 
 .page {
-  --ink: #0f2135;
-  --ink-soft: #55657a;
-  --blue: #1f6fb2;
-  --rule: rgba(15, 33, 53, 0.12);
-  --rule-strong: rgba(15, 33, 53, 0.22);
+  --ink: var(--navy);
+  --ink-soft: var(--text-muted);
+  --rule: var(--border-light);
+  --rule-strong: var(--border-blue);
 }
 
 .top {
@@ -261,7 +260,7 @@
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #eef2f6;
+  background: var(--blue-wash);
 }
 
 .imgCover {
@@ -434,5 +433,53 @@
 @media (prefers-reduced-motion: reduce) {
   .textLink {
     transition: none;
+  }
+}
+
+/* ---- export markets and paperwork ---- */
+.marketTable {
+  display: grid;
+  margin-top: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.marketRow {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.8fr) 1.3fr 1.2fr;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.marketRow + .marketRow {
+  border-top: 1px solid var(--border-light);
+}
+
+.marketRow strong {
+  color: var(--navy);
+  font-weight: 650;
+}
+
+.marketRow[data-head="true"] {
+  background: var(--blue-wash);
+  color: var(--navy);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .marketRow {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+  .marketRow[data-head="true"] {
+    display: none;
   }
 }

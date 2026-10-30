@@ -9,8 +9,6 @@ export const metadata = {
 
 const PHOTO_SUNSET_PORT =
   "https://images.pexels.com/photos/36652827/pexels-photo-36652827.jpeg?auto=compress&cs=tinysrgb&w=2400";
-const PHOTO_FARMERS =
-  "https://images.pexels.com/photos/30320066/pexels-photo-30320066.jpeg?auto=compress&cs=tinysrgb&w=2400";
 const PHOTO_AERIAL_PORT =
   "https://images.pexels.com/photos/35459333/pexels-photo-35459333.jpeg?auto=compress&cs=tinysrgb&w=2400";
 
@@ -136,37 +134,6 @@ export default function VisionPage() {
               eco-friendly business practices.
             </p>
           </div>
-<section className={s.chapterTint}>
-        <img
-          src="/assets/decor/world-routes.svg"
-          alt=""
-          aria-hidden="true"
-          className={s.decorLeft}
-        />
-        <div className={s.shell}>
-          <div className={s.narrow}>
-            <span className={s.kickerDark}>Why it matters</span>
-            <h2 className={s.heading}>A named origin survives a price war.</h2>
-            <p className={s.say}>
-              Anonymous cargo competes on cents. Named cargo competes on trust.
-            </p>
-          </div>
-          <div className={s.counts}>
-            <div className={s.count}>
-              <span className={s.countValue}>4</span>
-              <span className={s.countLabel}>Moves planned</span>
-            </div>
-            <div className={s.count}>
-              <span className={s.countValue}>5</span>
-              <span className={s.countLabel}>Families in scope</span>
-            </div>
-            <div className={s.count}>
-              <span className={s.countValue}>1</span>
-              <span className={s.countLabel}>Standard across all</span>
-            </div>
-          </div>
-        </div>
-      </section>
           <div className={s.narrow}>
             <h3 className={s.subheading}>Partnerships that strengthen India</h3>
             <p className={s.say}>

@@ -21,11 +21,6 @@ export const navItems: NavItem[] = [
         note: "Connecting markets, delivering growth",
       },
       {
-        href: "/about/director",
-        label: "Meet a Director",
-        note: "Leadership across sourcing and shipping",
-      },
-      {
         href: "/about/mission",
         label: "Mission",
         note: "What we commit to on every order",
@@ -41,31 +36,15 @@ export const navItems: NavItem[] = [
     href: "/products",
     label: "Our Products",
     children: [
-      {
-        href: "/products/whole-spices",
-        label: "Whole Spices",
-        note: "19 origin-graded lines",
-      },
-      {
-        href: "/products/powder-spices",
-        label: "Powder Form Spices & Nutritions",
-        note: "Ground, sieved, colour tested",
-      },
-      {
-        href: "/products/vegetables",
-        label: "Fresh Vegetables",
-        note: "Farm-direct, reefer and ventilated",
-      },
-      {
-        href: "/products/dry-fruits",
-        label: "Dry Fruits",
-        note: "Konkan and Nashik origins",
-      },
-      {
-        href: "/products/makhana",
-        label: "Makhana & Others",
-        note: "Bulk and private label",
-      },
+      { href: "/products/whole-spices", label: "Whole Spices", note: "Origin graded and cleaned" },
+      { href: "/products/powder-spices", label: "Powder Spices & Nutritions", note: "Ground, sieved, colour tested" },
+      { href: "/products/vegetables", label: "Fresh Vegetables", note: "Farm direct, ventilated loads" },
+      { href: "/products/dry-fruits", label: "Dry Fruits", note: "Nuts, raisins, figs and kokum" },
+      { href: "/products/makhana", label: "Makhana & Others", note: "Makhana, edamame and chips" },
+      { href: "/products/sprouted-atta", label: "Sprouted Atta", note: "Millets, wheat and pulses" },
+      { href: "/products/dehydrated-fruits", label: "Dehydrated Fruits", note: "Slices and whole berries" },
+      { href: "/products/fruit-powders", label: "Fruit Powders", note: "Amchur, acai, banana and more" },
+      { href: "/products/dehydrated-vegetables", label: "Dehydrated Vegetables", note: "Slices, cuts and shreds" },
     ],
   },
   {

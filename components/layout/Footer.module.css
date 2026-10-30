@@ -1,8 +1,8 @@
 .footer {
   position: relative;
   overflow: hidden;
-  background: #0d192b;
-  color: #fff;
+  background: var(--navy);
+  color: var(--text-inverse);
   padding: 6rem 0 2rem;
 }
 .footer:before {
@@ -38,18 +38,18 @@
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.22em;
-  color: #8e9bae;
+  color: var(--on-dark-soft);
 }
 .tagline {
   font-family: var(--font-montserrat);
   font-size: 1rem;
   font-weight: 700;
-  color: var(--blue-light, #8fb9e6);
+  color: var(--blue-light);
   margin-top: 1.1rem;
 }
 .subline {
   max-width: 320px;
-  color: #8e9bae;
+  color: var(--on-dark-soft);
   font-size: 0.8rem;
   margin-top: 0.7rem;
 }
@@ -64,7 +64,7 @@
   gap: 0.7rem;
 }
 .links h4 {
-  color: #fff;
+  color: var(--text-inverse);
   font-size: 0.67rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -73,31 +73,39 @@
 .links a,
 .links span {
   font-size: 0.76rem;
-  color: #aeb8c7;
+  color: var(--on-dark-muted);
 }
 .links a:hover {
-  color: #fff;
+  color: var(--text-inverse);
   transform: translateX(3px);
 }
 .bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgb(255 255 255 / 0.16);
   padding-top: 1.5rem;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  color: #758398;
+  gap: 0.75rem 1.5rem;
+  color: var(--on-dark-soft);
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+.credit strong {
+  color: var(--text-inverse);
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 .legal {
   display: inline-flex;
   gap: 0.6rem;
 }
 .legal a {
-  color: #758398;
+  color: var(--on-dark-soft);
 }
 .legal a:hover {
-  color: #fff;
+  color: var(--text-inverse);
 }
 @media (max-width: 760px) {
   .top {

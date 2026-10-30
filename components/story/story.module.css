@@ -4,14 +4,12 @@
    width or padding of any section. */
 
 .page {
-  --ink: #0f2135;
-  --ink-soft: #4a5a6e;
-  --navy: #0f2135;
-  --blue: #1f6fb2;
-  --rule: rgba(15, 33, 53, 0.14);
+  --ink: var(--navy);
+  --ink-soft: var(--text-muted);
+  --rule: var(--border-light);
   display: block;
   overflow-x: clip;
-  background: #fff;
+  background: var(--bg-card);
 }
 
 .shell {
@@ -31,7 +29,7 @@
   align-items: flex-end;
   min-height: min(86vh, 760px);
   padding: 7rem 0 0;
-  background-color: #0f2135;
+  background-color: var(--navy);
   background-size: cover;
   background-position: center;
 }
@@ -39,7 +37,7 @@
 
 .panel {
   background: var(--navy);
-  color: #fff;
+  color: var(--text-inverse);
   padding: clamp(2rem, 4vw, 3.4rem);
   max-width: 40rem;
   margin-left: 35rem;
@@ -50,7 +48,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #79b1e2;
+  color: var(--blue-light);
   margin-bottom: 1.3rem;
 }
 
@@ -69,13 +67,13 @@
 
 .displaySoft {
   display: block;
-  color: #8fc0ea;
+  color: var(--blue-light);
   font-weight: 300;
 }
 
 .lede {
   margin: 1.3rem 0 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--on-dark-muted);
   font-size: 1.02rem;
   line-height: 1.55;
 }
@@ -89,7 +87,7 @@
 
 .chapterTint {
   composes: chapter;
-  background: #f4f7fa;
+  background: var(--bg-2);
 }
 
 /* --- decor SVGs from public/assets: absolute, zero layout impact --- */
@@ -189,7 +187,7 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--bg-card);
   border: 2px solid var(--blue);
 }
 
@@ -326,14 +324,14 @@
 }
 
 .statementPhoto {
-  background-color: #16283f;
+  background-color: var(--navy-muted);
   background-size: cover;
   background-position: center;
 }
 
 .quote {
   margin: 0;
-  color: #fff;
+  color: var(--text-inverse);
   font-size: clamp(1.5rem, 3.2vw, 2.6rem);
   line-height: 1.12;
   letter-spacing: -0.03em;
@@ -347,7 +345,7 @@
 
 .quoteBy {
   margin: 1.8rem 0 0;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--on-dark-soft);
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -395,7 +393,7 @@
 
 .closingHeading {
   margin: 0;
-  color: #fff;
+  color: var(--text-inverse);
   font-size: clamp(1.7rem, 3.4vw, 2.7rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -405,7 +403,7 @@
 
 .closingSay {
   margin: 1.1rem 0 0;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--on-dark-muted);
   font-size: 1rem;
   line-height: 1.55;
   max-width: 36rem;
@@ -423,10 +421,10 @@
   align-items: center;
   gap: 0.6rem;
   padding-bottom: 0.4rem;
-  color: #fff;
+  color: var(--text-inverse);
   font-size: 0.97rem;
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+  border-bottom: 1px solid rgb(255 255 255 / 0.42);
   transition:
     gap 0.25s ease,
     border-color 0.25s ease;
@@ -434,7 +432,7 @@
 
 .link:hover {
   gap: 1.1rem;
-  border-color: #fff;
+  border-color: var(--text-inverse);
 }
 
 /* ---------------- responsive: 960 / 720 / 640 / 540 / 480 / 360 / 280 / 160 */

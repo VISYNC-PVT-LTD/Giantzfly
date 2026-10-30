@@ -1,23 +1,23 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ProductCard from "@/components/product/ProductCard";
-import { categories, products } from "@/data/products";
-import { getCategoryMeta } from "@/lib/catalog";
-import type { ProductCategory } from "@/types";
+import { categories, getCategoryMeta, getProductsByCategory } from "@/lib/catalog";
 import styles from "../products.module.css";
 
 export function generateStaticParams() {
   return categories.map((category) => ({ category: category.slug }));
 }
+export const revalidate = 60;
+
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ category: ProductCategory }>;
+  params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
   const meta = getCategoryMeta(category);
   if (!meta) notFound();
-  const items = products.filter((item) => item.category === category);
+  const items = await getProductsByCategory(category);
   const withOrigin = items.filter((item) => item.exportPotential);
   return (
     <>
@@ -45,6 +45,13 @@ export default async function CategoryPage({
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+
+          {items.length === 0 && (
+            <p role="status">
+              No products are currently published in this category.{" "}
+              <Link href="/contact">Ask us about your requirements</Link>.
+            </p>
+          )}
 
           {withOrigin.length > 0 && (
             <div className={styles.originTableWrap}>

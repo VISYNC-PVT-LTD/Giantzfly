@@ -1,52 +1,10 @@
 "use client";
-import { useMemo, useState } from "react";
-import {
-  ArrowUpRight,
-  Mail,
-  MapPin,
-  MessageCircle,
-  PackageSearch,
-} from "lucide-react";
-import { buildWhatsAppURL } from "@/lib/whatsapp";
+import { Mail, MapPin, MessageCircle } from "lucide-react";
+import EnquiryForm from "@/components/sections/EnquiryForm";
+import { useContactSettings } from "@/context/ContactSettingsContext";
 import styles from "./contact.module.css";
-type FormState = {
-  name: string;
-  company: string;
-  country: string;
-  email: string;
-  whatsapp: string;
-  productInterest: string;
-  quantity: string;
-  notes: string;
-};
-const initial: FormState = {
-  name: "",
-  company: "",
-  country: "",
-  email: "",
-  whatsapp: "",
-  productInterest: "",
-  quantity: "",
-  notes: "",
-};
 export default function ContactPage() {
-  const [form, setForm] = useState(initial);
-  const url = useMemo(
-    () =>
-      buildWhatsAppURL(
-        {
-          ...form,
-          notes: `Product: ${form.productInterest}\nQuantity: ${form.quantity || "MOQ discussion"}\n${form.notes}`,
-        },
-        [],
-      ),
-    [form],
-  );
-  const change = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => setForm((v) => ({ ...v, [e.target.name]: e.target.value }));
+  const settings = useContactSettings();
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
@@ -92,82 +50,26 @@ export default function ContactPage() {
                 ))}
               </ol>
               <div className={styles.contactCards}>
-                <a href="mailto:giantzflyexim@gmail.com">
+                <a href={settings.emailHref}>
                   <Mail />
                   <span>Email</span>
-                  <strong>giantzflyexim@gmail.com</strong>
+                  <strong>{settings.contactEmail}</strong>
+                </a>
+                <a href={settings.whatsappHref} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle />
+                  <span>Phone / WhatsApp</span>
+                  <strong>{settings.contactPhone}</strong>
                 </a>
                 <div>
                   <MapPin />
                   <span>Trade base</span>
-                  <strong>Kudal, Sindhudurg, India</strong>
+                  <strong>{settings.origin}</strong>
                 </div>
               </div>
             </aside>
-            <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-              <div className={styles.formHead}>
-                <PackageSearch />
-                <div>
-                  <p className={styles.kicker}>Build your brief</p>
-                  <h2>Trade enquiry</h2>
-                </div>
-              </div>
-              <div className={styles.two}>
-                {[
-                  ["name", "Buyer name", "John Carter"],
-                  ["company", "Company", "Carter Foods LLC"],
-                  ["country", "Destination country", "United Kingdom"],
-                  ["email", "Email", "buyer@company.com"],
-                  ["whatsapp", "WhatsApp", "+44 7XXX XXXXXX"],
-                  ["quantity", "Quantity", "5 MT"],
-                ].map(([name, label, placeholder]) => (
-                  <label key={name} className={styles.field}>
-                    <span>{label}</span>
-                    <input
-                      name={name}
-                      value={form[name as keyof FormState]}
-                      onChange={change}
-                      placeholder={placeholder}
-                    />
-                  </label>
-                ))}
-              </div>
-              <label className={styles.field}>
-                <span>Product interest</span>
-                <select
-                  name="productInterest"
-                  value={form.productInterest}
-                  onChange={change}
-                >
-                  <option value="">Select product or service</option>
-                  <option>Packaging consultancy</option>
-                  <option>Packaging material export</option>
-                  <option>Private label development</option>
-                  <option>Spices</option>
-                  <option>Makhana</option>
-                  <option>Dry fruits</option>
-                </select>
-              </label>
-              <label className={styles.field}>
-                <span>Requirement</span>
-                <textarea
-                  name="notes"
-                  value={form.notes}
-                  onChange={change}
-                  placeholder="Grade, pack format, target shelf life, market or compliance details…"
-                />
-              </label>
-              <a
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.send}
-              >
-                <MessageCircle size={19} />
-                Request a Quotation
-                <ArrowUpRight size={18} />
-              </a>
-            </form>
+            <div className={styles.formWrap}>
+              <EnquiryForm />
+            </div>
           </div>
         </div>
       </section>

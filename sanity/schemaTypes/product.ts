@@ -18,6 +18,7 @@ const product = defineType({
       title: "Name",
       type: "string",
       group: "content",
+      validation: (rule) => rule.required().min(2),
     }),
 
     defineField({
@@ -26,6 +27,10 @@ const product = defineType({
       type: "slug",
       options: { source: "name" },
       group: "content",
+      validation: (rule) => rule.required().custom((slug) =>
+        !slug?.current || /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug.current)
+          ? true : "Use lowercase words separated by hyphens.",
+      ),
     }),
 
     defineField({
@@ -33,6 +38,10 @@ const product = defineType({
       title: "Category",
       type: "string",
       group: "content",
+      validation: (rule) => rule.required().custom((value) =>
+        !value || ["whole-spices", "powder-spices", "vegetables", "dry-fruits", "makhana", "sprouted-atta", "dehydrated-fruits", "fruit-powders", "dehydrated-vegetables"].includes(value)
+          ? true : "Choose a supported product category.",
+      ),
       options: {
         list: [
           { title: "Whole Spices", value: "whole-spices" },
@@ -43,6 +52,10 @@ const product = defineType({
           { title: "Fresh Vegetables", value: "vegetables" },
           { title: "Dry Fruits", value: "dry-fruits" },
           { title: "Makhana & Others", value: "makhana" },
+          { title: "Sprouted Atta", value: "sprouted-atta" },
+          { title: "Dehydrated Fruits", value: "dehydrated-fruits" },
+          { title: "Fruit Powders", value: "fruit-powders" },
+          { title: "Dehydrated Vegetables", value: "dehydrated-vegetables" },
         ],
       },
     }),
@@ -52,6 +65,7 @@ const product = defineType({
       title: "Origin",
       type: "string",
       group: "content",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "productionArea",
@@ -64,6 +78,7 @@ const product = defineType({
       title: "Grade",
       type: "string",
       group: "content",
+      validation: (rule) => rule.required(),
     }),
 
     defineField({
@@ -71,11 +86,22 @@ const product = defineType({
       title: "Short Description",
       type: "text",
       group: "content",
+      validation: (rule) => rule.required().min(10),
     }),
     defineField({
       name: "description",
       title: "Description",
       type: "text",
+      group: "content",
+      validation: (rule) => rule.required().min(20),
+    }),
+
+    defineField({
+      name: "aboutParagraphs",
+      title: "About this product — paragraphs",
+      description: "Optional longer copy. The description is used when this list is empty.",
+      type: "array",
+      of: [{ type: "text", rows: 3, validation: (rule) => rule.required() }],
       group: "content",
     }),
 
@@ -83,16 +109,27 @@ const product = defineType({
       name: "packagingOptions",
       title: "Packaging Options",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "string", validation: (rule) => rule.required() }],
       group: "trade",
+      validation: (rule) => rule.required().min(1).unique(),
     }),
 
-    defineField({ name: "moq", title: "MOQ", type: "string", group: "trade" }),
+    defineField({ name: "moq", title: "MOQ", type: "string", group: "trade", validation: (rule) => rule.required() }),
     defineField({
       name: "moqUnit",
       title: "MOQ Unit",
       type: "string",
       group: "trade",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "moqOptions",
+      title: "MOQ display options",
+      description: "Optional alternatives, including units (for example 500 kg, negotiable).",
+      type: "array",
+      of: [{ type: "string", validation: (rule) => rule.required() }],
+      group: "trade",
+      validation: (rule) => rule.unique(),
     }),
     defineField({
       name: "quantityAvailable",
@@ -151,6 +188,7 @@ const product = defineType({
       title: "Export Potential (1-5)",
       type: "number",
       group: "trade",
+      validation: (rule) => rule.integer().min(1).max(5),
     }),
     defineField({
       name: "valueAddition",
@@ -176,15 +214,16 @@ const product = defineType({
     defineField({
       name: "image",
       title: "Main image (front photo)",
-      description: "Uploaded from public/products/<slug>-main.png",
+      description: "Upload the product's main photograph.",
       type: "image",
       options: { hotspot: true },
       group: "media",
+      validation: (rule) => rule.required().assetRequired(),
     }),
     defineField({
       name: "imageSecondary",
       title: "Second image",
-      description: "Uploaded from public/products/<slug>.png",
+      description: "Optional second product photograph.",
       type: "image",
       options: { hotspot: true },
       group: "media",

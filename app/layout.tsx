@@ -3,38 +3,37 @@ import "./globals.css";
 import { QuoteCartProvider } from "@/context/QuoteCartContext";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Montserrat } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { ContactSettingsProvider } from "@/context/ContactSettingsContext";
+import { getProducts } from "@/lib/catalog";
+import { getSiteSettings } from "@/lib/settings";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-sans",
-  display: "swap",
-});
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: {
-    default: "GiantzFly Exim LLP — Indian Export Catalog",
-    template: "%s | GiantzFly Exim LLP",
+    default: "Giantzfly, Indian Export Catalog",
+    template: "%s | Giantzfly",
   },
   description:
-    "GiantzFly Exim LLP exports Indian spices, dry fruits and makhana to global B2B buyers — farm-direct, lab-certified, export-ready.",
+    "Giantzfly supplies Indian spices, dry fruits and makhana to global B2B buyers.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [products, settings] = await Promise.all([getProducts(), getSiteSettings()]);
   return (
-    <html lang="en" className={cn(montserrat.variable)}>
-      <body className={cn(montserrat.variable, "antialiased")}>
-        <QuoteCartProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </QuoteCartProvider>
+    <html lang="en" className="antialiased">
+      <body className="antialiased">
+        <ContactSettingsProvider settings={settings}>
+          <QuoteCartProvider>
+            <Navbar products={products} />
+            {children}
+            <Footer settings={settings} />
+          </QuoteCartProvider>
+        </ContactSettingsProvider>
       </body>
     </html>
   );

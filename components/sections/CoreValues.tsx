@@ -4,7 +4,7 @@ const VALUES = [
   {
     n: "01",
     title: "Integrity",
-    copy: "We conduct business with honesty, fairness and accountability — building relationships on trust.",
+    copy: "We conduct business with honesty, fairness and accountability, building relationships on trust.",
   },
   {
     n: "02",
@@ -19,7 +19,7 @@ const VALUES = [
   {
     n: "04",
     title: "Transparency",
-    copy: "Open communication and fair pricing — no moving numbers after a quotation is issued.",
+    copy: "Open communication and fair pricing, no moving numbers after a quotation is issued.",
   },
   {
     n: "05",

@@ -5,12 +5,9 @@
    ================================================================== */
 
 .wrap {
-  --ink: #16202e;
-  --muted: #5b6672;
-  --rule: rgba(22, 32, 46, 0.12);
-  --blue: #1f6fb2;
-  --amber: #ff8a3d;
-  --teal: #4fd1c5;
+  --ink: var(--navy);
+  --muted: var(--text-muted);
+  --rule: var(--border-light);
   font-family: var(--font-montserrat);
 }
 
@@ -18,7 +15,7 @@
 .section {
   position: relative;
   padding-block: clamp(3rem, 6vw, 5rem);
-  background: #fff;
+  background: var(--bg-card);
   overflow: clip;
 }
 
@@ -28,10 +25,10 @@
   background:
     radial-gradient(
       80% 60% at 100% 0%,
-      rgba(31, 111, 178, 0.06),
+       rgb(34 101 162 / 0.08),
       transparent 60%
     ),
-    #f6f8fa;
+    var(--bg-2);
   border-block: 1px solid var(--rule);
   overflow: clip;
 }
@@ -73,7 +70,7 @@
   margin-top: 1.25rem;
   font-size: clamp(1.02rem, 0.98rem + 0.35vw, 1.18rem);
   line-height: 1.78;
-  color: #33414f;
+  color: var(--text-muted);
   max-width: 68ch;
 }
 
@@ -91,7 +88,7 @@
   position: relative;
   margin-top: 1.5rem;
   padding-left: 1.4rem;
-  border-left: 3px solid var(--amber);
+  border-left: 3px solid var(--blue);
   font-size: clamp(1.08rem, 1rem + 0.5vw, 1.32rem);
   line-height: 1.7;
   font-weight: 500;
@@ -110,7 +107,7 @@
 .commitments li {
   margin-top: 0.9rem;
   line-height: 1.7;
-  color: #33414f;
+  color: var(--text-muted);
 }
 
 /* ---------------- compact fact row (replaces long lists) ---------------- */
@@ -127,11 +124,11 @@
 
 .fact {
   padding: 1.35rem 1.3rem;
-  background: #fff;
+  background: var(--bg-card);
   transition: background 0.22s ease;
 }
 .fact:hover {
-  background: #eef5fb;
+  background: var(--blue-wash);
 }
 
 .factValue {
@@ -173,7 +170,7 @@
   left: 6%;
   right: 6%;
   height: 2px;
-  background: linear-gradient(90deg, var(--blue), var(--amber), var(--teal));
+  background: linear-gradient(90deg, var(--navy), var(--blue), var(--blue-light));
   border-radius: 2px;
 }
 
@@ -192,7 +189,7 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--bg-card);
   border: 3px solid var(--blue);
   transition:
     background 0.25s ease,
@@ -201,8 +198,8 @@
 }
 
 .node:hover::before {
-  background: var(--amber);
-  border-color: var(--amber);
+  background: var(--blue-light);
+  border-color: var(--blue-light);
   transform: scale(1.25);
 }
 
@@ -212,7 +209,7 @@
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--blue);
 }
 
 .nodeTitle {
@@ -246,7 +243,7 @@
   padding: clamp(1.4rem, 3vw, 2rem);
   border: 1px solid var(--rule);
   border-radius: 14px;
-  background: #fff;
+  background: var(--bg-card);
   overflow: hidden;
   transition:
     transform 0.25s ease,
@@ -258,14 +255,14 @@
   position: absolute;
   inset: 0 auto 0 0;
   width: 3px;
-  background: linear-gradient(180deg, var(--blue), var(--amber));
+  background: linear-gradient(180deg, var(--navy), var(--blue));
   opacity: 0;
   transition: opacity 0.25s ease;
 }
 
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px -22px rgba(22, 32, 46, 0.35);
+  box-shadow: 0 18px 40px -22px rgb(6 38 84 / 0.35);
 }
 .card:hover::before {
   opacity: 1;
@@ -275,7 +272,7 @@
   display: inline-block;
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
-  background: rgba(31, 111, 178, 0.1);
+  background: var(--blue-wash);
   font-size: 0.63rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -310,21 +307,21 @@
   background:
     radial-gradient(
       80% 100% at 100% 0%,
-      rgba(31, 111, 178, 0.35),
+      rgb(34 101 162 / 0.35),
       transparent 60%
     ),
-    #16202e;
-  color: #fff;
+    var(--navy);
+  color: var(--text-inverse);
 }
 .cardDark .cardTag {
-  background: rgba(255, 138, 61, 0.16);
-  color: #ffb073;
+  background: rgb(127 173 224 / 0.18);
+  color: var(--blue-light);
 }
 .cardDark .cardTitle {
-  color: #fff;
+  color: var(--text-inverse);
 }
 .cardDark .cardText {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--on-dark-muted);
 }
 
 /* ---------------- team / director profile cards ---------------- */
@@ -343,7 +340,7 @@
   padding: clamp(1.4rem, 3vw, 2rem);
   border: 1px solid var(--rule);
   border-radius: 16px;
-  background: #fff;
+  background: var(--bg-card);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
@@ -351,7 +348,7 @@
 
 .teamCard:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px -22px rgba(22, 32, 46, 0.35);
+  box-shadow: 0 18px 40px -22px rgb(6 38 84 / 0.35);
 }
 
 .teamPhoto {
@@ -360,7 +357,7 @@
   height: 128px;
   border-radius: 12px;
   overflow: hidden;
-  background: #f0f3f6;
+  background: var(--blue-wash);
   flex-shrink: 0;
 }
 
@@ -411,16 +408,16 @@
 .teamTag {
   padding: 0.22rem 0.55rem;
   border-radius: 999px;
-  background: rgba(31, 111, 178, 0.08);
+  background: var(--blue-wash);
   font-size: 0.68rem;
   font-weight: 600;
-  color: #33414f;
+  color: var(--text-muted);
 }
 
 .teamQuote {
   margin-top: 0.85rem;
   padding-left: 0.85rem;
-  border-left: 2px solid var(--amber);
+  border-left: 2px solid var(--blue);
   font-size: 0.85rem;
   font-style: italic;
   line-height: 1.6;
@@ -487,17 +484,17 @@
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
-  background: #fff;
+  background: var(--bg-card);
   font-size: 0.75rem;
   font-weight: 600;
-  color: #33414f;
+  color: var(--text-muted);
 }
 
 /* ---------------- closing links ---------------- */
 .close {
   padding-block: clamp(2.5rem, 5vw, 4rem);
-  background: #16202e;
-  color: #fff;
+  background: var(--navy);
+  color: var(--text-inverse);
 }
 
 .closeHeading {
@@ -513,7 +510,7 @@
   max-width: 52ch;
   font-size: 0.98rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--on-dark-muted);
 }
 
 .linkRow {
@@ -529,9 +526,9 @@
   gap: 0.45rem;
   font-size: 0.95rem;
   font-weight: 650;
-  color: #ffb073;
+  color: var(--blue-light);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 176, 115, 0.35);
+  border-bottom: 1px solid rgb(127 173 224 / 0.35);
   padding-bottom: 0.2rem;
   transition:
     color 0.22s ease,
@@ -539,8 +536,8 @@
 }
 
 .link:hover {
-  color: #fff;
-  border-color: #fff;
+  color: var(--text-inverse);
+  border-color: var(--text-inverse);
 }
 
 /* ---------------- responsive ---------------- */

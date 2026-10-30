@@ -236,7 +236,7 @@
   margin-top: 0.5rem;
   border: none;
   border-radius: var(--radius-md);
-  background: var(--blue);
+  background: var(--navy);
   color: var(--text-inverse);
   font-size: 0.92rem;
   font-weight: 700;
@@ -245,7 +245,7 @@
 }
 
 .submit:hover {
-  background: var(--navy);
+  background: var(--navy-muted);
 }
 
 .submit:disabled {

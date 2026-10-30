@@ -1,5 +1,6 @@
 export type ProductCategory =
-  "whole-spices" | "powder-spices" | "vegetables" | "dry-fruits" | "makhana";
+  "whole-spices" | "powder-spices" | "vegetables" | "dry-fruits" | "makhana"
+  | "sprouted-atta" | "dehydrated-fruits" | "fruit-powders" | "dehydrated-vegetables";
 
 export interface Product {
   id: string;
@@ -31,6 +32,8 @@ export interface Product {
   exportPotential?: number;
   /** Value addition options offered on this line. */
   valueAddition?: string;
+  /** Display price, e.g. "₹420 / kg". Absent means price on request. */
+  pricePerUnit?: string;
 }
 
 export interface QuoteItem {

@@ -1,21 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { products } from "@/data/products";
+import { getProductBySlug, getRelatedProducts } from "@/lib/catalog";
 import ProductQuoteActions from "@/components/product/ProductQuoteActions";
-import type { Product } from "@/types";
+import QuoteProductLink from "@/components/product/QuoteProductLink";
+import { exportMarkets } from "@/data/export-markets";
 import ProductImageCarousel from "./ProductImageCarousel";
 import styles from "./detail.module.css";
 
 export function generateStaticParams() {
-  return products.map(({ category, slug }) => ({ category, slug }));
+  // Generate new published slugs on demand; additions do not require a rebuild.
+  return [];
 }
 
-function getRelatedProducts(category: string, slug: string) {
-  return products
-    .filter((item) => item.category === category && item.slug !== slug)
-    .slice(0, 3);
-}
+export const revalidate = 60;
+export const dynamicParams = true;
 
 export default async function ProductDetailPage({
   params,
@@ -23,18 +22,24 @@ export default async function ProductDetailPage({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { category, slug } = await params;
-  const product: Product | undefined = products.find(
-    (item) => item.category === category && item.slug === slug,
-  );
+  const product = await getProductBySlug(category, slug);
   if (!product) notFound();
 
-  const relatedProducts = getRelatedProducts(category, slug);
+  const relatedProducts = await getRelatedProducts(category, slug);
 
   const tradeTerms = [
-    { label: "Price", value: "Available on request" },
+    {
+      label: "Price",
+      value: product.pricePerUnit
+        ? `${product.pricePerUnit}. Taxes and transport as applicable.`
+        : "Available on request",
+    },
     { label: "Shipment terms", value: "EXW / FOB / CIF / CFR" },
     { label: "Documentation", value: "COA, COO, phytosanitary on request, Other Documents provided as per request." },
-    { label: "Lead time", value: "Confirmed at order stage" },
+    { label: "Lead time", value: product.leadTime || "Confirmed at order stage" },
+    ...(product.quantityAvailable ? [{ label: "Quantity available", value: product.quantityAvailable }] : []),
+    ...(product.hsCode ? [{ label: "HS code", value: product.hsCode }] : []),
+    ...(product.shelfLife ? [{ label: "Shelf life", value: product.shelfLife }] : []),
   ];
 
   const buyerNotes = [
@@ -62,7 +67,7 @@ export default async function ProductDetailPage({
           <div>
             <div className={styles.head}>
               <span className={styles.eyebrow}>
-                {product.category.replace("-", " ")}
+                {product.category.replaceAll("-", " ")}
               </span>
               <h1 className={styles.title}>{product.name}</h1>
               <p className={styles.shortDesc}>{product.shortDescription}</p>
@@ -75,7 +80,7 @@ export default async function ProductDetailPage({
               </div>
               <div className={styles.fact}>
                 <span className={styles.factLabel}>Grade</span>
-                <span className={styles.factValue}>All Grade Available</span>
+                <span className={styles.factValue}>{product.grade || "On request"}</span>
               </div>
               <div className={styles.fact}>
                 <span className={styles.factLabel}>Minimum order</span>
@@ -140,6 +145,24 @@ export default async function ProductDetailPage({
           </div>
 
           <div className={styles.block}>
+            <h2 className={styles.blockHead}>Export markets and paperwork</h2>
+            <div className={styles.marketTable} role="table" aria-label="Export markets and documents">
+              <div className={styles.marketRow} role="row" data-head="true">
+                <span role="columnheader">Country</span>
+                <span role="columnheader">Why it is easy</span>
+                <span role="columnheader">Documents needed</span>
+              </div>
+              {exportMarkets.map((market) => (
+                <div key={market.country} className={styles.marketRow} role="row">
+                  <strong role="cell">{market.country}</strong>
+                  <span role="cell">{market.whyEasy}</span>
+                  <span role="cell">{market.documents}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.block}>
             <h2 className={styles.blockHead}>Trade enquiry guidance</h2>
             <ul className={styles.list}>
               {buyerNotes.map((note) => (
@@ -149,7 +172,7 @@ export default async function ProductDetailPage({
               ))}
             </ul>
             <p className={styles.body}>
-              Reliable Supply · Flexible Solutions · Buyer-Focused Service
+              Reliable Supply, Flexible Solutions, Buyer-Focused Service
             </p>
           </div>
         </div>
@@ -180,6 +203,7 @@ export default async function ProductDetailPage({
                   <div className={styles.relatedThumb}>
                     <Image
                       src={item.image}
+                      unoptimized={item.image.startsWith("https://cdn.sanity.io/")}
                       alt={item.name}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
@@ -200,9 +224,7 @@ export default async function ProductDetailPage({
                     >
                       View product →
                     </Link>
-                    <Link href="/quote-cart" className={styles.textLink}>
-                      Add to quote →
-                    </Link>
+                    <QuoteProductLink product={item} className={styles.textLink} />
                   </div>
                 </article>
               ))}

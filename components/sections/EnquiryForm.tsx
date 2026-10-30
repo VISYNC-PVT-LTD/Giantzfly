@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useContactSettings } from "@/context/ContactSettingsContext";
 import styles from "./EnquiryForm.module.css";
 
 const CATEGORIES = [
@@ -9,11 +10,15 @@ const CATEGORIES = [
   "Fresh Vegetables",
   "Dry Fruits",
   "Makhana & Others",
+  "Sprouted Atta",
+  "Dehydrated Fruits",
+  "Fruit Powders",
+  "Dehydrated Vegetables",
   "Other / Not Sure",
 ];
 
 const QUANTITIES = [
-  "Trial Order",
+  "Trial Order (from 2 kg)",
   "100–500 kg",
   "500 kg–1 MT",
   "1–5 MT",
@@ -39,16 +44,20 @@ function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
-      const result = reader.result as string;
-      resolve(result.split(",")[1] ?? "");
+      const content = typeof reader.result === "string" ? reader.result.split(",")[1] : "";
+      if (content) resolve(content);
+      else reject(new Error("The attachment could not be read."));
     };
-    reader.onerror = reject;
+    reader.onerror = () => reject(new Error("The attachment could not be read."));
+    reader.onabort = () => reject(new Error("Reading the attachment was cancelled."));
     reader.readAsDataURL(file);
   });
 }
 
 export default function EnquiryForm() {
+  const settings = useContactSettings();
   const [status, setStatus] = useState<Status>("idle");
+  const [sendError, setSendError] = useState("");
   const [fileError, setFileError] = useState("");
   const [form, setForm] = useState({
     name: "",
@@ -84,26 +93,46 @@ export default function EnquiryForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (status === "loading") return;
     setStatus("loading");
+    setSendError("");
 
-    const attachment = file
-      ? { name: file.name, content: await fileToBase64(file) }
-      : null;
+    let sent = false;
+    let readingAttachment = Boolean(file);
+    try {
+      const attachment = file
+        ? { name: file.name, content: await fileToBase64(file) }
+        : null;
+      readingAttachment = false;
 
-    const res = await fetch("/api/enquiry", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, attachment }),
-    });
-    const data = await res.json();
-    setStatus(data.success ? "success" : "error");
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, attachment }),
+      });
+      if (!res.ok) {
+        setSendError(res.status === 400
+          ? "Please check your contact details, required fields and attachment, then try again."
+          : "The enquiry form is temporarily unavailable. Please try again later.");
+        return;
+      }
+      const data: unknown = await res.json();
+      sent = Boolean(data && typeof data === "object" && "success" in data && data.success === true);
+      if (!sent) setSendError("We could not confirm your enquiry was sent. Please try again.");
+    } catch {
+      setSendError(readingAttachment
+        ? "We could not read your attachment. Remove it or choose it again, then retry."
+        : "We could not send your enquiry. Check your connection and try again.");
+    } finally {
+      setStatus(sent ? "success" : "error");
+    }
   }
 
   if (status === "success") {
     return (
       <div className={styles.card}>
         <p className={styles.success}>
-          Enquiry sent — a director will get back to you within 48 hours.
+          Enquiry sent, our team will get back to you within 48 hours.
         </p>
       </div>
     );
@@ -198,7 +227,7 @@ export default function EnquiryForm() {
           <span className={styles.labelText}>Product Name / Specification<span className={styles.req}>*</span></span>
           <input
             required
-            placeholder="Example: Turmeric Fingers – 5% moisture – export grade"
+            placeholder="Example: Turmeric Fingers, 5% moisture, export grade"
             value={form.productSpec}
             onChange={(e) => update("productSpec", e.target.value)}
           />
@@ -287,7 +316,7 @@ export default function EnquiryForm() {
           onChange={onFileChange}
         />
         <span className={styles.hint}>
-          PDF, DOC, DOCX, XLS, XLSX, JPG, PNG — max 10 MB
+          PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, max 10 MB
         </span>
         {fileError && <span className={styles.fileError}>{fileError}</span>}
       </label>
@@ -296,7 +325,10 @@ export default function EnquiryForm() {
         {status === "loading" ? "Sending…" : "Send My Enquiry →"}
       </button>
       {status === "error" && (
-        <p className={styles.error}>Something went wrong. Try again.</p>
+        <p className={styles.error} role="alert">
+          {sendError}{" "}You can also email{" "}
+          <a href={settings.emailHref}>{settings.contactEmail}</a> with your requirements.
+        </p>
       )}
       <p className={styles.privacy}>
         Your information is used only to respond to your business enquiry.{" "}

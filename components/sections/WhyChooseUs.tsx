@@ -19,11 +19,11 @@ const REASONS = [
   },
   {
     title: "Transparent Communication",
-    copy: "Honest pricing and straight answers — no surprises once your order is confirmed.",
+    copy: "Honest pricing and straight answers, no surprises once your order is confirmed.",
   },
   {
     title: "Long-Term Partnerships",
-    copy: "One responsive team, end to end — from product selection and sampling through after-sales support.",
+    copy: "One responsive team, end to end, from product selection and sampling through after-sales support.",
   },
 ];
 

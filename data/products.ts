@@ -1,6 +1,8 @@
 import type { Product } from "@/types";
+import { exportMarketNames } from "./export-markets";
+import { existingPrices, priceListProducts } from "./price-list";
 
-export const products: Product[] = [
+const baseProducts: Product[] = [
   {
     id: "ws-01",
     slug: "turmeric-fingers",
@@ -1184,13 +1186,21 @@ export const products: Product[] = [
 ];
 
 // Add MOQ options: keep original `moq`/`moqUnit` and include the 500Kg negotiable option
-products.forEach((p) => {
+baseProducts.forEach((p) => {
   const original = `${p.moq} ${p.moqUnit}`;
   p.moqOptions = [
     original,
     "500 Kg (negotiable based on product, grade and destination)",
   ];
+  p.exportMarkets = exportMarketNames;
+  p.pricePerUnit = existingPrices[p.slug];
 });
+
+// Raw Banana and Ripe Banana powders on the price list replace the generic banana powder line.
+export const products: Product[] = [
+  ...baseProducts.filter((p) => p.slug !== "banana-powder"),
+  ...priceListProducts,
+];
 
 export const categories = [
   {
@@ -1232,6 +1242,38 @@ export const categories = [
       "Premium makhana sourced from Bihar, carefully processed and export-packed to deliver consistent quality, freshness and purity for international buyers.",
     image: "/assets/categories/makhana.png",
     highlights: ["Plain Makhana", "Flavoured Makhana", "Roasted Foxnuts", "Private Label Packs"],
+  },
+  {
+    slug: "sprouted-atta",
+    name: "Sprouted Atta",
+    description:
+      "Stone-milled flours from sprouted millets, wheat and pulses. Softer taste, easier digestion and supplied by weight from 2 kg, with packs from 50 g.",
+    image: "/assets/categories/sprouted-atta.png",
+    highlights: ["Jowar", "Ragi", "Bajra", "Wheat"],
+  },
+  {
+    slug: "dehydrated-fruits",
+    name: "Dehydrated Fruits",
+    description:
+      "Fruit slices and whole berries dehydrated to hold colour and flavour. Mango, pineapple, kiwi, strawberry, blueberry and more, ready for snacking, tea blends and bakery.",
+    image: "/assets/categories/dehydrated-fruits.png",
+    highlights: ["Alphonso Mango", "Pineapple", "Strawberry", "Blueberry"],
+  },
+  {
+    slug: "fruit-powders",
+    name: "Fruit Powders",
+    description:
+      "Fine fruit powders for beverages, supplements, baby food and bakery, from amchur and banana to acai, blueberry and red dragon.",
+    image: "/assets/categories/fruit-powders.png",
+    highlights: ["Amchur", "Acai Berry", "Blueberry", "Banana"],
+  },
+  {
+    slug: "dehydrated-vegetables",
+    name: "Dehydrated Vegetables",
+    description:
+      "Karela, bhindi, amla, lemon and tomato slices, cuts and shreds, dehydrated for long shelf life and quick rehydration.",
+    image: "/assets/categories/dehydrated-vegetables.png",
+    highlights: ["Karela", "Bhindi", "Amla", "Tomato"],
   },
 ] as const;
 

@@ -63,10 +63,10 @@ export default function MissionPage() {
           </p>
 
           <p className={b.lede}>
-            We strive to provide a comprehensive portfolio of products—including
+            We strive to provide a comprehensive portfolio of products, including
             whole spices, spice powders, nutritional ingredients, fresh
             vegetables, dry fruits, makhana, and value-added agricultural
-            products—supported by innovative packaging solutions that meet the
+            products, supported by innovative packaging solutions that meet the
             evolving needs of global industries. Through our packaging consultancy
             services, packaging material exports, private-label product
             development, and sustainable packaging initiatives, we help businesses

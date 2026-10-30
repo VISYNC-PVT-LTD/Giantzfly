@@ -1,6 +1,6 @@
 .page {
-  --ink: #09172b;
-  --blue: #2b73be;
+  --ink: var(--navy);
+  --blue: #2265a2;
   overflow: clip;
   color: var(--ink);
 }
@@ -21,16 +21,16 @@
   position: relative;
   min-height: 760px;
   padding: 9rem 0 6rem;
-  color: #fff;
+  color: var(--text-inverse);
   display: flex;
   align-items: center;
   overflow: hidden;
   background:
     linear-gradient(
       90deg,
-      rgba(6, 17, 31, 0.96) 0%,
-      rgba(6, 17, 31, 0.78) 53%,
-      rgba(6, 17, 31, 0.28) 100%
+      rgb(6 38 84 / 0.96) 0%,
+      rgb(6 38 84 / 0.78) 53%,
+      rgb(6 38 84 / 0.28) 100%
     ),
     url("https://images.unsplash.com/photo-1607166452427-7e4477079cb9?auto=format&fit=crop&w=2400&q=88")
       center/cover no-repeat;
@@ -51,12 +51,12 @@
 }
 .hero h1 {
   font-size: clamp(4rem, 5.2vw, 6.7rem);
-  color: #fff;
+  color: var(--text-inverse);
   max-width: 850px;
 }
 .hero > .container > p:nth-of-type(2) {
   max-width: 620px;
-  color: #d2dce8;
+  color: var(--blue-light);
   margin-top: 1.7rem;
 }
 .heroArt {
@@ -79,8 +79,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background: #fff;
-  color: #09172b;
+  background: var(--bg-card);
+  color: var(--navy);
   padding: 1rem 1.2rem;
   font-size: 0.82rem;
   font-weight: 750;
@@ -89,7 +89,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #aabbd0;
+  color: var(--blue-light);
 }
 .manifesto,
 .consultancy,
@@ -104,7 +104,7 @@
 }
 .manifesto {
   background:
-    linear-gradient(rgba(244, 247, 249, 0.94), rgba(244, 247, 249, 0.94)),
+    linear-gradient(rgb(236 240 241 / 0.94), rgb(236 240 241 / 0.94)),
     url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2200&q=80")
       center/cover no-repeat;
 }
@@ -120,12 +120,12 @@
 .split > div > p:last-child,
 .exportGrid > div > p {
   max-width: 980px;
-  color: #687386;
+  color: var(--text-muted);
   margin-top: 1.5rem;
 }
 .consultancy {
   background:
-    linear-gradient(90deg, rgba(232, 240, 246, 0.97), rgba(232, 240, 246, 0.9)),
+    linear-gradient(90deg, rgb(127 173 224 / 0.84), rgb(127 173 224 / 0.68)),
     url("https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=2200&q=85")
       center/cover no-repeat;
 }
@@ -142,7 +142,7 @@
   width: 220px;
   height: 170px;
   object-fit: contain;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgb(255 255 255 / 0.7);
   padding: 1rem;
 }
 .consultancyGrid {
@@ -154,15 +154,15 @@
 .consultancyGrid article {
   min-height: 320px;
   padding: 1.2rem;
-  background: rgba(255, 255, 255, 0.91);
-  border: 1px solid rgba(9, 23, 43, 0.16);
+   background: rgb(255 255 255 / 0.91);
+   border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 18px 45px rgba(9, 23, 43, 0.06);
+   box-shadow: var(--shadow-sm);
 }
 .consultancyGrid article > span {
   font-size: 0.65rem;
-  color: #8994a3;
+   color: var(--text-faint);
 }
 .consultancyGrid article > svg {
   margin-top: auto;
@@ -174,15 +174,15 @@
 }
 .consultancyGrid p {
   font-size: 0.74rem;
-  color: #667285;
+   color: var(--text-muted);
   margin-top: 0.65rem;
 }
 .exports {
   background:
-    linear-gradient(90deg, rgba(6, 18, 35, 0.98), rgba(6, 18, 35, 0.72)),
+    linear-gradient(90deg, rgb(6 38 84 / 0.98), rgb(6 38 84 / 0.72)),
     url("https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2200&q=86")
       center/cover no-repeat;
-  color: #fff;
+  color: var(--text-inverse);
 }
 .exportGrid {
   display: grid;
@@ -191,10 +191,10 @@
   align-items: center;
 }
 .exportGrid h2 {
-  color: #fff;
+  color: var(--text-inverse);
 }
 .exportGrid > div > p {
-  color: #c1cedc;
+  color: var(--blue-light);
 }
 .exportGrid a {
   display: inline-flex;
@@ -206,7 +206,7 @@
 .exportArt {
   position: relative;
   min-height: 390px;
-  background: rgba(9, 28, 48, 0.7);
+  background: rgb(6 38 84 / 0.78);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.22);
 }
@@ -221,12 +221,12 @@
   bottom: 1.7rem;
   display: flex;
   gap: 1rem;
-  color: #bad0e8;
+  color: var(--blue-light);
   font-size: 0.76rem;
 }
 .private {
   background:
-    linear-gradient(rgba(248, 244, 235, 0.93), rgba(248, 244, 235, 0.96)),
+    linear-gradient(rgb(245 242 235 / 0.93), rgb(245 242 235 / 0.96)),
     url("https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=2200&q=82")
       center/cover no-repeat;
 }
@@ -234,12 +234,12 @@
   display: grid;
   grid-template-columns: 42px 1fr 20px;
   padding: 1.05rem 0.2rem;
-  border-bottom: 1px solid rgba(9, 23, 43, 0.16);
+  border-bottom: 1px solid var(--border-light);
   align-items: center;
 }
 .checks span {
   font-size: 0.65rem;
-  color: #8d96a2;
+  color: var(--text-faint);
 }
 .checks p {
   font-weight: 650;
@@ -248,7 +248,7 @@
   color: var(--blue);
 }
 .exportSupport {
-  background: #f3f6f8;
+  background: var(--bg-2);
 }
 .supportCard {
   min-height: 520px;
@@ -262,8 +262,8 @@
   background:
     linear-gradient(
       90deg,
-      rgba(219, 234, 247, 0.97),
-      rgba(219, 234, 247, 0.78)
+      rgb(127 173 224 / 0.97),
+      rgb(127 173 224 / 0.78)
     ),
     url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=86")
       center/cover no-repeat;
@@ -280,13 +280,13 @@
 }
 .supportItems span {
   padding: 1.15rem;
-  background: rgba(255, 255, 255, 0.86);
+   background: rgb(255 255 255 / 0.86);
   font-size: 0.78rem;
   font-weight: 700;
 }
 .industries {
   background:
-    linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.96)),
+    linear-gradient(rgb(255 255 255 / 0.92), rgb(255 255 255 / 0.96)),
     url("https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=2200&q=82")
       center/cover no-repeat;
 }
@@ -299,15 +299,15 @@
 .industryGrid article {
   aspect-ratio: 1/1;
   padding: 1.2rem;
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid rgba(9, 23, 43, 0.15);
+   background: rgb(255 255 255 / 0.86);
+   border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 .industryGrid span {
   font-size: 0.65rem;
-  color: #8b95a3;
+   color: var(--text-faint);
 }
 .industryGrid h3 {
   font-size: 1.25rem;
@@ -316,8 +316,8 @@
   background:
     linear-gradient(
       90deg,
-      rgba(233, 240, 244, 0.98),
-      rgba(233, 240, 244, 0.89)
+      rgb(127 173 224 / 0.82),
+      rgb(127 173 224 / 0.64)
     ),
     url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=2200&q=82")
       center/cover no-repeat;
@@ -327,17 +327,17 @@
   gap: 1rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(9, 23, 43, 0.18);
+   border-top: 1px solid var(--border-light);
   max-width: 550px;
-  color: #58687a;
+   color: var(--text-muted);
 }
 .bottom {
   min-height: 680px;
-  color: #fff;
+  color: var(--text-inverse);
   display: flex;
   align-items: center;
   background:
-    linear-gradient(90deg, rgba(8, 25, 45, 0.92), rgba(8, 25, 45, 0.42)),
+    linear-gradient(90deg, rgb(6 38 84 / 0.92), rgb(6 38 84 / 0.42)),
     url("https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=2400&q=88")
       center/cover no-repeat;
 }
@@ -347,12 +347,12 @@
 }
 .bottom h2 {
   font-size: clamp(4rem, 7vw, 8rem);
-  color: #fff;
+  color: var(--text-inverse);
   margin: 1rem 0 2rem;
   max-width: 1050px;
 }
 .bottom .kicker {
-  color: #b9d8f8;
+  color: var(--blue-light);
 }
 @media (max-width: 900px) {
   .consultancyGrid,

@@ -1,12 +1,14 @@
 import s from "@/components/story/story.module.css";
 import b from "@/components/story/brief.module.css";
+import { getSiteSettings } from "@/lib/settings";
 
 export const metadata = {
-  title: "Terms & Conditions | Giantzfly Exim LLP",
-  description: "Terms governing the use of Giantzfly Exim LLP's website and trade services.",
+  title: "Terms & Conditions",
+  description: "Terms governing the use of Giantzfly's website and trade services.",
 };
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const settings = await getSiteSettings();
   return (
     <main className={`${s.page} ${b.wrap}`}>
       <section className={s.chapter}>
@@ -19,7 +21,7 @@ export default function TermsPage() {
           <p className={b.lede}>
             By using this website and submitting an enquiry or quotation
             request, you agree that the information provided is accurate and
-            that Giantzfly Exim LLP may contact you regarding your request.
+            that Giantzfly may contact you regarding your request.
           </p>
           <p className={b.lede}>
             Product availability, pricing, MOQ and lead times shared through
@@ -30,8 +32,8 @@ export default function TermsPage() {
           </p>
           <p className={b.lede}>
             For questions about these terms, contact us at{" "}
-            <a href="mailto:giantzflyexim@gmail.com">
-              giantzflyexim@gmail.com
+            <a href={settings.emailHref}>
+              {settings.contactEmail}
             </a>
             .
           </p>

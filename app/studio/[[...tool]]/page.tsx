@@ -9,11 +9,21 @@
 
 import { NextStudio } from "next-sanity/studio";
 import config from "../../../sanity.config";
-
-export const dynamic = "force-static";
+import { isSanityConfigured } from "@/sanity/env";
+import Link from "next/link";
 
 export { metadata, viewport } from "next-sanity/studio";
 
 export default function StudioPage() {
+  if (!isSanityConfigured) {
+    return (
+      <main className="container section">
+        <h1>Sanity Studio needs configuration</h1>
+        <p>Set NEXT_PUBLIC_SANITY_PROJECT_ID and NEXT_PUBLIC_SANITY_DATASET in your deployment environment, then restart or redeploy.</p>
+        <p>The website is currently using its local catalog and contact defaults.</p>
+        <Link href="/admin" className="btn btn-primary">View setup details</Link>
+      </main>
+    );
+  }
   return <NextStudio config={config} />;
 }

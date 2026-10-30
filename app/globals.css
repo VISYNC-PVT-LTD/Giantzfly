@@ -27,30 +27,36 @@
   --space-24: 6rem;
   --space-32: 8rem;
 
-  --navy: oklch(22% 0.07 255);
-  --navy-muted: oklch(35% 0.08 255);
-  --navy-faint: oklch(50% 0.07 255);
+  /*
+   * Brand palette — rebuilt from the supplied blue reference:
+   * #EAF0F7 canvas, #7FADE0 support, #2265A2 accent, #062654 authority.
+   * Navy is intentionally reserved for actions, strong borders, dark bands,
+   * footer surfaces, and high-value hierarchy. Blue is supporting emphasis.
+   */
+  --navy: #062654;
+  --navy-muted: #0e4075;
+  --navy-faint: #547ba5;
 
-  --blue: oklch(43% 0.13 255);
-  --blue-light: oklch(72% 0.1 240);
-  --blue-dim: oklch(72% 0.1 240 / 0.15);
-  --blue-wash: oklch(72% 0.1 240 / 0.08);
+  --blue: #2265a2;
+  --blue-light: #7fade0;
+  --blue-dim: rgb(34 101 162 / 0.16);
+  --blue-wash: #f3f4f6;
 
-  --bg: oklch(97% 0.005 255);
-  --bg-2: oklch(94% 0.006 255);
-  --bg-card: oklch(99% 0.002 255);
+  --bg: #f7f8fa;
+  --bg-2: #eef0f3;
+  --bg-card: #ffffff;
 
-  --text: oklch(14% 0.04 255);
-  --text-muted: oklch(40% 0.05 255);
-  --text-faint: oklch(62% 0.04 255);
-  --text-inverse: oklch(97% 0.005 255);
+  --text: #062654;
+  --text-muted: #355574;
+  --text-faint: #6a86a2;
+  --text-inverse: #ffffff;
 
-  --border: oklch(0.922 0 0);
-  --border-light: oklch(22% 0.07 255 / 0.06);
-  --border-blue: oklch(72% 0.1 240 / 0.3);
+  --border: #d8dce2;
+  --border-light: rgb(6 38 84 / 0.14);
+  --border-blue: rgb(6 38 84 / 0.34);
 
   /* aliases used by app/components/home/* — brand blue + surface tokens */
-  --saffron: var(--blue);
+  --saffron: var(--navy);
   --ink: var(--text);
   --ink-faint: var(--text-faint);
   --surface-1: var(--bg-card);
@@ -64,54 +70,72 @@
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 3px oklch(22% 0.07 255 / 0.08);
-  --shadow-md: 0 8px 24px oklch(22% 0.07 255 / 0.08);
-  --shadow-lg: 0 16px 48px oklch(22% 0.07 255 / 0.12);
+  --shadow-sm: 0 1px 3px rgb(6 38 84 / 0.1);
+  --shadow-md: 0 8px 24px rgb(6 38 84 / 0.14);
+  --shadow-lg: 0 16px 48px rgb(6 38 84 / 0.2);
 
-  /* ── Typography: Montserrat everywhere, sans-serif only as fallback ── */
-  --font-montserrat:
-    var(--font-sans, "Montserrat"), "Montserrat", ui-sans-serif, system-ui,
-    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: var(--font-montserrat);
-  --font-body: var(--font-montserrat);
-  --font-heading: var(--font-montserrat);
-  --font-serif: var(--font-montserrat);
-  --font-mono: var(--font-montserrat);
+  --on-dark-muted: rgb(255 255 255 / 0.7);
+  --on-dark-soft: rgb(255 255 255 / 0.48);
+
+  /*
+   * Typography follows the supplied brand reference: Lateral Condensed Bold
+   * for headlines, Lateral Standard for supporting copy, and Lateral Expanded
+   * for callouts. The licensed font files were not included in the workspace,
+   * so the stack keeps the intended width and weight character until those
+   * files are supplied. The legacy variable name remains as a compatibility
+   * alias for older components.
+   */
+  --font-lateral-condensed:
+    "Lateral Condensed", "Arial Narrow", "Aptos Narrow", "Roboto Condensed",
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-lateral-standard:
+    "Lateral Standard", Arial, Aptos, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-lateral-expanded:
+    "Lateral Expanded", Arial, Aptos, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-montserrat: var(--font-lateral-standard);
+  --font-display: var(--font-lateral-condensed);
+  --font-body: var(--font-lateral-standard);
+  --font-heading: var(--font-lateral-condensed);
+  --font-serif: var(--font-lateral-standard);
+  --font-mono: var(--font-lateral-standard);
 
   --content-default: 1000px;
   --content-wide: 1800px;
   --nav-height: 72px;
   --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --card: var(--bg-card);
+  --card-foreground: var(--text);
+  --popover: var(--bg-card);
+  --popover-foreground: var(--text);
+  --primary: var(--navy);
+  --primary-foreground: var(--text-inverse);
+  --secondary: var(--blue-light);
+  --secondary-foreground: var(--navy);
+  --accent: var(--bg);
+  --accent-foreground: var(--navy);
   --destructive: oklch(0.577 0.245 27.325);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --input: var(--border);
+  --ring: var(--navy);
+  --chart-1: var(--navy);
+  --chart-2: var(--blue);
+  --chart-3: var(--blue-light);
+  --chart-4: var(--navy-muted);
+  --chart-5: var(--navy-faint);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --sidebar: var(--bg-card);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--navy);
+  --sidebar-primary-foreground: var(--text-inverse);
+  --sidebar-accent: var(--blue-light);
+  --sidebar-accent-foreground: var(--navy);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--navy);
+  --background: var(--bg);
+  --foreground: var(--text);
 
   --deco-blue: url("/assets/decor/blob-blue.svg");
   --deco-navy: url("/assets/decor/blob-navy.svg");
@@ -132,7 +156,15 @@ html {
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-height) + var(--space-8));
+}
+
+/*
+ * Offset for the sticky header applies to hash links only. A root scroll-padding
+ * also pushes focused inputs below the header, so typing in the header search
+ * scrolled the page up on every keystroke.
+ */
+:target {
+  scroll-margin-top: calc(var(--nav-height) + var(--space-8));
 }
 
 body {
@@ -268,8 +300,8 @@ li {
   background: linear-gradient(
     120deg,
     var(--navy) 0%,
-    var(--blue) 55%,
-    var(--blue-light) 100%
+    var(--navy-muted) 70%,
+    var(--blue) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -308,7 +340,7 @@ li {
   position: absolute;
   inset: 0;
   background: url("/assets/hero.webp") center 58% / cover no-repeat;
-  transform: scale(1.01);
+  transform: scale(1);
 }
 
 .page-hero__overlay {
@@ -316,10 +348,10 @@ li {
   inset: 0;
   background: linear-gradient(
     180deg,
-    oklch(18% 0.03 250 / 0.3) 0%,
-    oklch(18% 0.03 250 / 0.24) 24%,
-    oklch(18% 0.03 250 / 0.34) 55%,
-    oklch(18% 0.03 250 / 0.62) 100%
+    rgb(6 38 84 / 0.3) 0%,
+    rgb(6 38 84 / 0.24) 24%,
+    rgb(6 38 84 / 0.38) 55%,
+    rgb(6 38 84 / 0.76) 100%
   );
 }
 
@@ -440,18 +472,18 @@ li {
 
 .btn-primary:hover,
 .btn--primary:hover {
-  background: var(--navy);
+  background: var(--navy-muted);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
   color: var(--navy);
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--navy);
 }
 
 .btn-secondary:hover {
-  border-color: var(--border-blue);
+  border-color: var(--navy);
   background: var(--blue-wash);
 }
 
@@ -463,25 +495,25 @@ li {
 
 .btn--ghost,
 .btn-ghost {
-  color: white;
-  background: var(--color-sky-700);
+  color: var(--text-inverse);
+  background: var(--navy);
   border: 1px solid transparent;
 }
 
 .btn--ghost:hover,
 .btn-ghost:hover {
-  background: var(--bg-2);
+  background: var(--navy-muted);
   transform: translateY(-1px);
 }
 
 .btn--outline {
   color: var(--navy);
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid var(--navy);
 }
 
 .btn--outline:hover {
-  border-color: var(--blue);
+  border-color: var(--navy);
   background: var(--blue-wash);
 }
 
@@ -752,7 +784,7 @@ li {
 .table th {
   color: var(--navy);
   font-weight: 700;
-  background: oklch(98% 0.004 255);
+  background: var(--bg-2);
 }
 
 .table td {
@@ -847,7 +879,7 @@ li {
   font-size: var(--text-sm);
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(0deg, oklch(22% 0.07 255 / 0.78), transparent);
+  background: linear-gradient(0deg, rgb(6 38 84 / 0.86), transparent);
   opacity: 0;
   transform: translateY(8px);
   transition:
@@ -929,7 +961,7 @@ li {
 }
 
 .cta-band .btn-primary {
-  background: var(--blue);
+  background: var(--navy);
 }
 
 .cta-band .btn-primary:hover {
@@ -1238,9 +1270,9 @@ li {
   .page-hero__overlay {
     background: linear-gradient(
       180deg,
-      oklch(18% 0.03 250 / 0.28) 0%,
-      oklch(18% 0.03 250 / 0.18) 50%,
-      oklch(18% 0.03 250 / 0.58) 100%
+      rgb(6 38 84 / 0.3) 0%,
+      rgb(6 38 84 / 0.2) 50%,
+      rgb(6 38 84 / 0.72) 100%
     );
   }
 
@@ -1576,42 +1608,42 @@ li {
    ========================================================================== */
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #041b3d;
+  --foreground: #eaf0f7;
+  --card: #062654;
+  --card-foreground: #eaf0f7;
+  --popover: #062654;
+  --popover-foreground: #eaf0f7;
+  --primary: #7fade0;
+  --primary-foreground: #062654;
+  --secondary: #0e4075;
+  --secondary-foreground: #eaf0f7;
+  --accent: #0e4075;
+  --accent-foreground: #eaf0f7;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: rgb(234 240 247 / 0.16);
+  --input: rgb(234 240 247 / 0.2);
+  --ring: #7fade0;
+  --chart-1: #7fade0;
+  --chart-2: #2265a2;
+  --chart-3: #0e4075;
+  --chart-4: #eaf0f7;
+  --chart-5: #547ba5;
+  --sidebar: #062654;
+  --sidebar-foreground: #eaf0f7;
+  --sidebar-primary: #7fade0;
+  --sidebar-primary-foreground: #062654;
+  --sidebar-accent: #0e4075;
+  --sidebar-accent-foreground: #eaf0f7;
+  --sidebar-border: rgb(234 240 247 / 0.16);
+  --sidebar-ring: #7fade0;
 }
 
 @theme inline {
-  --font-sans: var(--font-montserrat);
-  --font-heading: var(--font-montserrat);
-  --font-serif: var(--font-montserrat);
-  --font-mono: var(--font-montserrat);
+  --font-sans: var(--font-lateral-standard);
+  --font-heading: var(--font-lateral-condensed);
+  --font-serif: var(--font-lateral-standard);
+  --font-mono: var(--font-lateral-standard);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -1795,13 +1827,12 @@ table {
 }
 
 /* ================================================================
-   MONTSERRAT — GLOBAL ENFORCEMENT
-   Every element, pseudo-element and form control inherits Montserrat.
-   sans-serif is only ever reached if Montserrat fails to load.
+   LATERAL TYPOGRAPHY — GLOBAL ENFORCEMENT
+   Standard is the default copy face; condensed is reserved for hierarchy.
    ================================================================ */
 html,
 body {
-  font-family: var(--font-montserrat) !important;
+  font-family: var(--font-body) !important;
 }
 
 *,
@@ -1880,10 +1911,27 @@ aside,
 table,
 form,
 div {
-  font-family: var(--font-montserrat) !important;
+  font-family: var(--font-body) !important;
 }
 
-/* Numeric/monospace contexts keep Montserrat but stay column-aligned */
+/* Headlines use the condensed face shown in the supplied typography reference. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display) !important;
+}
+
+/* Expanded is reserved for short callouts, never paragraphs. */
+.callout,
+.page-hero__eyebrow,
+.metric-number {
+  font-family: var(--font-lateral-expanded) !important;
+}
+
+/* Numeric/data contexts stay column-aligned. */
 code,
 pre,
 kbd,

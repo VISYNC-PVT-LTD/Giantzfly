@@ -140,9 +140,10 @@ export default function ProductImageCarousel({
       >
         <Image
           src={images[active]}
+          unoptimized={images[active]?.startsWith("https://cdn.sanity.io/")}
           alt={`${name} view ${active + 1}`}
           fill
-          priority
+          preload
           sizes="(max-width: 960px) 100vw, 620px"
           className={styles.imgContain}
           style={{
@@ -196,6 +197,7 @@ export default function ProductImageCarousel({
             >
               <Image
                 src={img}
+                unoptimized={img.startsWith("https://cdn.sanity.io/")}
                 alt={`${name} thumbnail ${i + 1}`}
                 fill
                 sizes="80px"

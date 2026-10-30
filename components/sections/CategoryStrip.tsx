@@ -9,6 +9,10 @@ const notes: Record<string, string> = {
   vegetables: "Farm direct, ventilated and reefer loads",
   "dry-fruits": "Konkan, Nashik and Solapur origins",
   makhana: "Bulk, flavoured and private label",
+  "sprouted-atta": "Sprouted millets, wheat and pulses",
+  "dehydrated-fruits": "Slices and whole berries",
+  "fruit-powders": "Fine powders, from 50 g packs",
+  "dehydrated-vegetables": "Slices, cuts and shreds",
 };
 
 export default function CategoryStrip() {
@@ -25,7 +29,7 @@ export default function CategoryStrip() {
           <div>
             <span className={styles.eyebrow}>Our products</span>
             <h2 className={styles.heading}>
-              Five categories, {products.length} export lines.
+              Nine categories, {products.length} export lines.
             </h2>
           </div>
           <Link href="/products" className={styles.headLink}>

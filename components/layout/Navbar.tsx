@@ -6,12 +6,21 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import { useQuoteCart } from "@/context/QuoteCartContext";
 import { navItems } from "./nav-data";
-import { products } from "@/data/products";
+import { searchProducts } from "@/lib/catalog-normalize.mjs";
+import type { Product } from "@/types";
 import styles from "./Navbar.module.css";
 
 const MAX_SUGGESTIONS = 8;
 
-export default function Navbar() {
+// Module scope: Navbar remounts on every route change, so a ref would reset after the first click.
+let logoClicks: number[] = [];
+
+export default function Navbar({ products }: { products: Product[] }) {
+  const pathname = usePathname();
+  return <NavbarContent key={pathname} products={products} />;
+}
+
+function NavbarContent({ products }: { products: Product[] }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -25,16 +34,8 @@ export default function Navbar() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const suggestions = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const list = q
-      ? products.filter(
-          (p) =>
-            p.name.toLowerCase().includes(q) ||
-            p.tags?.some((t) => t.toLowerCase().includes(q)),
-        )
-      : products;
-    return list.slice(0, MAX_SUGGESTIONS);
-  }, [query]);
+    return searchProducts(products, query).slice(0, MAX_SUGGESTIONS);
+  }, [products, query]);
 
   function goToProduct(category: string, slug: string) {
     setSuggestionsOpen(false);
@@ -48,13 +49,6 @@ export default function Navbar() {
     setSuggestionsOpen(false);
     router.push(q ? `/products?search=${encodeURIComponent(q)}` : "/products");
   }
-
-  useEffect(() => {
-    setOpen(false);
-    setOpenMenu(null);
-    setMobileSection(null);
-    setSuggestionsOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -73,8 +67,20 @@ export default function Navbar() {
     return () => {
       document.removeEventListener("keydown", onKey);
       document.removeEventListener("mousedown", onClick);
+      if (closeTimer.current) clearTimeout(closeTimer.current);
     };
   }, []);
+
+  // Five quick logo clicks open the Sanity Studio dashboard.
+  function handleLogoClick(e: React.MouseEvent) {
+    const now = Date.now();
+    logoClicks = [...logoClicks.filter((t) => now - t < 3000), now];
+    if (logoClicks.length >= 5) {
+      logoClicks = [];
+      e.preventDefault();
+      router.push("/studio");
+    }
+  }
 
   function isActive(href: string) {
     if (href === "/") return pathname === "/" || pathname.startsWith("/about");
@@ -94,21 +100,21 @@ export default function Navbar() {
   return (
     <header className={styles.header}>
       <div className={styles.inner} ref={navRef}>
-        <Link href="/" className={styles.logo} aria-label="GiantzFly home">
-          <span className={styles.logoTop}>
-            <img
-              src="/logo.jpeg"
-              alt=""
-              aria-hidden="true"
-              width={953}
-              height={560}
-              className={styles.logoMark}
-            />
+        <Link href="/" className={styles.logo} aria-label="Giantzfly Exim LLP home" onClick={handleLogoClick}>
+          <img
+            src="/logo.jpeg"
+            alt=""
+            aria-hidden="true"
+            width={953}
+            height={560}
+            className={styles.logoMark}
+          />
+          <span className={styles.logoText}>
+            <span className={styles.logoName}>Giantzfly</span>
+            <span className={styles.logoSub}>Exim LLP</span>
           </span>
-                      <span className={styles.logoName}>GiantzFly Exim LLP</span>
-
           <span className={styles.logoDivider} aria-hidden="true" />
-          <span className={styles.logoTagline}>Connecting Global Markets</span>
+          <span className={styles.logoTagline}>Connecting Global Market</span>
         </Link>
 
         <div className={styles.navRight}>
@@ -130,7 +136,7 @@ export default function Navbar() {
               autoComplete="off"
             />
             {suggestionsOpen && (
-              <div className={styles.suggestions} role="listbox">
+              <div className={styles.suggestions} aria-label="Product suggestions">
                 {suggestions.length === 0 ? (
                   <p className={styles.noSuggestions}>No products found.</p>
                 ) : (
@@ -139,7 +145,6 @@ export default function Navbar() {
                       key={p.id}
                       type="button"
                       className={styles.suggestionItem}
-                      role="option"
                       onClick={() => goToProduct(p.category, p.slug)}
                     >
                       <span className={styles.suggestionName}>{p.name}</span>
@@ -199,17 +204,27 @@ export default function Navbar() {
                   className={`${styles.dropdown} ${expanded ? styles.dropdownOpen : ""}`}
                   role="menu"
                   aria-label={item.label}
+                  data-cols={item.children.length > 2 ? 2 : 1}
                 >
+                  <div className={styles.dropdownHead}>
+                    <span>{item.label}</span>
+                  </div>
                   <div className={styles.dropdownGrid}>
-                    {item.children.map((child) => (
+                    {item.children.map((child, i) => (
                       <Link
                         key={child.href}
                         href={child.href}
                         className={styles.dropdownLink}
                         role="menuitem"
                       >
-                        <strong>{child.label}</strong>
-                        <small>{child.note}</small>
+                        <span className={styles.dropdownNum} aria-hidden="true">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className={styles.dropdownText}>
+                          <strong>{child.label}</strong>
+                          <small>{child.note}</small>
+                        </span>
+                        <span className={styles.dropdownArrow} aria-hidden="true" />
                       </Link>
                     ))}
                   </div>

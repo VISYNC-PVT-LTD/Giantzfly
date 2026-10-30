@@ -7,7 +7,7 @@
 
 .imgCover {
   object-fit: contain !important;
-  background: #f6f8fa;
+  background: var(--blue-wash);
 }
 
 .zoomable {

@@ -86,7 +86,7 @@ export default function PackagingPage() {
           </h1>
           <p>
             Consultancy, material exports and private-label product
-            development—connected through one commercial and technical workflow.
+            development, connected through one commercial and technical workflow.
           </p>
           <div className={styles.heroActions}>
             <Link href="/contact">
@@ -168,9 +168,9 @@ export default function PackagingPage() {
               <div>
                 <Boxes />
                 <span>
-                  Flexible · Paper · Rigid
+                  Flexible, Paper, Rigid
                   <br />
-                  Glass · Metal · Sustainable
+                  Glass, Metal, Sustainable
                 </span>
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function PackagingPage() {
             <div>
               <Ship size={36} />
               <p className={styles.kicker}>Export management</p>
-              <h2>Ready after production—not finished at production.</h2>
+              <h2>Ready after production, not finished at production.</h2>
             </div>
             <div className={styles.supportItems}>
               {[
@@ -256,7 +256,7 @@ export default function PackagingPage() {
                 <Leaf />
                 <p>
                   Sustainable formats considered against actual barrier,
-                  shelf-life and supply constraints—not as decoration.
+                  shelf-life and supply constraints, not as decoration.
                 </p>
               </div>
             </div>

@@ -181,6 +181,7 @@ flex-direction: column;
 /* ---------------- right column: full enquiry form ---------------- */
 .panel {
   min-width: 0;
+  width: 100%;
 }
 
 /* ---------------- direct contact pills ---------------- */

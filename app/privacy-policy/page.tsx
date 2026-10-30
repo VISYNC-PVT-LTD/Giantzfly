@@ -1,12 +1,14 @@
 import s from "@/components/story/story.module.css";
 import b from "@/components/story/brief.module.css";
+import { getSiteSettings } from "@/lib/settings";
 
 export const metadata = {
-  title: "Privacy Policy | Giantzfly Exim LLP",
-  description: "How Giantzfly Exim LLP collects, uses and protects your information.",
+  title: "Privacy Policy",
+  description: "How Giantzfly collects, uses and protects your information.",
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const settings = await getSiteSettings();
   return (
     <main className={`${s.page} ${b.wrap}`}>
       <section className={s.chapter}>
@@ -17,9 +19,9 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <p className={b.lede}>
-            Giantzfly Exim LLP collects the information you submit through our
-            enquiry, quotation and trade-update forms — including your name,
-            company, contact details, and product requirements — solely to
+            Giantzfly collects the information you submit through our
+            enquiry, quotation and trade-update forms, including your name,
+            company, contact details, and product requirements, solely to
             respond to your business enquiry and provide the services you
             request.
           </p>
@@ -28,8 +30,8 @@ export default function PrivacyPolicyPage() {
             outside of what is required to fulfil an export order (such as
             logistics, customs and compliance partners). You may request
             deletion of your information at any time by contacting us at{" "}
-            <a href="mailto:giantzflyexim@gmail.com">
-              giantzflyexim@gmail.com
+            <a href={settings.emailHref}>
+              {settings.contactEmail}
             </a>
             .
           </p>

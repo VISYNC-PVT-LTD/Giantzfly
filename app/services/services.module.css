@@ -7,8 +7,8 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: clamp(3.25rem, 8vw, 6rem);
-  color: #fff;
-  background: #10213a;
+  color: var(--text-inverse);
+  background: var(--navy);
 }
 
 .heroBg {
@@ -25,9 +25,9 @@
   z-index: -1;
   background: linear-gradient(
     100deg,
-    rgba(8, 18, 32, 0.9) 0%,
-    rgba(8, 18, 32, 0.6) 55%,
-    rgba(8, 18, 32, 0.3) 100%
+    rgb(6 38 84 / 0.9) 0%,
+    rgb(6 38 84 / 0.6) 55%,
+    rgb(6 38 84 / 0.3) 100%
   );
 }
 
@@ -105,7 +105,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--blue, #1f6fb2);
+  color: var(--blue);
 }
 
 .sectionHead {
@@ -136,9 +136,9 @@
   display: grid;
   gap: 0.5rem;
   padding: clamp(1.2rem, 2.2vw, 1.75rem);
-  border: 1px solid var(--border-light, #e6eaee);
+  border: 1px solid var(--border-light);
   border-radius: 14px;
-  background: #fff;
+  background: var(--bg-card);
   text-decoration: none;
   color: inherit;
   transition:
@@ -148,7 +148,7 @@
 
 .serviceCard:hover {
   transform: translateY(-3px);
-  border-color: var(--blue, #1f6fb2);
+  border-color: var(--blue);
 }
 
 .serviceCard::after {
@@ -159,7 +159,7 @@
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: var(--blue-wash, #eef5fb);
+  background: var(--blue-wash);
   z-index: 0;
 }
 
@@ -172,7 +172,7 @@
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--blue, #1f6fb2);
+  color: var(--blue);
 }
 
 .serviceCard h3 {
@@ -192,7 +192,7 @@
   gap: 0.35rem;
   font-size: 0.78rem;
   font-weight: 650;
-  color: var(--blue, #1f6fb2);
+  color: var(--blue);
 }
 
 /* Offer grid ------------------------------------------------------------- */
@@ -206,9 +206,9 @@
 
 .offer {
   padding: 1.1rem 1.2rem;
-  border: 1px solid var(--border-light, #e9edf1);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
-  background: #fff;
+  background: var(--bg-card);
 }
 
 .offer h3 {
@@ -237,7 +237,7 @@
   position: relative;
   padding: 0.75rem 0.9rem 0.75rem 2.1rem;
   border-radius: 10px;
-  background: var(--blue-wash, #f4f8fc);
+  background: var(--blue-wash);
   font-size: 0.85rem;
 }
 
@@ -249,7 +249,7 @@
   width: 8px;
   height: 8px;
   border-radius: 2px;
-  background: var(--blue, #1f6fb2);
+  background: var(--navy);
 }
 
 /* Band ------------------------------------------------------------------- */
@@ -257,8 +257,8 @@
   position: relative;
   overflow: hidden;
   padding-block: clamp(2.5rem, 5vw, 4rem);
-  color: #fff;
-  background: #10213a;
+  color: var(--text-inverse);
+  background: var(--navy);
 }
 
 .bandDecor {
@@ -295,8 +295,8 @@
   margin-top: 1.4rem;
   padding: 0.75rem 1.2rem;
   border-radius: 999px;
-  background: #fff;
-  color: #10213a;
+  background: var(--bg-card);
+  color: var(--navy);
   font-size: 0.85rem;
   font-weight: 620;
   text-decoration: none;
@@ -311,17 +311,17 @@
 
 .otherLink {
   padding: 1rem 1.1rem;
-  border: 1px solid var(--border-light, #e6eaee);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   font-size: 0.88rem;
   font-weight: 560;
   text-decoration: none;
   color: inherit;
-  background: #fff;
+  background: var(--bg-card);
 }
 
 .otherLink:hover {
-  border-color: var(--blue, #1f6fb2);
+  border-color: var(--blue);
 }
 
 /* ---------------------------------------------------------------

@@ -278,7 +278,7 @@
 /* ---------- open / hover state ---------- */
 .step:hover,
 .stepOpen {
-  background: #eef5fb;
+  background: #f1f2f4;
   transform: translateY(-1px);
   box-shadow: 0 14px 30px rgba(22, 32, 46, 0.08);
 }

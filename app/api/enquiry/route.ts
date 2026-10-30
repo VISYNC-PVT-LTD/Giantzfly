@@ -1,7 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSiteSettings } from "@/lib/settings";
+import { getMailConfig, validateMailFields } from "@/lib/mail-config.mjs";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON request." }, { status: 400 });
+  }
+  const validation = validateMailFields(body,
+    ["name", "company", "email", "whatsapp", "country", "lookingFor", "productSpec", "targetPort"],
+    ["city", "quantity", "packaging", "message"],
+  );
+  if (!validation.ok) {
+    return NextResponse.json({ error: validation.error }, { status: 400 });
+  }
   const {
     name,
     company,
@@ -15,66 +29,57 @@ export async function POST(req: NextRequest) {
     targetPort,
     packaging,
     message,
-    attachment,
-  } = body;
+  } = validation.data;
 
-  if (
-    !name?.trim() ||
-    !company?.trim() ||
-    !email?.trim() ||
-    !whatsapp?.trim() ||
-    !country?.trim() ||
-    !lookingFor?.trim() ||
-    !productSpec?.trim() ||
-    !targetPort?.trim()
-  ) {
+  let attachment: { name: string; content: string } | null = null;
+  const rawAttachment = (body as Record<string, unknown>).attachment;
+  if (rawAttachment !== undefined && rawAttachment !== null) {
+    if (typeof rawAttachment !== "object" || Array.isArray(rawAttachment) ||
+        !("name" in rawAttachment) || typeof rawAttachment.name !== "string" || !rawAttachment.name.trim() ||
+        !("content" in rawAttachment) || typeof rawAttachment.content !== "string" || !rawAttachment.content.trim()) {
+      return NextResponse.json({ error: "Provide a valid attachment name and file content." }, { status: 400 });
+    }
+    attachment = { name: rawAttachment.name.trim(), content: rawAttachment.content.trim() };
+  }
+
+  const mail = getMailConfig(process.env);
+  if (!mail) {
     return NextResponse.json(
-      { error: "Required fields are missing." },
-      { status: 400 },
+      { error: "Email sending is temporarily unavailable. Please contact our team directly." },
+      { status: 503 },
     );
   }
 
-  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: {
-      "api-key": process.env.BREVO_API_KEY!,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      sender: { name: "GiantzFly Exim LLP", email: "giantzflyexim@gmail.com" },
-      to: [{ email: "giantzflyexim@gmail.com", name: "GiantzFly Exim LLP" }],
-      replyTo: { email: email.trim(), name: name.trim() },
-      subject: `New Export Enquiry — ${company.trim()} (${productSpec.trim()})`,
-      htmlContent: buildEmailHtml({
-        name,
-        company,
-        email,
-        whatsapp,
-        country,
-        city,
-        lookingFor,
-        productSpec,
-        quantity,
-        targetPort,
-        packaging,
-        message,
+  try {
+    const settings = await getSiteSettings();
+    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "api-key": mail.apiKey,
+        "Content-Type": "application/json",
+      },
+      signal: AbortSignal.timeout(15000),
+      body: JSON.stringify({
+        sender: { name: "Giantzfly", email: mail.senderEmail },
+        to: [{ email: settings.contactEmail, name: "Giantzfly" }],
+        replyTo: { email, name },
+        subject: `New Export Enquiry — ${company} (${productSpec})`,
+        htmlContent: buildEmailHtml({
+          name, company, email, whatsapp, country, city,
+          lookingFor, productSpec, quantity, targetPort, packaging, message,
+        }),
+        ...(attachment ? { attachment: [attachment] } : {}),
       }),
-      ...(attachment?.content
-        ? { attachment: [{ name: attachment.name, content: attachment.content }] }
-        : {}),
-    }),
-  });
+    });
 
-  if (!res.ok) {
-    const err = await res.json();
-    console.error("Brevo error:", err);
-    return NextResponse.json(
-      { error: "Failed to send enquiry." },
-      { status: 500 },
-    );
+    if (res.ok) return NextResponse.json({ success: true });
+  } catch {
+    // Do not expose or log provider payloads or buyer details.
   }
-
-  return NextResponse.json({ success: true });
+  return NextResponse.json(
+    { error: "We could not send your enquiry. Please try again or contact our team directly." },
+    { status: 502 },
+  );
 }
 
 function escapeHtml(s: string): string {
@@ -144,7 +149,7 @@ function buildEmailHtml(f: {
         </tr>
         <tr>
           <td style="background:#f3f0ec;padding:20px 40px;border-top:1px solid #e0ddd8;">
-            <p style="margin:0;font-size:12px;color:#7a7974;">Submitted via giantzfly.com — Send Your Enquiry form.</p>
+            <p style="margin:0;font-size:12px;color:#7a7974;">Submitted via the Giantzfly website — Send Your Enquiry form.</p>
           </td>
         </tr>
       </table>

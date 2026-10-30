@@ -16,15 +16,28 @@ type QuoteCartContextType = {
 const QuoteCartContext = createContext<QuoteCartContextType | null>(null);
 
 export function QuoteCartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<QuoteItem[]>(() => {
-    if (typeof window === "undefined") return [];
-    const raw = sessionStorage.getItem("giantzfly-quote-cart");
-    return raw ? JSON.parse(raw) : [];
-  });
+  const [items, setItems] = useState<QuoteItem[]>([]);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Read storage after mount so server and first client render match.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("giantzfly-quote-cart");
+      if (raw) setItems(JSON.parse(raw));
+    } catch {
+      /* storage unavailable or corrupt: start with an empty cart */
+    }
+    setHydrated(true);
+  }, []);
 
   useEffect(() => {
-    sessionStorage.setItem("giantzfly-quote-cart", JSON.stringify(items));
-  }, [items]);
+    if (!hydrated) return;
+    try {
+      sessionStorage.setItem("giantzfly-quote-cart", JSON.stringify(items));
+    } catch {
+      /* ignore quota or privacy-mode errors */
+    }
+  }, [items, hydrated]);
 
   const value = useMemo<QuoteCartContextType>(
     () => ({

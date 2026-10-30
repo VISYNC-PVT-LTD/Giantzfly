@@ -15,7 +15,14 @@ interface Review {
 const STAR = "★";
 
 export default async function Reviews() {
-  const reviews: Review[] = await client.fetch(allReviewsQuery);
+  let reviews: Review[] = [];
+  if (client) {
+    try {
+      reviews = await client.fetch(allReviewsQuery, {}, { next: { revalidate: 60 } });
+    } catch {
+      // Missing network access or an unavailable dataset should leave a graceful empty state.
+    }
+  }
 
   return (
     <section className="section">

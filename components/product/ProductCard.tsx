@@ -2,16 +2,13 @@
 
 import Link from "next/link";
 import { useQuoteCart } from "@/context/QuoteCartContext";
+import { categories } from "@/data/products";
 import type { Product } from "@/types";
 import styles from "./ProductCard.module.css";
 
-const categoryArtwork: Record<string, string> = {
-  "whole-spices": "/assets/categories/whole-spices.png",
-  "powder-spices": "/assets/categories/powder-spices.png",
-  vegetables: "/assets/categories/vegetables.png",
-  "dry-fruits": "/assets/categories/dry-fruits.png",
-  makhana: "/assets/categories/makhana.png",
-};
+const categoryArtwork: Record<string, string> = Object.fromEntries(
+  categories.map((category) => [category.slug, category.image]),
+);
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem, hasItem } = useQuoteCart();
@@ -44,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className={styles.body}>
         <div className={styles.meta}>
           <span className={styles.category}>
-            {product.category.replace("-", " ")}
+            {product.category.replaceAll("-", " ")}
           </span>
           <span className={styles.origin}>{product.origin}</span>
         </div>
@@ -53,8 +50,14 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className={styles.detailGrid}>
           <div>
             <span className={styles.label}>Grade</span>
-            <span className={styles.value}>All Grade Available</span>
+            <span className={styles.value}>{product.grade || "On request"}</span>
           </div>
+          {product.pricePerUnit && (
+            <div>
+              <span className={styles.label}>Price</span>
+              <span className={styles.value}>{product.pricePerUnit}</span>
+            </div>
+          )}
           <div>
             <span className={styles.label}>MOQ</span>
             <span className={styles.value}>

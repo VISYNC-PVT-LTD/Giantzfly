@@ -1,23 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, ChangeEvent, SetStateAction } from "react";
+import { useEffect, useMemo, useState, ChangeEvent } from "react";
 import {
   ArrowUpRight,
   Mail,
   MessageCircle,
+  Minus,
   Plus,
   ShoppingCart,
   Trash2,
 } from "lucide-react";
 import { useQuoteCart } from "@/context/QuoteCartContext";
-import QuantityPicker from "@/components/product/QuantityPicker";
-import { buildWhatsAppURL } from "@/lib/whatsapp";
+import { useContactSettings } from "@/context/ContactSettingsContext";
+import { categories } from "@/data/products";
+import { buildEmailURL, buildWhatsAppURL } from "@/lib/whatsapp";
 import type { QuoteRequestItem } from "@/types";
 import styles from "./page.module.css";
 
 type QuoteLine = {
-  productId?: string;
   product: string;
   grade: string;
   packaging: string;
@@ -49,51 +50,45 @@ const initialBuyer: BuyerForm = {
   notes: "",
 };
 
-const tradeRules = [
-  "Use Quote Cart / Trade Enquiry wording only",
-  "Mention quantity in MT or kg where possible",
-  "Include packaging and grade requirements",
-  "Discuss EXW / FOB / CIF during trade confirmation",
+const STEPS = ["Choose products", "Add buyer details", "Send enquiry"];
+
+const TRADE_TIPS = [
+  "Give quantity in kg or MT.",
+  "Name the grade and pack you need.",
+  "Mention destination port and terms (EXW, FOB or CIF).",
+  "Taxes and transport are charged as applicable.",
 ];
 
+/** Reads the numeric rate from a label such as "₹1,380 / kg". */
+function rateOf(label?: string): number | null {
+  if (!label) return null;
+  const match = label.replace(/,/g, "").match(/(\d+(?:\.\d+)?)/);
+  return match ? Number(match[1]) : null;
+}
+
+const inr = (value: number) => `₹${Math.round(value).toLocaleString("en-IN")}`;
+
+const categoryName = (slug: string) =>
+  categories.find((c) => c.slug === slug)?.name ?? slug;
+
 export default function QuoteCartPage() {
-  const { items, removeItem, updateItem } = useQuoteCart();
+  const settings = useContactSettings();
+  const { items, removeItem, updateItem, clearCart } = useQuoteCart();
   const [customLines, setCustomLines] = useState<QuoteLine[]>([]);
   const [buyer, setBuyer] = useState<BuyerForm>(initialBuyer);
 
-  function updateCustomLine(
-    index: number,
-    key: keyof QuoteLine,
-    value: string,
-  ) {
+  // Lift any line below its minimum order (for example 1 kg added from a product page).
+  useEffect(() => {
+    items.forEach((item) => {
+      const min = Number(item.product.moq) || 1;
+      if (item.quantity < min) updateItem(item.product.id, { quantity: min });
+    });
+  }, [items, updateItem]);
+
+  function updateCustomLine(index: number, key: keyof QuoteLine, value: string) {
     setCustomLines((prev) =>
       prev.map((line, i) => (i === index ? { ...line, [key]: value } : line)),
     );
-  }
-
-  function addCustomLine() {
-    setCustomLines((prev) => [...prev, emptyLine()]);
-  }
-
-  function removeCustomLine(index: number) {
-    setCustomLines((prev) => prev.filter((_, i) => i !== index));
-  }
-
-  function removeCartLine(productId: string) {
-    removeItem(productId);
-  }
-
-  function handleQuantityChange(
-    productId: string,
-    currentQuantity: number,
-    nextQuantity: SetStateAction<number>,
-  ) {
-    const quantity =
-      typeof nextQuantity === "number"
-        ? nextQuantity
-        : nextQuantity(currentQuantity);
-
-    updateItem(productId, { quantity });
   }
 
   function updateBuyer(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -101,17 +96,16 @@ export default function QuoteCartPage() {
     setBuyer((prev) => ({ ...prev, [name]: value }));
   }
 
-  const whatsappUrl = useMemo(() => {
+  const enquiryItems = useMemo(() => {
     const cartItems: QuoteRequestItem[] = items.map((item) => ({
       product: {
         name: item.product.name,
-        grade: "All Grade Available",
+        grade: item.product.grade,
         moqUnit: item.product.moqUnit,
       },
       packaging: item.packaging || "To be discussed",
-      quantity: item.quantity
-        ? `${item.quantity} ${item.product.moqUnit}`.trim()
-        : "MOQ discussion",
+      quantity: item.quantity || "MOQ discussion",
+      notes: item.notes,
     }));
 
     const manualItems: QuoteRequestItem[] = customLines
@@ -126,368 +120,366 @@ export default function QuoteCartPage() {
         quantity: line.quantity || "MOQ discussion",
       }));
 
-    return buildWhatsAppURL(buyer, [...cartItems, ...manualItems]);
-  }, [items, customLines, buyer]);
+    return [...cartItems, ...manualItems];
+  }, [items, customLines]);
+
+  const indicative = useMemo(
+    () =>
+      items.reduce((sum, item) => {
+        const rate = rateOf(item.product.pricePerUnit);
+        return rate ? sum + rate * item.quantity : sum;
+      }, 0),
+    [items],
+  );
+
+  const whatsappUrl = buildWhatsAppURL(buyer, enquiryItems, settings);
+  const emailUrl = buildEmailURL(buyer, enquiryItems, settings);
+
+  const buyerReady = Boolean(buyer.name.trim() && buyer.email.trim());
+  const step = enquiryItems.length === 0 ? 0 : buyerReady ? 2 : 1;
+  const canSend = enquiryItems.length > 0;
 
   return (
-    <section className="section">
+    <section className={styles.page}>
       <div className="container">
-        <div className={styles.hero}>
-          <p className="eyebrow">Quote Cart</p>
-          <h1 className={styles.heroTitle}>
-            Build a trade enquiry with the products you want quoted.
-          </h1>
-          <p className={styles.heroText}>
-            Add products, mention grade and packaging, then send the enquiry to
-            GiantzFly by WhatsApp or email. This is a B2B quote flow, not a
-            retail checkout.
-          </p>
-        </div>
+        <header className={styles.hero}>
+          <div>
+            <p className={styles.kicker}>Quote cart</p>
+            <h1 className={styles.heroTitle}>Your trade enquiry</h1>
+            <p className={styles.heroText}>
+              Collect the products you want priced, add your details and send the
+              list to Giantzfly. This is a B2B quotation, not a checkout.
+            </p>
+          </div>
 
-        <div className={styles.pageGrid}>
-          <section className={`card ${styles.quotePanel}`}>
-            <div className={styles.sectionHead}>
-              <div>
-                <p className="eyebrow">Products Requested</p>
-                <h2 className={styles.sectionTitle}>Enquiry lines</h2>
+          <ol className={styles.steps} aria-label="Progress">
+            {STEPS.map((label, i) => (
+              <li
+                key={label}
+                className={`${styles.stepItem} ${i < step ? styles.stepDone : ""} ${
+                  i === step ? styles.stepNow : ""
+                }`}
+                aria-current={i === step ? "step" : undefined}
+              >
+                <span className={styles.stepNum}>{String(i + 1).padStart(2, "0")}</span>
+                <span>{label}</span>
+              </li>
+            ))}
+          </ol>
+        </header>
+
+        <div className={styles.layout}>
+          {/* ---------------- left: lines ---------------- */}
+          <div className={styles.main}>
+            <section className={styles.block} aria-labelledby="cart-lines">
+              <div className={styles.blockHead}>
+                <div>
+                  <h2 id="cart-lines" className={styles.blockTitle}>
+                    Products
+                  </h2>
+                  <p className={styles.blockSub}>
+                    Minimum order 2 kg per product. Minimum pack 50 g.
+                  </p>
+                </div>
+                {items.length > 0 && (
+                  <button type="button" className={styles.textBtn} onClick={clearCart}>
+                    Clear all
+                  </button>
+                )}
               </div>
 
-              <button
-                type="button"
-                className="btn btn--outline"
-                onClick={addCustomLine}
-              >
-                <Plus size={16} />
-                Add Custom Line
-              </button>
-            </div>
-
-            <div className={styles.lineList}>
               {items.length > 0 ? (
-                items.map((item) => (
-                  <div key={item.product.id} className={styles.cartItem}>
-                    <div className={styles.cartItemMeta}>
-                      <p className={styles.cartTitle}>{item.product.name}</p>
-                      <p className={styles.cartSub}>
-                        {item.product.grade} • {item.packaging}
-                      </p>
-                    </div>
+                <ul className={styles.cartList}>
+                  {items.map((item) => {
+                    const { product } = item;
+                    const min = Number(product.moq) || 1;
+                    const rate = rateOf(product.pricePerUnit);
+                    const setQty = (next: number) =>
+                      updateItem(product.id, { quantity: Math.max(min, next) });
+                    return (
+                      <li key={product.id} className={styles.cartItem}>
+                        <img
+                          className={styles.thumb}
+                          src={product.image}
+                          alt=""
+                          width={72}
+                          height={72}
+                        />
 
-                    <div className={styles.cartItemActions}>
-                      <QuantityPicker
-                        value={item.quantity}
-                        onChange={(nextQuantity) =>
-                          handleQuantityChange(
-                            item.product.id,
-                            item.quantity,
-                            nextQuantity,
-                          )
-                        }
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeCartLine(item.product.id)}
-                        className="btn btn--ghost btn--sm"
-                        aria-label={`Remove ${item.product.name}`}
-                      >
-                        <Trash2 size={15} />
-                      </button>
-                    </div>
-                  </div>
-                ))
+                        <div className={styles.itemBody}>
+                          <div className={styles.itemTop}>
+                            <div>
+                              <Link
+                                href={`/products/${product.category}/${product.slug}`}
+                                className={styles.itemName}
+                              >
+                                {product.name}
+                              </Link>
+                              <p className={styles.itemMeta}>
+                                {categoryName(product.category)}
+                                {product.pricePerUnit ? `, ${product.pricePerUnit}` : ""}
+                              </p>
+                            </div>
+                            <button
+                              type="button"
+                              className={styles.iconBtn}
+                              onClick={() => removeItem(product.id)}
+                              aria-label={`Remove ${product.name}`}
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </div>
+
+                          <div className={styles.itemControls}>
+                            <label className={styles.control}>
+                              <span>Packaging</span>
+                              <select
+                                className={styles.input}
+                                value={item.packaging}
+                                onChange={(e) =>
+                                  updateItem(product.id, { packaging: e.target.value })
+                                }
+                              >
+                                {product.packagingOptions.map((opt) => (
+                                  <option key={opt} value={opt}>
+                                    {opt}
+                                  </option>
+                                ))}
+                              </select>
+                            </label>
+
+                            <div className={styles.control}>
+                              <span>Quantity ({product.moqUnit || "units"})</span>
+                              <div className={styles.stepper}>
+                                <button
+                                  type="button"
+                                  onClick={() => setQty(item.quantity - 1)}
+                                  disabled={item.quantity <= min}
+                                  aria-label={`Decrease ${product.name}`}
+                                >
+                                  <Minus size={14} />
+                                </button>
+                                <input
+                                  type="number"
+                                  min={min}
+                                  value={item.quantity}
+                                  onChange={(e) => setQty(Number(e.target.value) || min)}
+                                  aria-label={`${product.name} quantity`}
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => setQty(item.quantity + 1)}
+                                  aria-label={`Increase ${product.name}`}
+                                >
+                                  <Plus size={14} />
+                                </button>
+                              </div>
+                            </div>
+
+                            <div className={`${styles.control} ${styles.lineTotal}`}>
+                              <span>Line value</span>
+                              <strong>{rate ? inr(rate * item.quantity) : "On request"}</strong>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
               ) : (
-                <div className={styles.emptyState}>
-                  <ShoppingCart className={styles.emptyIcon} size={28} />
-                  <p>
-                    Your quote cart is empty. Add products from the catalog.
-                  </p>
-                  <Link href="/products" className="btn btn-primary">
-                    Browse Products
-                  </Link>
+                <div className={styles.empty}>
+                  <span className={styles.emptyIcon}>
+                    <ShoppingCart size={24} />
+                  </span>
+                  <h3>Your cart is empty</h3>
+                  <p>Pick a category to start building your quotation.</p>
+                  <div className={styles.chipRow}>
+                    {categories.map((c) => (
+                      <Link key={c.slug} href={`/products/${c.slug}`} className={styles.chip}>
+                        {c.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
+            </section>
 
-              <div className={styles.manualSection}>
-                <div className={styles.sectionHead}>
-                  <div>
-                    <p className="eyebrow">Custom Enquiry</p>
-                    <p className={styles.sectionSubTitle}>
-                      Add a line manually for custom requests.
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    className="btn btn--outline"
-                    onClick={addCustomLine}
-                  >
-                    Add Custom Line
-                  </button>
+            <section className={styles.block} aria-labelledby="custom-lines">
+              <div className={styles.blockHead}>
+                <div>
+                  <h2 id="custom-lines" className={styles.blockTitle}>
+                    Custom lines
+                  </h2>
+                  <p className={styles.blockSub}>
+                    Need something not in the catalogue? Describe it here.
+                  </p>
                 </div>
+                <button
+                  type="button"
+                  className={styles.outlineBtn}
+                  onClick={() => setCustomLines((prev) => [...prev, emptyLine()])}
+                >
+                  <Plus size={15} />
+                  Add line
+                </button>
+              </div>
 
+              {customLines.length === 0 && (
+                <p className={styles.hint}>No custom lines added.</p>
+              )}
+
+              <div className={styles.customList}>
                 {customLines.map((line, index) => (
-                  <div key={index} className={styles.lineCard}>
-                    <div className={styles.lineCardHead}>
-                      <p className={styles.lineCardTitle}>
-                        Custom line {index + 1}
-                      </p>
+                  <div key={index} className={styles.customCard}>
+                    <div className={styles.customHead}>
+                      <span>Custom line {index + 1}</span>
                       <button
                         type="button"
-                        onClick={() => removeCustomLine(index)}
-                        className="btn btn--ghost btn--sm"
+                        className={styles.iconBtn}
+                        onClick={() =>
+                          setCustomLines((prev) => prev.filter((_, i) => i !== index))
+                        }
                         aria-label={`Remove custom line ${index + 1}`}
                       >
-                        <Trash2 size={15} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
-
-                    <div className={styles.lineGridTop}>
-                      <div className="form-group">
-                        <label
-                          className="form-label"
-                          htmlFor={`product-${index}`}
-                        >
-                          Product
+                    <div className={styles.customGrid}>
+                      {(
+                        [
+                          ["product", "Product", "Cumin seeds"],
+                          ["grade", "Grade", "Bold export grade"],
+                          ["packaging", "Packaging", "25 kg PP bags"],
+                          ["quantity", "Quantity", "5 MT"],
+                        ] as const
+                      ).map(([key, label, placeholder]) => (
+                        <label key={key} className={styles.control}>
+                          <span>{label}</span>
+                          <input
+                            className={styles.input}
+                            value={line[key]}
+                            onChange={(e) => updateCustomLine(index, key, e.target.value)}
+                            placeholder={placeholder}
+                          />
                         </label>
-                        <input
-                          id={`product-${index}`}
-                          className="form-input"
-                          value={line.product}
-                          onChange={(e) =>
-                            updateCustomLine(index, "product", e.target.value)
-                          }
-                          placeholder="Cumin Seeds"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <label
-                          className="form-label"
-                          htmlFor={`grade-${index}`}
-                        >
-                          Grade
-                        </label>
-                        <input
-                          id={`grade-${index}`}
-                          className="form-input"
-                          value={line.grade}
-                          onChange={(e) =>
-                            updateCustomLine(index, "grade", e.target.value)
-                          }
-                          placeholder="Bold Export Grade"
-                        />
-                      </div>
-                    </div>
-
-                    <div className={styles.lineGridBottom}>
-                      <div className="form-group">
-                        <label
-                          className="form-label"
-                          htmlFor={`packaging-${index}`}
-                        >
-                          Packaging
-                        </label>
-                        <input
-                          id={`packaging-${index}`}
-                          className="form-input"
-                          value={line.packaging}
-                          onChange={(e) =>
-                            updateCustomLine(index, "packaging", e.target.value)
-                          }
-                          placeholder="25 kg PP bags"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <label
-                          className="form-label"
-                          htmlFor={`quantity-${index}`}
-                        >
-                          Quantity
-                        </label>
-                        <input
-                          id={`quantity-${index}`}
-                          className="form-input"
-                          value={line.quantity}
-                          onChange={(e) =>
-                            updateCustomLine(index, "quantity", e.target.value)
-                          }
-                          placeholder="5 MT"
-                        />
-                      </div>
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-          </section>
+            </section>
 
-          <aside className={styles.sideRail}>
-            <section className={`card ${styles.buyerPanel}`}>
-              <p className="eyebrow">Buyer Details</p>
+            <section className={styles.tips} aria-label="Before you send">
+              <h2 className={styles.tipsTitle}>Before you send</h2>
+              <ul>
+                {TRADE_TIPS.map((tip) => (
+                  <li key={tip}>{tip}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
 
-              <div className={styles.buyerFields}>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="name">
-                    Buyer Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    className="form-input"
-                    value={buyer.name}
-                    onChange={updateBuyer}
-                    placeholder="John Carter"
-                  />
+          {/* ---------------- right: buyer + send ---------------- */}
+          <aside className={styles.rail}>
+            <section className={styles.summary} aria-labelledby="summary-title">
+              <h2 id="summary-title" className={styles.summaryTitle}>
+                Enquiry summary
+              </h2>
+
+              <dl className={styles.totals}>
+                <div>
+                  <dt>Catalogue lines</dt>
+                  <dd>{items.length}</dd>
                 </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="company">
-                    Company
-                  </label>
-                  <input
-                    id="company"
-                    name="company"
-                    className="form-input"
-                    value={buyer.company}
-                    onChange={updateBuyer}
-                    placeholder="Carter Foods LLC"
-                  />
+                <div>
+                  <dt>Custom lines</dt>
+                  <dd>{customLines.filter((l) => l.product.trim()).length}</dd>
                 </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="country">
-                    Country
-                  </label>
-                  <input
-                    id="country"
-                    name="country"
-                    className="form-input"
-                    value={buyer.country}
-                    onChange={updateBuyer}
-                    placeholder="United Kingdom"
-                  />
+                <div className={styles.totalRow}>
+                  <dt>Indicative value</dt>
+                  <dd>{indicative > 0 ? inr(indicative) : "On request"}</dd>
                 </div>
+              </dl>
+              <p className={styles.fine}>
+                Based on listed per-kg rates. Taxes and transport as applicable. Final
+                pricing is confirmed in the quotation.
+              </p>
 
-                <div className="form-group">
-                  <label className="form-label" htmlFor="email">
-                    Email
+              <div className={styles.buyerGrid}>
+                {(
+                  [
+                    ["name", "Buyer name", "John Carter"],
+                    ["company", "Company", "Carter Foods LLC"],
+                    ["country", "Country", "United Kingdom"],
+                    ["email", "Email", "buyer@company.com"],
+                    ["whatsapp", "WhatsApp", "+44 7XXX XXXXXX"],
+                  ] as const
+                ).map(([name, label, placeholder]) => (
+                  <label key={name} className={styles.control}>
+                    <span>{label}</span>
+                    <input
+                      name={name}
+                      type={name === "email" ? "email" : "text"}
+                      className={styles.input}
+                      value={buyer[name]}
+                      onChange={updateBuyer}
+                      placeholder={placeholder}
+                    />
                   </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    className="form-input"
-                    value={buyer.email}
-                    onChange={updateBuyer}
-                    placeholder="buyer@company.com"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="whatsapp">
-                    WhatsApp
-                  </label>
-                  <input
-                    id="whatsapp"
-                    name="whatsapp"
-                    className="form-input"
-                    value={buyer.whatsapp}
-                    onChange={updateBuyer}
-                    placeholder="+44 7XXX XXXXXX"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="notes">
-                    Notes
-                  </label>
+                ))}
+                <label className={`${styles.control} ${styles.wide}`}>
+                  <span>Notes</span>
                   <textarea
-                    id="notes"
                     name="notes"
-                    className={`form-textarea ${styles.notesField}`}
+                    className={`${styles.input} ${styles.notes}`}
                     value={buyer.notes}
                     onChange={updateBuyer}
-                    placeholder="Mention destination port, certifications, private label, or shipment terms."
+                    placeholder="Destination port, certifications, private label or shipment terms."
                   />
-                </div>
+                </label>
+              </div>
+
+              <div className={styles.sendGroup}>
+                <a
+                  href={canSend ? whatsappUrl : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-disabled={!canSend}
+                  className={`${styles.sendBtn} ${styles.sendPrimary} ${
+                    canSend ? "" : styles.sendOff
+                  }`}
+                >
+                  <MessageCircle size={18} />
+                  Send on WhatsApp
+                </a>
+                <a
+                  href={canSend ? emailUrl : undefined}
+                  aria-disabled={!canSend}
+                  className={`${styles.sendBtn} ${styles.sendSecondary} ${
+                    canSend ? "" : styles.sendOff
+                  }`}
+                >
+                  <Mail size={18} />
+                  Send by email
+                </a>
+                {!canSend && (
+                  <p className={styles.fine}>Add at least one product to send.</p>
+                )}
+              </div>
+
+              <div className={styles.contactRow}>
+                <a href={settings.whatsappHref} target="_blank" rel="noopener noreferrer">
+                  {settings.contactPhone}
+                </a>
+                <a href={settings.emailHref}>{settings.contactEmail}</a>
               </div>
             </section>
+
+            <Link href="/products" className={styles.moreLink}>
+              Browse more products
+              <ArrowUpRight size={16} />
+            </Link>
           </aside>
-          <section className={`card ${styles.ctaPanel} ${styles.full}`}>
-            <p className={`${styles.ctaEyebrow} eyebrow`}>Send Enquiry</p>
-            <h2 className={styles.ctaTitle}>
-              Move this quote request into conversation.
-            </h2>
-            <p className={styles.ctaText}>
-              Use WhatsApp for the fastest handoff, or send your requirement by
-              email for structured procurement communication.
-            </p>
-
-            <div className={styles.actionGroup}>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary btn--lg"
-              >
-                <MessageCircle size={18} />
-                Send via WhatsApp
-              </a>
-
-              <a
-                href="mailto:giantzflyexim@gmail.com?subject=Trade%20Enquiry%20%E2%80%94%20GiantzFly%20Exim%20LLP"
-                className="btn btn-secondary btn--lg"
-              >
-                <Mail size={18} />
-                Send by Email
-              </a>
-
-              <Link href="/products" className="btn btn--outline btn--lg">
-                Browse More Products
-                <ArrowUpRight size={16} />
-              </Link>
-            </div>
-
-            <div className={styles.miniContacts}>
-              <a
-                href="https://wa.me/918879965547"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.miniContactCard}
-              >
-                <span className={styles.miniContactIcon}>
-                  <MessageCircle size={16} />
-                </span>
-                <span>
-                  <strong>WhatsApp</strong>
-                  <em>+91 88799 65547</em>
-                </span>
-              </a>
-              <a
-                href="mailto:giantzflyexim@gmail.com"
-                className={styles.miniContactCard}
-              >
-                <span className={styles.miniContactIcon}>
-                  <Mail size={16} />
-                </span>
-                <span>
-                  <strong>Email</strong>
-                  <em>giantzflyexim@gmail.com</em>
-                </span>
-              </a>
-            </div>
-
-            <hr className={styles.ruleDivider} />
-
-            <ul role="list" className={styles.ruleList}>
-              {tradeRules.map((item) => (
-                <li key={item} className={styles.ruleItem}>
-                  <span aria-hidden="true" className={styles.ruleDot} />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
         </div>
       </div>
     </section>

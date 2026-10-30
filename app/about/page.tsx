@@ -107,7 +107,7 @@ export default function AboutPage() {
 
           <p className={b.lede}>
             At <strong>Giantzfly Exim LLP</strong>, we understand that international
-            trade requires more than competitive pricing—it requires trust,
+            trade requires more than competitive pricing, it requires trust,
             transparency, consistency, and dependable service. Our experienced
             professionals manage every stage of the export process, including
             product selection, quality assurance, customized packaging, logistics
@@ -180,9 +180,6 @@ export default function AboutPage() {
           <div className={b.linkRow}>
             <Link className={b.link} href="/products">
               See the catalogue &rarr;
-            </Link>
-            <Link className={b.link} href="/about/director">
-              Meet a director &rarr;
             </Link>
             <Link className={b.link} href="/contact">
               Send an enquiry &rarr;

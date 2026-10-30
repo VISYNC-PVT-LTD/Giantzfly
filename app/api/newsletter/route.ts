@@ -1,46 +1,56 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSiteSettings, type SiteSettings } from "@/lib/settings";
+import { getMailConfig, validateMailFields } from "@/lib/mail-config.mjs";
 
 export async function POST(req: NextRequest) {
-  const { name, company, email, message } = await req.json();
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON request." }, { status: 400 });
+  }
+  const validation = validateMailFields(body, ["name", "email"], ["company", "message"]);
+  if (!validation.ok) {
+    return NextResponse.json({ error: validation.error }, { status: 400 });
+  }
+  const { name, company, email, message } = validation.data;
 
-  if (!name?.trim() || !email?.trim()) {
+  const mail = getMailConfig(process.env);
+  if (!mail) {
     return NextResponse.json(
-      { error: "Name and email are required." },
-      { status: 400 },
+      { error: "Email sending is temporarily unavailable. Please contact our team directly." },
+      { status: 503 },
     );
   }
 
-  const firstName = name.trim().split(" ")[0];
+  try {
+    const settings = await getSiteSettings();
+    const firstName = name.split(/\s+/)[0];
+    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "api-key": mail.apiKey,
+        "Content-Type": "application/json",
+      },
+      signal: AbortSignal.timeout(15000),
+      body: JSON.stringify({
+        sender: { name: "Giantzfly", email: mail.senderEmail },
+        to: [{ email, name }],
+        replyTo: { email: settings.contactEmail, name: "Giantzfly" },
+        subject: `Welcome to Giantzfly — ${firstName}, you're on our trade list`,
+        htmlContent: buildEmailHtml(firstName, company, message, settings),
+        bcc: [{ email: settings.contactEmail }],
+      }),
+    });
 
-  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: {
-      "api-key": process.env.BREVO_API_KEY!,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      sender: { name: "GiantzFly Exim LLP", email: "giantzflyexim@gmail.com" },
-      to: [{ email: email.trim(), name: name.trim() }],
-      subject: `Welcome to GiantzFly — ${firstName}, you're on our trade list`,
-      htmlContent: buildEmailHtml(
-        firstName,
-        company?.trim() || "",
-        message?.trim() || "",
-      ),
-      bcc: [{ email: "giantzflyexim@gmail.com" }],
-    }),
-  });
-
-  if (!res.ok) {
-    const err = await res.json();
-    console.error("Brevo error:", err);
-    return NextResponse.json(
-      { error: "Failed to send email." },
-      { status: 500 },
-    );
+    if (res.ok) return NextResponse.json({ success: true });
+  } catch {
+    // Do not expose or log provider payloads or subscriber details.
   }
-
-  return NextResponse.json({ success: true });
+  return NextResponse.json(
+    { error: "We could not send your email. Please try again or contact our team directly." },
+    { status: 502 },
+  );
 }
 
 function escapeHtml(s: string): string {
@@ -56,6 +66,7 @@ function buildEmailHtml(
   firstName: string,
   company: string,
   sourcing: string,
+  settings: SiteSettings,
 ): string {
   firstName = escapeHtml(firstName);
   company = escapeHtml(company);
@@ -89,7 +100,7 @@ function buildEmailHtml(
         <tr>
           <td style="background:#0f2341;padding:32px 40px;">
             <p style="margin:0;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#7db9e8;font-weight:700;">B2B Export Catalog</p>
-            <h1 style="margin:8px 0 0;font-size:26px;font-weight:700;color:#ffffff;">GiantzFly Exim LLP</h1>
+            <h1 style="margin:8px 0 0;font-size:26px;font-weight:700;color:#ffffff;">Giantzfly</h1>
             <p style="margin:6px 0 0;font-size:13px;color:#a8c4dc;">From Indian Origins to Global Markets.</p>
           </td>
         </tr>
@@ -97,7 +108,7 @@ function buildEmailHtml(
           <td style="padding:40px 40px 32px;">
             <p style="margin:0 0 8px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#006494;font-weight:700;">Welcome aboard</p>
             <h2 style="margin:0 0 20px;font-size:22px;color:#0f2341;font-weight:700;">Thank you, ${firstName}.</h2>
-            <p style="margin:0 0 16px;font-size:15px;color:#4a4845;line-height:1.7;">You are now connected with GiantzFly Exim LLP — a B2B export company supplying Indian spices, makhana, and dry fruits to importers, distributors, and sourcing teams worldwide.</p>
+            <p style="margin:0 0 16px;font-size:15px;color:#4a4845;line-height:1.7;">You are now connected with Giantzfly — a B2B export company supplying Indian spices, makhana, and dry fruits to importers, distributors, and sourcing teams worldwide.</p>
             <p style="margin:0 0 28px;font-size:15px;color:#4a4845;line-height:1.7;">We share trade updates, new catalog additions, origin sourcing notes, and market availability — no retail noise, only trade-relevant information.</p>
             ${detailsBlock}
             <hr style="border:none;border-top:1px solid #e8e5e0;margin:0 0 28px;" />
@@ -123,8 +134,8 @@ function buildEmailHtml(
         </tr>
         <tr>
           <td style="background:#f3f0ec;padding:24px 40px;border-top:1px solid #e0ddd8;">
-            <p style="margin:0 0 4px;font-size:12px;color:#7a7974;">GiantzFly Exim LLP · Sindhudurg, Kudal, India</p>
-            <p style="margin:0;font-size:12px;color:#bab9b4;">FSSAI · APEDA · Spices Board India · ISO 22000</p>
+            <p style="margin:0 0 4px;font-size:12px;color:#7a7974;">Giantzfly · ${escapeHtml(settings.origin)}</p>
+            <p style="margin:0;font-size:12px;color:#7a7974;"><a href="${escapeHtml(settings.emailHref)}">${escapeHtml(settings.contactEmail)}</a></p>
             <p style="margin:10px 0 0;font-size:11px;color:#bab9b4;">You received this because you subscribed at giantzfly.com.</p>
           </td>
         </tr>

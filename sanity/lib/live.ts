@@ -4,6 +4,7 @@
 import { defineLive } from "next-sanity/live";
 import { client } from './client'
 
-export const { sanityFetch, SanityLive } = defineLive({
-  client,
-});
+const live = client ? defineLive({ client }) : null;
+
+export const sanityFetch = live?.sanityFetch;
+export const SanityLive = live?.SanityLive ?? (() => null);

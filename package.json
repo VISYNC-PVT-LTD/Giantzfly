@@ -12,7 +12,8 @@
     "products:delete:assets": "node scripts/delete-products.mjs --assets",
     "products:import": "node scripts/import-products.mjs",
     "products:reset": "node scripts/delete-products.mjs --assets && node scripts/import-products.mjs",
-    "reviews:upload": "node scripts/upload-reviews.mjs"
+    "reviews:upload": "node scripts/upload-reviews.mjs",
+    "sanity:sync": "tsx scripts/sync-sanity.mjs"
   },
   "dependencies": {
     "@sanity/vision": "^6.5.0",

@@ -4,15 +4,15 @@ import styles from "./AboutUs.module.css";
 const POINTS = [
   {
     title: "Who We Are",
-    copy: "Giantzfly Exim LLP was established to build a professionally managed Indian export business — delivering quality products and dependable international trade solutions to buyers worldwide.",
+    copy: "Giantzfly Exim LLP was established to build a professionally managed Indian export business, delivering quality products and dependable international trade solutions to buyers worldwide.",
   },
   {
     title: "What We Do",
-    copy: "We source, process, package and export agricultural produce, spices, dry fruits, makhana, and herbal & wellness products — plus private-label and packaging development for export-ready brands.",
+    copy: "We source, process, package and export agricultural produce, spices, dry fruits, makhana, and herbal & wellness products, plus private-label and packaging development for export-ready brands.",
   },
   {
     title: "Our Business Approach",
-    copy: "Reliable sourcing, quality control, responsible packaging, competitive pricing and efficient supply-chain coordination — built into dependable solutions for international buyers.",
+    copy: "Reliable sourcing, quality control, responsible packaging, competitive pricing and efficient supply-chain coordination, built into dependable solutions for international buyers.",
   },
   {
     title: "From India to the World",
