@@ -28,8 +28,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 1.75rem);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 .document {
@@ -54,7 +54,7 @@
 
 .image {
   object-fit: contain;
-  padding: 0.75rem;
+  padding: 0.5rem;
   background: var(--bg-card);
 }
 
@@ -71,8 +71,8 @@
 }
 
 .caption {
-  margin-top: 0.85rem;
-  font-size: 0.95rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.5;
   overflow-wrap: anywhere;
@@ -80,16 +80,28 @@
 
 @media (max-width: 968px) {
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid {
-    grid-template-columns: 1fr;
-    max-width: 22rem;
-    margin-inline: auto;
-    gap: 1.75rem;
+    gap: 0.6rem;
+  }
+
+  .image {
+    padding: 0.3rem;
+  }
+
+  .caption {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  /* Cards are too narrow for the label chip; the whole card is the tap target. */
+  .enlarge {
+    display: none;
   }
 }
 

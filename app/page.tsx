@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowUpRight, Globe2 } from "lucide-react";
 
 
 import Certifications from "@/components/sections/Certifications";
@@ -8,30 +10,40 @@ import HomeAccordion from "@/components/sections/HomeAccordion";
 import FinalCTA from "@/components/sections/FinalCTA";
 import Reviews from "@/components/sections/Reviews";
 import { getPublicCertificates } from "@/lib/certificates";
+import styles from "./home.module.css";
 
 export default async function HomePage() {
   const certificates = await getPublicCertificates();
 
   return (
     <>
-      <section className="page-hero page-hero--image">
-        <div className="page-hero__media" aria-hidden="true">
-          <div className="page-hero__bg" />
-          <div className="page-hero__overlay" />
+      <section className={styles.hero}>
+        <div className={styles.heroMedia} aria-hidden="true">
+          <img src="/assets/hero.webp" alt="" fetchPriority="high" />
         </div>
-        <div className="container page-hero__shell">
-          <div className="page-hero__content">
-            <span className="eyebrow page-hero__eyebrow">B2B Export Catalog, India</span>
-            <h1 className="page-hero__title">
-              From Indian Origins{" "}
-              <br />
-              to Global Markets.
+        <div className={`container ${styles.heroGrid}`}>
+          <div className={styles.heroCopy}>
+            <p className={styles.heroEyebrow}>
+              <Globe2 size={15} strokeWidth={2} aria-hidden="true" />
+              B2B Export Catalog, India
+            </p>
+            <h1 className={styles.heroTitle}>
+              <span>From Indian Origins</span>
+              <span className={styles.heroAccent}>to Global Markets.</span>
             </h1>
-            <p className="page-hero__text">
+            <p className={styles.heroText}>
               Farm-direct. Lab-certified. Export-ready for your shelf. We supply
               Indian spices, makhana, and dry fruits to importers, distributors,
               supermarket buyers, and sourcing teams.
             </p>
+            <div className={styles.heroActions}>
+              <Link href="/products" className={styles.heroPrimary}>
+                Explore Catalog <ArrowUpRight size={18} strokeWidth={2} />
+              </Link>
+              <Link href="/contact" className={styles.heroSecondary}>
+                Request a Quote
+              </Link>
+            </div>
           </div>
         </div>
       </section>

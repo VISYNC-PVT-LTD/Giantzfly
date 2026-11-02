@@ -20,6 +20,10 @@ type Row = {
   form?: string;
   image?: string;
   badge?: string;
+  /** Major production area in India. */
+  area: string;
+  /** Fixed id, for rows moved between groups. */
+  id?: string;
 };
 
 type Group = {
@@ -57,15 +61,15 @@ const groups: Group[] = [
     tags: ["sprouted atta", "sprouted flour", "wholegrain"],
     packagingOptions: PACKS,
     rows: [
-      { name: "Sprouted Jowar Atta", price: 420 },
-      { name: "Sprouted Ragi Atta", price: 460 },
-      { name: "Sprouted Rajgira Atta", price: 540 },
-      { name: "Sprouted Bajra Atta", price: 380 },
-      { name: "Sprouted Wheat Atta", price: 220 },
-      { name: "Sprouted Chickpea Atta", price: 510 },
-      { name: "Sprouted Moong Atta", price: 510 },
-      { name: "Sprouted Masoor Atta", price: 440 },
-      { name: "Sprouted Matki Atta", price: 510 },
+      { name: "Sprouted Jowar Atta", price: 420, area: "Solapur & Ahmednagar, Maharashtra" },
+      { name: "Sprouted Ragi Atta", price: 460, area: "Karnataka & Nashik, Maharashtra" },
+      { name: "Sprouted Rajgira Atta", price: 540, area: "Gujarat & Rajasthan" },
+      { name: "Sprouted Bajra Atta", price: 380, area: "Rajasthan & Maharashtra" },
+      { name: "Sprouted Wheat Atta", price: 220, area: "Madhya Pradesh & Punjab" },
+      { name: "Sprouted Chickpea Atta", price: 510, area: "Madhya Pradesh & Maharashtra" },
+      { name: "Sprouted Moong Atta", price: 510, area: "Rajasthan & Maharashtra" },
+      { name: "Sprouted Masoor Atta", price: 440, area: "Madhya Pradesh & Uttar Pradesh" },
+      { name: "Sprouted Matki Atta", price: 510, area: "Rajasthan & Maharashtra" },
     ],
   },
   {
@@ -77,16 +81,16 @@ const groups: Group[] = [
     tags: ["dehydrated fruit", "dried fruit"],
     packagingOptions: PACKS,
     rows: [
-      { name: "Orange Slices", price: 1380, form: "Slices" },
-      { name: "Apple Slices", price: 2250, form: "Slices" },
-      { name: "Pineapple Slices", price: 2400, form: "Slices" },
-      { name: "Alphonso Mango Slices", price: 2800, form: "Slices" },
-      { name: "Strawberry Slices", price: 3600, form: "Slices" },
-      { name: "Golden Kiwi Slices", price: 2250, form: "Slices" },
-      { name: "Chikoo Slices", price: 1100, form: "Slices" },
-      { name: "Red Dragon Slices", price: 1800, form: "Slices" },
-      { name: "Blueberry Whole", price: 3200, form: "Whole" },
-      { name: "Black Jamun", price: 3800, form: "Whole" },
+      { name: "Orange Slices", price: 1380, form: "Slices", area: "Nagpur, Maharashtra" },
+      { name: "Apple Slices", price: 2250, form: "Slices", area: "Himachal Pradesh & Kashmir" },
+      { name: "Pineapple Slices", price: 2400, form: "Slices", area: "Kerala & North East India" },
+      { name: "Alphonso Mango Slices", price: 2800, form: "Slices", area: "Ratnagiri & Devgad, Maharashtra" },
+      { name: "Strawberry Slices", price: 3600, form: "Slices", area: "Mahabaleshwar, Maharashtra" },
+      { name: "Golden Kiwi Slices", price: 2250, form: "Slices", area: "Imported fruit, processed in India" },
+      { name: "Chikoo Slices", price: 1100, form: "Slices", area: "Dahanu & Gholvad, Maharashtra" },
+      { name: "Red Dragon Slices", price: 1800, form: "Slices", area: "Maharashtra & Gujarat" },
+      { name: "Blueberry Whole", price: 3200, form: "Whole", area: "Imported fruit, processed in India" },
+      { name: "Black Jamun", price: 3800, form: "Whole", area: "Maharashtra & Gujarat" },
     ],
   },
   {
@@ -98,33 +102,32 @@ const groups: Group[] = [
     tags: ["fruit powder", "natural powder"],
     packagingOptions: PACKS,
     rows: [
-      { name: "Raw Mango Powder (Amchur)", price: 800, slug: "raw-mango-powder-amchur" },
-      { name: "Blueberry Powder", price: 3200 },
-      { name: "Acai Berry Powder", price: 15000 },
-      { name: "Strawberry Powder", price: 3600 },
-      { name: "Chikoo Powder", price: 1100 },
-      { name: "Alphonso Mango Powder", price: 2800 },
-      { name: "Raw Banana Powder", price: 500, image: "/products/banana-powder.webp" },
-      { name: "Ripe Banana Powder", price: 650, image: "/products/banana-powder.webp" },
-      { name: "Orange Peel Powder", price: 150 },
-      { name: "Black Jamun Powder", price: 3800 },
-      { name: "Pink Guava Powder", price: 1400 },
-      { name: "Red Dragon Powder", price: 1800 },
+      { name: "Raw Mango Powder (Amchur)", price: 800, slug: "raw-mango-powder-amchur", area: "Uttar Pradesh & Madhya Pradesh" },
+      { name: "Blueberry Powder", price: 3200, area: "Imported fruit, processed in India" },
+      { name: "Acai Berry Powder", price: 15000, area: "Imported fruit, processed in India" },
+      { name: "Strawberry Powder", price: 3600, area: "Mahabaleshwar, Maharashtra" },
+      { name: "Chikoo Powder", price: 1100, area: "Dahanu & Gholvad, Maharashtra" },
+      { name: "Alphonso Mango Powder", price: 2800, area: "Ratnagiri & Devgad, Maharashtra" },
+      { name: "Raw Banana Powder", price: 500, image: "/products/banana-powder.webp", area: "Jalgaon, Maharashtra" },
+      { name: "Ripe Banana Powder", price: 650, image: "/products/banana-powder.webp", area: "Jalgaon, Maharashtra" },
+      { name: "Orange Peel Powder", price: 150, area: "Nagpur, Maharashtra" },
+      { name: "Black Jamun Powder", price: 3800, area: "Maharashtra & Gujarat" },
+      { name: "Pink Guava Powder", price: 1400, area: "Uttar Pradesh & Maharashtra" },
+      { name: "Red Dragon Powder", price: 1800, area: "Maharashtra & Gujarat" },
     ],
   },
   {
     category: "powder-spices",
     idPrefix: "ps",
-    start: 11,
+    start: 12,
     form: "Fine powder",
     blurb: (name) =>
       `${name}, dehydrated and finely milled. Suited to seasoning blends, soups, sauces and ready meals.`,
     tags: ["vegetable powder", "dehydrated powder"],
     packagingOptions: PACKS,
     rows: [
-      { name: "Beetroot Powder", price: 1400 },
-      { name: "Tomato Powder", price: 1200 },
-      { name: "Green Chilli Powder", price: 1800 },
+      { name: "Tomato Powder", price: 1200, area: "Nashik & Narayangaon, Maharashtra" },
+      { name: "Green Chilli Powder", price: 1800, area: "Maharashtra & Andhra Pradesh" },
     ],
   },
   {
@@ -136,12 +139,14 @@ const groups: Group[] = [
     tags: ["dehydrated vegetable", "dried vegetable"],
     packagingOptions: PACKS,
     rows: [
-      { name: "Karela Slices", price: 1400, form: "Slices" },
-      { name: "Bhindi Cuts", price: 1200, form: "Cuts" },
-      { name: "Amla Shreds", price: 900, form: "Shreds" },
-      { name: "Lemon Slices", price: 1400, form: "Slices" },
-      { name: "Tomato Slices", price: 1200, form: "Slices" },
-      { name: "Cherry Tomato Cuts", price: 1800, form: "Cuts" },
+      { name: "Karela Slices", price: 1400, form: "Slices", area: "Maharashtra & Gujarat" },
+      { name: "Bhindi Cuts", price: 1200, form: "Cuts", area: "Gujarat & Maharashtra" },
+      { name: "Amla Shreds", price: 900, form: "Shreds", area: "Pratapgarh, Uttar Pradesh" },
+      { name: "Lemon Slices", price: 1400, form: "Slices", area: "Ahmednagar & Akola, Maharashtra" },
+      { name: "Tomato Slices", price: 1200, form: "Slices", area: "Nashik & Narayangaon, Maharashtra" },
+      { name: "Cherry Tomato Cuts", price: 1800, form: "Cuts", area: "Pune & Nashik, Maharashtra" },
+      // Kept as ps-11 so the existing CMS document is reused after the move.
+      { name: "Beetroot Powder", price: 1400, form: "Fine powder", id: "ps-11", area: "Pune & Nashik, Maharashtra" },
     ],
   },
   {
@@ -154,9 +159,9 @@ const groups: Group[] = [
     tags: ["snack", "ready to eat"],
     packagingOptions: PACKS,
     rows: [
-      { name: "Roasted Edamame", price: 1000, badge: "Snack" },
-      { name: "Crispy Red Dragon Chips", price: 2100, badge: "Snack" },
-      { name: "Crispy Pineapple Chips", price: 3000, badge: "Snack" },
+      { name: "Roasted Edamame", price: 1000, badge: "Snack", area: "Processed in Maharashtra" },
+      { name: "Crispy Red Dragon Chips", price: 2100, badge: "Snack", area: "Maharashtra & Gujarat" },
+      { name: "Crispy Pineapple Chips", price: 3000, badge: "Snack", area: "Kerala & North East India" },
     ],
   },
 ];
@@ -165,11 +170,12 @@ export const priceListProducts: Product[] = groups.flatMap((group) =>
   group.rows.map((row, index) => {
     const form = row.form ?? group.form;
     return {
-      id: `${group.idPrefix}-${String(index + (group.start ?? 1)).padStart(2, "0")}`,
+      id: row.id ?? `${group.idPrefix}-${String(index + (group.start ?? 1)).padStart(2, "0")}`,
       slug: row.slug ?? slugify(row.name),
       name: row.name,
       category: group.category,
-      origin: "India",
+      origin: row.area,
+      productionArea: row.area,
       grade: "Export grade",
       shortDescription: group.blurb(row.name, form),
       description: group.blurb(row.name, form),

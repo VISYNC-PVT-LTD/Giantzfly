@@ -92,9 +92,8 @@
   --font-lateral-standard:
     "Lateral Standard", Arial, Aptos, ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-lateral-expanded:
-    "Lateral Expanded", Arial, Aptos, ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* One heading face and one body face only. Expanded maps to the body face. */
+  --font-lateral-expanded: var(--font-lateral-standard);
   --font-montserrat: var(--font-lateral-standard);
   --font-display: var(--font-lateral-condensed);
   --font-body: var(--font-lateral-standard);
@@ -1924,11 +1923,11 @@ h6 {
   font-family: var(--font-display) !important;
 }
 
-/* Expanded is reserved for short callouts, never paragraphs. */
+/* Short callouts use the body face; no third typeface. */
 .callout,
 .page-hero__eyebrow,
 .metric-number {
-  font-family: var(--font-lateral-expanded) !important;
+  font-family: var(--font-body) !important;
 }
 
 /* Numeric/data contexts stay column-aligned. */
@@ -1948,4 +1947,13 @@ i,
 .serif,
 [class*="serif"] {
   font-family: var(--font-montserrat) !important;
+}
+
+/* Everything inside a headline keeps the headline face, including accents. */
+:is(h1, h2, h3, h4, h5, h6) * {
+  font-family: var(--font-display) !important;
+}
+
+:is(h1, h2, h3, h4, h5, h6) :is(em, i) {
+  font-style: normal;
 }

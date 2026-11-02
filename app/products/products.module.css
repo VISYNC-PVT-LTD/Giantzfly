@@ -19,7 +19,7 @@
 }
 .kicker {
   font-size: 0.62rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--blue);
@@ -31,8 +31,7 @@
   letter-spacing: -0.045em;
 }
 .hero h1 em {
-  font-family: var(--font-montserrat);
-  font-weight: 400;
+  font-style: normal;
   color: var(--blue);
 }
 .hero p:last-child {

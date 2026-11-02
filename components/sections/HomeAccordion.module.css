@@ -267,7 +267,7 @@
 .directorGhostNum {
   flex-shrink: 0;
   font-size: clamp(2.4rem, 2rem + 2vw, 4rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--blue);
@@ -309,7 +309,7 @@
   background: var(--blue-wash);
   border: 1px solid var(--border-blue);
   font-size: .8rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--blue);

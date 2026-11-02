@@ -18,7 +18,8 @@ export default async function CategoryPage({
   const meta = getCategoryMeta(category);
   if (!meta) notFound();
   const items = await getProductsByCategory(category);
-  const withOrigin = items.filter((item) => item.exportPotential);
+  const withOrigin = items.filter((item) => item.productionArea);
+  const showPotential = withOrigin.some((item) => item.exportPotential);
   return (
     <>
       <section className={`page-hero ${styles.pageHero}`}>
@@ -64,7 +65,7 @@ export default async function CategoryPage({
                     <tr>
                       <th>Product</th>
                       <th>Major production area</th>
-                      <th>Export potential</th>
+                      {showPotential && <th>Export potential</th>}
                       <th>Value addition</th>
                     </tr>
                   </thead>
@@ -73,12 +74,14 @@ export default async function CategoryPage({
                       <tr key={product.id}>
                         <td>{product.name}</td>
                         <td>{product.productionArea ?? product.origin}</td>
-                        <td
-                          aria-label={`${product.exportPotential} out of 5`}
-                          className={styles.originStars}
-                        >
-                          {"\u2605".repeat(product.exportPotential ?? 0)}
-                        </td>
+                        {showPotential && (
+                          <td
+                            aria-label={product.exportPotential ? `${product.exportPotential} out of 5` : undefined}
+                            className={styles.originStars}
+                          >
+                            {product.exportPotential ? "\u2605".repeat(product.exportPotential) : "\u2014"}
+                          </td>
+                        )}
                         <td>{product.valueAddition}</td>
                       </tr>
                     ))}
